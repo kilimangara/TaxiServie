@@ -3,9 +3,12 @@ package models;
 import java.util.ArrayList;
 
 public class City {
-    int[][] matr;
-    ArrayList<Structure> structures;
+    static int[][] matrDist;	//Матрица расстояний
+    static int[][] matrEdge;	//Матрица ребер
+    static ArrayList<Structure> structures;
     ArrayList<Taxi> taxis;
+    static int vertexCount; //Количество узлов
+    static int arcCount;	//Количество дуг
 
     public City(String path){
 
