@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- if type = 0 then structura = Building, else Crossroad -->
+<root>
+	<structura  type="0" street="Street1" number="1" x="0" y="0" >         
+	</structura>
+	<structura  type="0" street="Street1" number="2" x="2" y = "0">
+	</structura>
+	<structura  type="0" street="Street1" number="3" x="5" y = "0">
+	</structura>
+	<structura  type="0" street="Street2" number="1" x="0" y = "2">
+	</structura>
+	<structura  type="0" street="Street2" number="2" x="2" y = "2">
+	</structura>
+	<structura  type="0" street="Street2" number="3" x="5" y = "2">
+	</structura>
+	<structura  type="0" street="Street3" number="1" x="0" y = "3">
+	</structura>
+	<structura  type="0" street="Street3" number="2" x="2" y = "3">
+	</structura>
+	<structura  type="0" street="Street3" number="3" x="5" y = "3">
+	</structura>
+	<structura  type="1" firststreet="Street1" secondstreet="Street4" x="0" y="0">
+	</structura>
+	<structura  type="1" firststreet="Street2" secondstreet="Street4" x="0" y="2">
+	</structura>	
+	<structura  type="1" firststreet="Street3" secondstreet="Street4" x="0" y="3">
+	</structura>
+	<structura  type="1" firststreet="Street1" secondstreet="Street5" x="5" y="0">
+	</structura>
+	<structura  type="1" firststreet="Street2" secondstreet="Street5" x="5" y="2">
+	</structura>
+	<structura  type="1" firststreet="Street3" secondstreet="Street5" x="5" y="3">
+	</structura>
+</root>
