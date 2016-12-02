@@ -3,8 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class City {
-    static int[][] matrDist;	//Матрица расстояний
-    static int[][] matrEdge;	//Матрица ребер
+    static int[][] matr;	//Матрица смежности
     static ArrayList<Structure> structures;
     ArrayList<Taxi> taxis;
     static int vertexCount; //Количество узлов
