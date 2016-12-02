@@ -35,9 +35,9 @@ public class Route {
         //считываем граф, заданный матрицей смежности
         for (int i=0; i<n; i++) 
         	for (int j=0; i<n; j++)
-        		if (City.matrEdge[i][j]!=0){
+        		if (City.matr[i][j]!=0){
                     adj[i].add(j);
-                    weight[i].add(City.matrEdge[i][j]);
+                    weight[i].add(City.matr[i][j]);
         		}
         used = new boolean[n];
         Arrays.fill(used, false);
