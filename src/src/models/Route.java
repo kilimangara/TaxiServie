@@ -2,6 +2,8 @@ package models;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Route {
 
@@ -9,11 +11,14 @@ public class Route {
     private ArrayList<Structure> route;
     public Route(Structure begin, Structure end){
     	setRoute(begin, end);
+        this.matr = City.getInstance().matr;
+        this.structures = City.getInstance().structures;
     }
-    
+    private int[][] matr;	//Матрица смежности
+    private ArrayList<Structure> structures;
 	final int inf = Integer.MAX_VALUE/2;
-    int n=City.vertexCount;						//количество вершин 
-    int m=City.arcCount;						//количествое дуг
+    int n=City.getInstance().vertexCount;						//количество вершин
+    int m=City.getInstance().arcCount;						//количествое дуг
     ArrayList<Integer> adj[]; 					//список смежности
     ArrayList<Integer> weight[];				//вес ребра в орграфе
     boolean used[]; 							//массив для хранения информации о пройденных и не пройденных вершинах
@@ -23,7 +28,7 @@ public class Route {
     
     private void setRoute(Structure begin, Structure end) { 
         //инициализируем списка смежности графа размерности n
-        adj = new ArrayList[n]; 
+        adj = new ArrayList[n];
         for (int i = 0; i < n; ++i) {
             adj[i] = new ArrayList<Integer>();
         }
@@ -35,9 +40,9 @@ public class Route {
         //считываем граф, заданный матрицей смежности
         for (int i=0; i<n; i++) 
         	for (int j=0; i<n; j++)
-        		if (City.matr[i][j]!=0){
+        		if (matr[i][j]!=0){
                     adj[i].add(j);
-                    weight[i].add(City.matr[i][j]);
+                    weight[i].add(matr[i][j]);
         		}
         used = new boolean[n];
         Arrays.fill(used, false);
@@ -50,8 +55,8 @@ public class Route {
   
 
         
-    	int s=City.structures.indexOf(begin);	//Начало пути
-    	int e=City.structures.indexOf(end);		//Конец пути
+    	int s=structures.indexOf(begin);	//Начало пути
+    	int e=structures.indexOf(end);		//Конец пути
         dist[s] = 0; 							//Кратчайшее расстояние до стартовой вершины равно 0
         for (int j = 0; j < n; ++j) {
             int v = -1;
@@ -90,6 +95,6 @@ public class Route {
             return;
         }
         prev(pred[v]);
-        route.add(City.structures.get(v));
+        route.add(structures.get(v));
     }
 }

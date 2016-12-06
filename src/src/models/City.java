@@ -1,16 +1,49 @@
 package models;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class City {
-    static int[][] matr;	//Матрица смежности
-    static ArrayList<Structure> structures;
+    private static City instance;
+    int[][] matr;	//Матрица смежности
+    ArrayList<Structure> structures;
     ArrayList<Taxi> taxis;
-    static int vertexCount; //Количество узлов
-    static int arcCount;	//Количество дуг
+    int vertexCount; //Количество узлов
+    int arcCount;	//Количество дуг
+    public static City getInstance(){
+        if(instance ==  null){
+            instance = new City();
+        }
+        return instance;
 
-    public City(String path, String path2){
-        this.structures=new ArrayList<>();
+    }
+
+    public void init(String path, String path2){
+        getXML(path, path2);
+
+    }
+    private City(){
+        this.structures = new ArrayList<>();
+        this.taxis = new ArrayList<>();
+
+    }
+    public void reinit(String path, String path2){
+       this.structures = new ArrayList<>();
+        this.taxis = new ArrayList<>();
+        getXML(path, path2);
+    }
+
+
+    private void getXML(String path, String path2){
+
         try {
 
             // Создается построитель документа
@@ -63,11 +96,7 @@ public class City {
                 System.out.println("");
             }
 
-        } catch (ParserConfigurationException ex) {
-            ex.printStackTrace(System.out);
-        } catch (SAXException ex) {
-            ex.printStackTrace(System.out);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             ex.printStackTrace(System.out);
         }
         // парсинг xml matr
@@ -79,7 +108,7 @@ public class City {
             Node root = document.getDocumentElement();
             System.out.println("Matrix structura:");
             System.out.println();
-            this.matrDist= new int[100][100];
+            this.matr= new int[100][100];
             NodeList spisok = root.getChildNodes();
             int k=0;
             for (int i = 1; i < spisok.getLength();i++){
@@ -95,15 +124,13 @@ public class City {
                         Integer volume =new Integer(hod.getChildNodes().item(0).getTextContent());
                         System.out.println(hod.getChildNodes().item(0).getTextContent());
                         o++;
-                        this.matrDist[k-1][o-1]=volume;}
+                        this.matr[k-1][o-1]=volume;}
                 }
             }
-        } catch (ParserConfigurationException ex) {
-            ex.printStackTrace(System.out);
-        } catch (SAXException ex) {
-            ex.printStackTrace(System.out);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             ex.printStackTrace(System.out);
         }
+
+
     }
 }
