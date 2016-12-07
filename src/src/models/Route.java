@@ -11,14 +11,13 @@ public class Route {
     private ArrayList<Structure> route;
     public Route(Structure begin, Structure end){
     	setRoute(begin, end);
-        this.matr = City.getInstance().matr;
-        this.structures = City.getInstance().structures;
+        this.matr = City.getInstance().getMatr();
+        this.structures = City.getInstance().getStructures();
     }
     private int[][] matr;	//Матрица смежности
     private ArrayList<Structure> structures;
 	final int inf = Integer.MAX_VALUE/2;
     int n=City.getInstance().vertexCount;						//количество вершин
-    int m=City.getInstance().arcCount;						//количествое дуг
     ArrayList<Integer> adj[]; 					//список смежности
     ArrayList<Integer> weight[];				//вес ребра в орграфе
     boolean used[]; 							//массив для хранения информации о пройденных и не пройденных вершинах
@@ -27,7 +26,7 @@ public class Route {
 	
     
     private void setRoute(Structure begin, Structure end) { 
-        //инициализируем списка смежности графа размерности n
+     /*   //инициализируем списка смежности графа размерности n
         adj = new ArrayList[n];
         for (int i = 0; i < n; ++i) {
             adj[i] = new ArrayList<Integer>();
@@ -96,5 +95,6 @@ public class Route {
         }
         prev(pred[v]);
         route.add(structures.get(v));
+        */
     }
 }

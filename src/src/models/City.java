@@ -13,11 +13,36 @@ import java.util.ArrayList;
 
 public class City {
     private static City instance;
-    int[][] matr;	//Матрица смежности
-    ArrayList<Structure> structures;
-    ArrayList<Taxi> taxis;
-    int vertexCount; //Количество узлов
-    int arcCount;	//Количество дуг
+    private int[][] matr;	//Матрица смежности
+    private ArrayList<Structure> structures;
+    private ArrayList<Taxi> taxis;
+    public int vertexCount; //Количество узлов
+
+    public int[][] getMatr() {
+        return matr;
+    }
+
+    public void setMatr(int[][] matr) {
+        this.matr = matr;
+    }
+
+    public ArrayList<Structure> getStructures() {
+        return structures;
+    }
+
+    public void setStructures(ArrayList<Structure> structures) {
+        this.structures = structures;
+    }
+
+    public ArrayList<Taxi> getTaxis() {
+        return taxis;
+    }
+
+    public void setTaxis(ArrayList<Taxi> taxis) {
+        this.taxis = taxis;
+    }
+
+    private int arcCount;	//Количество дуг
     public static City getInstance(){
         if(instance ==  null){
             instance = new City();

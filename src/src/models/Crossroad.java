@@ -49,4 +49,9 @@ public class Crossroad implements Structure {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return firstStreet+"\n"+secondStreet;
+    }
 }
