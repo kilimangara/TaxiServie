@@ -77,9 +77,9 @@ public class City {
             Document document = documentBuilder.parse(path);
             // Получаем корневой элемент
             Node root = document.getDocumentElement();
-
-            System.out.println("City's structura:");
-            System.out.println();
+//
+  //          System.out.println("City's structura:");
+    //        System.out.println();
 
 
 
@@ -110,15 +110,15 @@ public class City {
                     firststring=node.getAttributes().getNamedItem("firststreet").getNodeValue();
                     secondstring=node.getAttributes().getNamedItem("secondstreet").getNodeValue();
                     x=new Integer(node.getAttributes().getNamedItem("x").getNodeValue());
-                    y=new Integer(node.getAttributes().getNamedItem("x").getNodeValue());
+                    y=new Integer(node.getAttributes().getNamedItem("y").getNodeValue());
                     this.structures.add(new Crossroad(firststring,secondstring,x,y));
                     // System.out.println(node.getAttributes().getNamedItem("type").getNodeValue());
                     // System.out.println(node.getAttributes().getNamedItem("firststreet").getNodeValue());
                     // System.out.println(node.getAttributes().getNamedItem("secondstreet").getNodeValue());
-                    // System.out.println(node.getAttributes().getNamedItem("x").getNodeValue());
+                     //System.out.println(node.getAttributes().getNamedItem("x").getNodeValue());
                     //System.out.println(node.getAttributes().getNamedItem("y").getNodeValue());
                 }
-                System.out.println("");
+               // System.out.println("");
             }
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {

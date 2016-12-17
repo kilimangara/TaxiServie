@@ -86,6 +86,7 @@ public class MainPanel extends JFrame {
                 case Types.CROSSROAD_TYPE:
                     Crossroad crossroad = (Crossroad) s;
                     graph.getModel().beginUpdate();
+                    System.out.println("x "+crossroad.getX()+" y "+crossroad.getY());
                         Object v2=graph.insertVertex(parent, null, crossroad.toString(),crossroad.getX()*DEFAULT_SIZE+DEFAULT_SIZE,
                                 crossroad.getY()*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "RECT" );
                         map.put(crossroad.toString(), v2);
