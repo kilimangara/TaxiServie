@@ -11,9 +11,9 @@ public class Taxi {
     private ArrayList<Client> clients;
     private Route route;
     private boolean freePlaces;
-    private Structure position;
+    private Point position;
 
-    public Taxi(String name, String car, String number, Structure position){
+    public Taxi(String name, String car, String number, Point position){
         this.name = name;
         this.car = car;
         this.number = number;
@@ -28,7 +28,7 @@ public class Taxi {
         }
 
     }
-    public void setRoute(Structure start, Structure end){
+    public void setRoute(Point start, Point end){
         this.route= new Route(start, end);
 
 

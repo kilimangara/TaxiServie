@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- if type = 0 then structura = Building, else Crossroad -->
 <root>
-	<structura  type="0" street="Street1" number="1" x="0" y="0" >         
+	<structura  street="Street1" id="1" x="0" y="0" >
+        <relates id1="2" id2="4" id3="0" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street1" number="2" x="2" y = "0">
+	<structura  street="Street1" id="2" x="4" y = "0">
+        <relates id1="1" id2="3" id3="5" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street1" number="3" x="5" y = "0">
+	<structura  street="Street1" id="3" x="10" y = "0">
+        <relates id1="2" id2="6" id3="0" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street2" number="1" x="0" y = "2">
+	<structura  street="Street2" id="4" x="0" y = "4">
+        <relates id1="1" id2="7" id3="0" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street2" number="2" x="2" y = "2">
+	<structura street="Street2" id="5" x="4" y = "4">
+        <relates id1="2" id2="6" id3="8" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street2" number="3" x="5" y = "2">
+	<structura  street="Street2" id="6" x="10" y = "4">
+        <relates id1="3" id2="5" id3="9" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street3" number="1" x="0" y = "3">
+	<structura  street="Street3" id="7" x="0" y = "6">
+        <relates id1="4" id2="8" id3="0" id4="0"/>
 	</structura>
-	<structura  type="0" street="Street3" number="2" x="2" y = "3">
+	<structura  street="Street3" id="8" x="4" y = "6">
+        <relates id1="5" id2="7" id4="0" id3="0"/>
 	</structura>
-	<structura  type="0" street="Street3" number="3" x="5" y = "3">
+	<structura  street="Street3" id="9" x="10" y = "6">
+        <relates id1="6" id2="0" id4="0" id3="0"/>
 	</structura>
-	<structura  type="1" firststreet="Street1" secondstreet="Street4" x="0" y="0">
-	</structura>
-	<structura  type="1" firststreet="Street2" secondstreet="Street4" x="0" y="2">
-	</structura>	
-	<structura  type="1" firststreet="Street3" secondstreet="Street4" x="0" y="3">
-	</structura>
-	<structura  type="1" firststreet="Street1" secondstreet="Street5" x="5" y="0">
-	</structura>
-	<structura  type="1" firststreet="Street2" secondstreet="Street5" x="5" y="2">
-	</structura>
-	<structura  type="1" firststreet="Street3" secondstreet="Street5" x="5" y="3">
-	</structura>
+
 </root>

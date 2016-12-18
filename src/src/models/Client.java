@@ -4,10 +4,10 @@ package models;
 public class Client {
     String name;
     String telephone;
-    Structure lacation;
-    Structure destination;
+    Point lacation;
+    Point destination;
 
-    public Client(String name, String telephone, Structure lacation, Structure destination) {
+    public Client(String name, String telephone, Point lacation, Point destination) {
         this.name = name;
         this.telephone = telephone;
         this.lacation = lacation;
@@ -35,19 +35,19 @@ public class Client {
         this.telephone = telephone;
     }
 
-    public Structure getLacation() {
+    public Point getLacation() {
         return lacation;
     }
 
-    public void setLacation(Structure lacation) {
+    public void setLacation(Point lacation) {
         this.lacation = lacation;
     }
 
-    public Structure getDestination() {
+    public Point getDestination() {
         return destination;
     }
 
-    public void setDestination(Structure destination) {
+    public void setDestination(Point destination) {
         this.destination = destination;
     }
 }

@@ -8,24 +8,26 @@ import java.util.Arrays;
 public class Route {
 
     private boolean isSet;
-    private ArrayList<Structure> route;
-    public Route(Structure begin, Structure end){
-    	setRoute(begin, end);
-        this.matr = City.getInstance().getMatr();
-        this.structures = City.getInstance().getStructures();
-    }
-    private int[][] matr;	//Матрица смежности
-    private ArrayList<Structure> structures;
+
+    private ArrayList<Point> route;
+
 	final int inf = Integer.MAX_VALUE/2;
-    int n=City.getInstance().vertexCount;						//количество вершин
-    ArrayList<Integer> adj[]; 					//список смежности
-    ArrayList<Integer> weight[];				//вес ребра в орграфе
-    boolean used[]; 							//массив для хранения информации о пройденных и не пройденных вершинах
-    int dist[];				 					//массив для хранения расстояния от стартовой вершины
-    int pred[];				 					//массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
+
+    int n=City.getInstance().vertexCount;
+    //количество вершин
+    ArrayList<Integer> adj[];
+    //список смежности
+    ArrayList<Integer> weight[];
+    //вес ребра в орграфе
+    boolean used[];
+    //массив для хранения информации о пройденных и не пройденных вершинах
+    int dist[];
+    //массив для хранения расстояния от стартовой вершины
+    int pred[];
+    //массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
 	
     
-    private void setRoute(Structure begin, Structure end) { 
+    private void setRoute(Point begin, Point end) {
      /*   //инициализируем списка смежности графа размерности n
         adj = new ArrayList[n];
         for (int i = 0; i < n; ++i) {

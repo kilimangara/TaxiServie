@@ -6,21 +6,19 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import models.*;
+import models.Point;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class MainPanel extends JFrame {
-    private static final int DEFAULT_SIZE=50;
+    private static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private mxGraphComponent component;
-    private HashMap<String, Object> map;
+    private HashMap<Integer, Object> map;
 
     public MainPanel(String name){
         super(name);
@@ -43,18 +41,11 @@ public class MainPanel extends JFrame {
         //graph.setCellsLocked(true);
         mxStylesheet stylesheet = graph.getStylesheet();
         Hashtable<String, Object> style = new Hashtable<>();
-        style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
+        style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
         style.put(mxConstants.STYLE_OPACITY, 50);
         style.put(mxConstants.STYLE_FONTSIZE,"6" );
         style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
         stylesheet.putCellStyle("ROUNDED", style);
-        Hashtable<String, Object> style11 = new Hashtable<>();
-        style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
-        style.put(mxConstants.STYLE_OPACITY, 50);
-        style11.put(mxConstants.STYLE_FONTSIZE,"6" );
-        style.put(mxConstants.STYLE_FONTCOLOR, "#774400");
-        stylesheet.putCellStyle("RECT", style11);
-
         Map<String, Object> edge = new HashMap<>();
         edge.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
         edge.put(mxConstants.STYLE_FONTSIZE,"10" );
@@ -69,35 +60,28 @@ public class MainPanel extends JFrame {
         getContentPane().add(component);
         //graph.getModel().beginUpdate();
         Object parent = graph.getDefaultParent();
-        for(Structure s:City.getInstance().getStructures()){
+        for(Point s:City.getInstance().getStructures()){
             int x=50;
             int y=50;
 
-            switch(s.getType()){
-                case Types.BUILDING_TYPE:
-                    Building building = (Building) s;
-                    graph.getModel().beginUpdate();
-                        Object v1= graph.insertVertex(parent, null, building.toString(),building.getX()*DEFAULT_SIZE+DEFAULT_SIZE,
-                                building.getY()*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
-                        map.put(building.toString(), v1);
-
-                    graph.getModel().endUpdate();
-                    break;
-                case Types.CROSSROAD_TYPE:
-                    Crossroad crossroad = (Crossroad) s;
-                    graph.getModel().beginUpdate();
-                    System.out.println("x "+crossroad.getX()+" y "+crossroad.getY());
-                        Object v2=graph.insertVertex(parent, null, crossroad.toString(),crossroad.getX()*DEFAULT_SIZE+DEFAULT_SIZE,
-                                crossroad.getY()*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "RECT" );
-                        map.put(crossroad.toString(), v2);
-                    graph.getModel().endUpdate();
-                    break;
+            graph.getModel().beginUpdate();
+            Object v1= graph.insertVertex(parent, null, String.valueOf(s.getId()),s.getX()*DEFAULT_SIZE+DEFAULT_SIZE,
+                    s.getY()*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
+            map.put(s.getId(), v1);
+            graph.getModel().endUpdate();
 
             }
-
-
-
+        for(int i=0;i<10;++i) {
+            graph.getModel().beginUpdate();
+            LinkedList<Integer> list =City.getInstance().connections.get(i);
+            for(Integer id: list) {
+                graph.insertEdge(parent, null, null, map.get(i + 1), map.get(id));
+            }
+            graph.getModel().endUpdate();
         }
+
+
+    }
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
         Object v2= graph.insertVertex(parent, null,"Шкурова 3", 30, 240, 60, 60,"ROUNDED" );
         map.put("Шкурова 2", v1);
@@ -107,6 +91,5 @@ public class MainPanel extends JFrame {
        // graph.getModel().endUpdate();
 
 
-    }
-
 }
+
