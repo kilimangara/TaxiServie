@@ -29,7 +29,7 @@ public class Taxi {
 
     }
     public void setRoute(Point start, Point end){
-        this.route= new Route(start, end);
+        this.route= new Route();
 
 
 
