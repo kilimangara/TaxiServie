@@ -19,14 +19,14 @@ public class City {
     private ArrayList<Taxi> taxis;
     public ArrayList<LinkedList<Integer>> connections;
     public int vertexCount=10; //Количество узлов
-    private   int[][] masPoint = new int[2][vertexCount];// x,y,idPoint
+    private   int[][] masPoint = new int[1][vertexCount];// x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
-        return masPoint[1][n];
+        return masPoint[0][n];
     }
 
     public int getYMasPoint(int n) {  // getter y for idPoint= n
-        return masPoint[2][n];
+        return masPoint[1][n];
     }
 
     public ArrayList getStructures() {
@@ -97,9 +97,9 @@ public class City {
                 y = new Integer(node.getAttributes().getNamedItem("y").getNodeValue());
                 System.out.println("id "+id+" x "+x+" y "+y );
                 //this.structures.add(new Point(id,x,y));
-                this.masPoint[0][id]=id;
-                this.masPoint[1][id]=x;
-                this.masPoint[2][id]=y;
+
+                this.masPoint[0][id]=x;
+                this.masPoint[1][id]=y;
                 NodeList relates = node.getChildNodes();
                 Node node1 = relates.item(1);
                 for(int ii=1;ii<5;++ii) {
