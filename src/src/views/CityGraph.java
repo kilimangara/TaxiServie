@@ -20,9 +20,20 @@ import java.util.Map;
 
 public class CityGraph extends mxGraphComponent {
 
-    private BufferedImage image;
+    public static final int LEFT=0;
+    public static final int RIGHT=1;
+    public static final int TOP=2;
+    public static final int BOTTOM=3;
+
+    private Icon image;
+
+    private RotatedIcon rotatedIcon;
+
     private Map<Integer, Object> map;
+
     private Timer timer;
+
+    private boolean flag;
     int beginx=MainPanel.DEFAULT_SIZE;
     int beginy = MainPanel.DEFAULT_SIZE;
 
@@ -30,33 +41,71 @@ public class CityGraph extends mxGraphComponent {
         super(graph);
         loadImage();
         timer = new Timer(100, e -> repaint());
+        flag = false;
+        rotatedIcon = new RotatedIcon(image,0);
+        rotateImage(RIGHT);
+        repaint();
     }
     private void loadImage(){
         try {
-            image = ImageIO.read(new File("ic_marker_driver.png"));
+          Image  image1 = ImageIO.read(new File("ic_marker_driver.png"));
+            image = new ImageIcon(image1);
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
-     private void rotateImage(){
+     private void rotateImage(int direction){
+         switch (direction){
+             case LEFT:
+                 rotatedIcon.setDegrees(270);
+                 repaint();
+                 break;
+             case RIGHT:
+                 rotatedIcon.setDegrees(90);
+                 repaint();
+                 break;
+             case TOP:
+                 rotatedIcon.setDegrees(0);
+                 repaint();
+                break;
+             case BOTTOM:
+                 rotatedIcon.setDegrees(180);
+                 repaint();
+                 break;
+         }
 
      }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.CYAN);
-        Graphics2D g2 = (Graphics2D) g;
-        double rotationRequired = Math.toRadians (45);
-        double locationX = image.getWidth() / 2;
-        double locationY = image.getHeight() / 2;
-        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
         if(timer!=null){
-            g2.drawImage(op.filter(image,null), beginx, beginy,null);
-            beginx+=1;
-            if(beginx==MainPanel.DEFAULT_SIZE*5){
-                beginx = MainPanel.DEFAULT_SIZE;
+            rotatedIcon.paintIcon(this,g, beginx, beginy);
+            if(!flag){
+                beginx+=1;
+                if(beginx==MainPanel.DEFAULT_SIZE*5){
+                    rotateImage(BOTTOM);
+                    flag = true;
+                }
+
+            } else {
+                beginy+=1;
+                if(beginy == MainPanel.DEFAULT_SIZE*5){
+                    flag=false;
+                    rotateImage(RIGHT);
+                    beginx =MainPanel.DEFAULT_SIZE;
+                    beginy =MainPanel.DEFAULT_SIZE;
+                }
+
             }
+
         }
 
     }
