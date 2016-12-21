@@ -1,5 +1,7 @@
 package models;
 
+import com.sun.security.ntlm.Client;
+
 import java.util.ArrayList;
 
 public class Taxi {
@@ -11,15 +13,15 @@ public class Taxi {
     private ArrayList<Client> clients;
     private Route route;
     private boolean freePlaces;
-    private Point position;
+    private int position;
 
-    public Taxi(String name, String car, String number, Point position){
+    public Taxi(String name, String car, String number, int position){
         this.name = name;
         this.car = car;
         this.number = number;
         this.position = position;
         peopleInside = 0;
-        route = null;
+        route = route;
     }
 
     public void pickClient(Client client){
@@ -28,8 +30,8 @@ public class Taxi {
         }
 
     }
-    public void setRoute(Point start, Point end){
-        this.route= new Route();
+    public void setRoute(int start, int end){
+        //this.route= new Route(start, end);
 
 
 

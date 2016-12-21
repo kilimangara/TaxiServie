@@ -1,13 +1,14 @@
 package models;
 
+import java.util.ArrayList;
 
 public class Client {
     String name;
     String telephone;
-    Point lacation;
-    Point destination;
+    int lacation;
+    int destination;
 
-    public Client(String name, String telephone, Point lacation, Point destination) {
+    public Client(String name, String telephone, int lacation, int destination) {
         this.name = name;
         this.telephone = telephone;
         this.lacation = lacation;
@@ -35,19 +36,56 @@ public class Client {
         this.telephone = telephone;
     }
 
-    public Point getLacation() {
+    public int getLacation() {
         return lacation;
     }
 
-    public void setLacation(Point lacation) {
+    public void setLacation(int lacation) {
         this.lacation = lacation;
     }
 
-    public Point getDestination() {
+    public int getDestination() {
         return destination;
     }
 
-    public void setDestination(Point destination) {
+    public void setDestination(int destination) {
         this.destination = destination;
+    }
+
+    public static class Taxi {
+        private static final int MAX_CAR_PLACES=4;
+        private String name;
+        private String car;
+        private String number;
+        private int peopleInside;
+        private ArrayList<Client> clients;
+        private int route;
+        private boolean freePlaces;
+        private int position;
+
+        public Taxi(String name, String car, String number, int position){
+            this.name = name;
+            this.car = car;
+            this.number = number;
+            this.position = position;
+            peopleInside = 0;
+            route = 0;
+        }
+
+        public void pickClient(Client client){
+            if(clients.size()<4){
+                clients.add(client);
+            }
+
+        }
+        public void setRoute(int start, int end){
+           // this.route= new Route(start, end);
+
+
+
+        }
+
+
+
     }
 }
