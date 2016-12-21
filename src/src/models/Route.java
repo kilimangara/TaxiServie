@@ -1,6 +1,5 @@
+
 package models;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,9 +8,9 @@ public class Route {
 
     private boolean isSet;
 
-    private ArrayList<Point> route;
+    private ArrayList route;
 
-	final int inf = Integer.MAX_VALUE/2;
+    final int inf = Integer.MAX_VALUE/2;
 
     int n=City.getInstance().vertexCount;
     //количество вершин
@@ -25,9 +24,9 @@ public class Route {
     //массив для хранения расстояния от стартовой вершины
     int pred[];
     //массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
-	
-    
-    private void setRoute(Point begin, Point end) {
+
+
+    private void setRoute(int begin, int end) {
      /*   //инициализируем списка смежности графа размерности n
         adj = new ArrayList[n];
         for (int i = 0; i < n; ++i) {
@@ -39,7 +38,7 @@ public class Route {
             weight[i] = new ArrayList<Integer>();
         }
         //считываем граф, заданный матрицей смежности
-        for (int i=0; i<n; i++) 
+        for (int i=0; i<n; i++)
         	for (int j=0; i<n; j++)
         		if (matr[i][j]!=0){
                     adj[i].add(j);
@@ -47,15 +46,15 @@ public class Route {
         		}
         used = new boolean[n];
         Arrays.fill(used, false);
-        
+
         pred = new int[n];
         Arrays.fill(pred, -1);
-        
+
         dist = new int[n];
         Arrays.fill(dist, inf);
-  
 
-        
+
+
     	int s=structures.indexOf(begin);	//Начало пути
     	int e=structures.indexOf(end);		//Конец пути
         dist[s] = 0; 							//Кратчайшее расстояние до стартовой вершины равно 0
@@ -87,7 +86,7 @@ public class Route {
             used[v] = true;
         }
     //Заполняем путь
-    prev(e);    
+    prev(e);
     }
 
     //процедура восстановления кратчайшего пути по массиву предком

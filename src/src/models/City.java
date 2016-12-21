@@ -14,17 +14,26 @@ import java.util.LinkedList;
 
 public class City {
     private static City instance;
-   // private int[][] matr;	//Матрица смежности
-    private ArrayList<Point> structures;
+    // private int[][] matr;	//Матрица смежности
+    private ArrayList structures;
     private ArrayList<Taxi> taxis;
     public ArrayList<LinkedList<Integer>> connections;
-    public int vertexCount; //Количество узлов
+    public int vertexCount=10; //Количество узлов
+    private   int[][] masPoint = new int[2][vertexCount];// x,y,idPoint
 
-    public ArrayList<Point> getStructures() {
+    public int getXMasPoint(int n) {  // getter x for idPoint= n
+        return masPoint[1][n];
+    }
+
+    public int getYMasPoint(int n) {  // getter y for idPoint= n
+        return masPoint[2][n];
+    }
+
+    public ArrayList getStructures() {
         return structures;
     }
 
-    public void setStructures(ArrayList<Point> structures) {
+    public void setStructures(ArrayList structures) {
         this.structures = structures;
     }
 
@@ -54,13 +63,13 @@ public class City {
         this.taxis = new ArrayList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<10;++i){
-            connections.add(new LinkedList<>());
+            connections.add(new LinkedList());
         }
         System.out.println("length "+connections.size());
 
     }
     public void reinit(String path, String path2){
-       this.structures = new ArrayList<>();
+        this.structures = new ArrayList<>();
         this.taxis = new ArrayList<>();
         getXML(path, path2);
     }
@@ -77,27 +86,29 @@ public class City {
             // Получаем корневой элемент
             Node root = document.getDocumentElement();
 
-            // Просматриваем все подэлементы корневого - т.е. книги
             NodeList books = root.getChildNodes(); // все объекты типа структура
             for (int i = 1; i < books.getLength();i++) {
                 Node node = books.item(i);
                 i=i+1;
-                    // building
-                    Integer id = 0, x = 0, y = 0;
-                    id = new Integer(node.getAttributes().getNamedItem("id").getNodeValue());
-                    x = new Integer(node.getAttributes().getNamedItem("x").getNodeValue());
-                    y = new Integer(node.getAttributes().getNamedItem("y").getNodeValue());
+
+                Integer id = 0, x = 0, y = 0;
+                id = new Integer(node.getAttributes().getNamedItem("id").getNodeValue());
+                x = new Integer(node.getAttributes().getNamedItem("x").getNodeValue());
+                y = new Integer(node.getAttributes().getNamedItem("y").getNodeValue());
                 System.out.println("id "+id+" x "+x+" y "+y );
-                    this.structures.add(new Point(id,x,y));
+                //this.structures.add(new Point(id,x,y));
+                this.masPoint[0][id]=id;
+                this.masPoint[1][id]=x;
+                this.masPoint[2][id]=y;
                 NodeList relates = node.getChildNodes();
-                    Node node1 = relates.item(1);
-                    for(int ii=1;ii<5;++ii) {
-                        if(!node1.getAttributes().getNamedItem("id"+ii).getNodeValue().equals("0")) {
-                            Integer id1 = new Integer(node1.getAttributes().getNamedItem("id" + ii).getNodeValue());
-                            System.out.println("id " + id1);
-                            connections.get(id - 1).add(id1);
-                        }
+                Node node1 = relates.item(1);
+                for(int ii=1;ii<5;++ii) {
+                    if(!node1.getAttributes().getNamedItem("id"+ii).getNodeValue().equals("0")) {
+                        Integer id1 = new Integer(node1.getAttributes().getNamedItem("id" + ii).getNodeValue());
+                        System.out.println("id " + id1);
+                        connections.get(id - 1).add(id1);
                     }
+                }
             }
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {
