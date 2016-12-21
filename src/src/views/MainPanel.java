@@ -6,8 +6,6 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import models.*;
-import models.Point;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,8 +30,6 @@ public class MainPanel extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml","matr.xml");
-        System.out.println(City.getInstance().getStructures().toString());
-
         map = new HashMap<>();
 
         graph = new mxGraph();
@@ -60,14 +56,12 @@ public class MainPanel extends JFrame {
         getContentPane().add(component);
         //graph.getModel().beginUpdate();
         Object parent = graph.getDefaultParent();
-        for(Point s:City.getInstance().getStructures()){
-            int x=50;
-            int y=50;
+        for(int i=0; i<City.getInstance().vertexCount;++i){
 
             graph.getModel().beginUpdate();
-            Object v1= graph.insertVertex(parent, null, String.valueOf(s.getId()),s.getX()*DEFAULT_SIZE+DEFAULT_SIZE,
-                    s.getY()*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
-            map.put(s.getId(), v1);
+            Object v1= graph.insertVertex(parent, null, String.valueOf(i),City.getInstance().getXMasPoint(i)*DEFAULT_SIZE+DEFAULT_SIZE,
+                    City.getInstance().getYMasPoint(i)*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
+            map.put(i, v1);
             graph.getModel().endUpdate();
 
             }

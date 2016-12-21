@@ -15,11 +15,10 @@ import java.util.LinkedList;
 public class City {
     private static City instance;
     // private int[][] matr;	//Матрица смежности
-    private ArrayList structures;
     private ArrayList<Taxi> taxis;
     public ArrayList<LinkedList<Integer>> connections;
     public int vertexCount=10; //Количество узлов
-    private   int[][] masPoint = new int[1][vertexCount];// x,y,idPoint
+    private   int[][] masPoint ;// x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
         return masPoint[0][n];
@@ -27,14 +26,6 @@ public class City {
 
     public int getYMasPoint(int n) {  // getter y for idPoint= n
         return masPoint[1][n];
-    }
-
-    public ArrayList getStructures() {
-        return structures;
-    }
-
-    public void setStructures(ArrayList structures) {
-        this.structures = structures;
     }
 
     public ArrayList<Taxi> getTaxis() {
@@ -59,17 +50,17 @@ public class City {
 
     }
     private City(){
-        this.structures = new ArrayList<>();
+        masPoint = new int[2][vertexCount];
         this.taxis = new ArrayList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<10;++i){
-            connections.add(new LinkedList());
+            connections.add(new LinkedList<>());
         }
         System.out.println("length "+connections.size());
 
     }
     public void reinit(String path, String path2){
-        this.structures = new ArrayList<>();
+
         this.taxis = new ArrayList<>();
         getXML(path, path2);
     }
