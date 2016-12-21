@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class MainPanel extends JFrame {
-    private static final int DEFAULT_SIZE=30;
+    public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
-    private mxGraphComponent component;
+    private CityGraph component;
     private HashMap<Integer, Object> map;
 
     public MainPanel(String name){
@@ -51,7 +51,7 @@ public class MainPanel extends JFrame {
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
 
         stylesheet.setDefaultEdgeStyle(edge);
-        component = new mxGraphComponent(graph);
+        component = new CityGraph(graph);
         component.setPreferredSize(new Dimension(400, 400));
         getContentPane().add(component);
         //graph.getModel().beginUpdate();
@@ -73,7 +73,7 @@ public class MainPanel extends JFrame {
             }
             graph.getModel().endUpdate();
         }
-
+        component.start();
 
     }
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
