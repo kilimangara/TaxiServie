@@ -29,15 +29,11 @@ public class Route {
     int pred[];
     //массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
     public int getCurrentPoint(){
-        System.out.println("CURR POS: "+City.getInstance().getXMasPoint(route.get(currentPoint))+"" +
-                " "+City.getInstance().getYMasPoint(route.get(currentPoint)));
         return this.route.get(currentPoint);
 
     }
     public int getNextPoint(){
         if(currentPoint+1 <route.size()){
-            System.out.println("NEXT POS: "+City.getInstance().getXMasPoint(route.get(currentPoint+1))+"" +
-                    " "+City.getInstance().getYMasPoint(route.get(currentPoint+1)));
             return this.route.get(currentPoint+1);
         } else {
           return -1;

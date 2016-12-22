@@ -76,25 +76,26 @@ public class Taxi {
                 x++;
                 break;
             case CityGraph.TOP:
-                y++;
+                y--;
                 break;
         }
         System.out.println("DIRECTION "+direction +" x "+x+" y "+y);
 
 
     }
-    public Taxi(String name, String car, String number, int position, Route route){
+    public Taxi(String name, String car, String number, Route route){
         this.name = name;
         this.car = car;
         this.number = number;
-        this.position = position;
+        //this.position = position;
         this.route = route;
         this.x =City.getInstance().getXMasPoint(route.getCurrentPoint());
         this.y = City.getInstance().getYMasPoint(route.getCurrentPoint());
+        this.position = route.getCurrentPoint();
         checkDirection();
     }
-    public Taxi(int position, Route route){
-        this("A","B","C", position, route);
+    public Taxi( Route route){
+        this("A","B","C", route);
     }
 
     public void pickClient(Client client){

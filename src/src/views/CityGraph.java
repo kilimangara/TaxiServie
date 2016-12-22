@@ -38,17 +38,10 @@ public class CityGraph extends mxGraphComponent {
 
     private Timer timer;
 
-    private boolean flag;
-    int beginx=MainPanel.DEFAULT_SIZE;
-    int beginy = MainPanel.DEFAULT_SIZE;
 
     public CityGraph(mxGraph graph){
         super(graph);
         loadImage();
-        timer = new Timer(100, e -> repaint());
-        flag = false;
-        //rotatedIcon = new RotatedIcon(image,0);
-       // rotateImage(RIGHT);
         map = new HashMap<>();
         Route route = new Route();
         route.route.add(1);
@@ -56,8 +49,18 @@ public class CityGraph extends mxGraphComponent {
         route.route.add(5);
         route.route.add(6);
         route.route.add(9);
-        City.getInstance().getTaxis().add(new Taxi(1, route));
+        Route route1 = new Route();
+        route1.route.add(8);
+        //route.route.add();
+        route1.route.add(5);
+        route1.route.add(2);
+        route1.route.add(1);
+        City.getInstance().getTaxis().add(new Taxi(route1));
+        City.getInstance().getTaxis().add(new Taxi(route));
         repaint();
+        timer = new Timer(100, e -> repaint());
+        //rotatedIcon = new RotatedIcon(image,0);
+       // rotateImage(RIGHT);
     }
     private void loadImage(){
         try {
