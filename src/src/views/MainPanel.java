@@ -99,8 +99,8 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
     }
 
     @Override
-    public void buttonPressed2(int startid, int finishid, String name, String number) {
-        City.getInstance().getClient().add(new Client(name,  number, startid, finishid));
+    public void buttonPressed2(int startid, int finishid, String name) {
+        City.getInstance().getClient().add(new Client(name, startid, finishid));
     }
 
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
