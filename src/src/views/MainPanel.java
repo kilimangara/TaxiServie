@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
+public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClientDialog.Listener2 {
     public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private CityGraph component;
@@ -32,7 +32,8 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
 
         graph = new mxGraph();
         graph.setAutoSizeCells(true);
-        //graph.setCellsLocked(true);
+        graph.setCellsLocked(true);
+        graph.setEdgeLabelsMovable(false);
         mxStylesheet stylesheet = graph.getStylesheet();
         Hashtable<String, Object> style = new Hashtable<>();
         style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
@@ -53,11 +54,17 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
                 JDialog dialog = new AddTaxiDialog(this);
             dialog.setVisible(true);
         });
+        JButton button2 = new JButton("Добавить клиента");
+        button2.addActionListener(e -> {
+            JDialog dialog = new AddClientDialog(this);
+            dialog.setVisible(true);
+        });
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph);
         component.setPreferredSize(new Dimension(400, 400));
         getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
+        getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
 
 
 
@@ -90,6 +97,12 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
     public void buttonPressed(Route route) {
         City.getInstance().getTaxis().add(new Taxi(route));
     }
+
+    @Override
+    public void buttonPressed2(int startid, int finishid, String name, String number) {
+        City.getInstance().getClient().add(new Client(name,  number, startid, finishid));
+    }
+
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
         Object v2= graph.insertVertex(parent, null,"Шкурова 3", 30, 240, 60, 60,"ROUNDED" );
         map.put("Шкурова 2", v1);

@@ -17,6 +17,7 @@ public class City {
     private static City instance;
     // private int[][] matr;	//Матрица смежности
     private List<Taxi> taxis;
+    private List<Client> client;
     public ArrayList<LinkedList<Integer>> connections;
     public int vertexCount=10; //Количество узлов
     private   int[][] masPoint ;// x,y,idPoint
@@ -31,6 +32,10 @@ public class City {
 
     public List<Taxi> getTaxis() {
         return taxis;
+    }
+
+    public List<Client> getClient() {
+        return client;
     }
 
     public void setTaxis(List<Taxi> taxis) {
