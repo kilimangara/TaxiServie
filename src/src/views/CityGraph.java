@@ -2,7 +2,11 @@ package views;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
+import controllers.Controller;
 import models.City;
+import models.Client;
+import models.Route;
+import models.Taxi;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +18,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -29,7 +34,7 @@ public class CityGraph extends mxGraphComponent {
 
     private RotatedIcon rotatedIcon;
 
-    private Map<Integer, Object> map;
+    private Map<Taxi, RotatedIcon> map;
 
     private Timer timer;
 
@@ -42,8 +47,16 @@ public class CityGraph extends mxGraphComponent {
         loadImage();
         timer = new Timer(100, e -> repaint());
         flag = false;
-        rotatedIcon = new RotatedIcon(image,0);
-        rotateImage(RIGHT);
+        //rotatedIcon = new RotatedIcon(image,0);
+       // rotateImage(RIGHT);
+        map = new HashMap<>();
+        Route route = new Route();
+        route.route.add(1);
+        route.route.add(2);
+        route.route.add(5);
+        route.route.add(6);
+        route.route.add(9);
+        City.getInstance().getTaxis().add(new Taxi(1, route));
         repaint();
     }
     private void loadImage(){
@@ -54,22 +67,22 @@ public class CityGraph extends mxGraphComponent {
             System.out.println(e.getLocalizedMessage());
         }
     }
-     private void rotateImage(int direction){
+     private void rotateImage(RotatedIcon icon,int direction){
          switch (direction){
              case LEFT:
-                 rotatedIcon.setDegrees(270);
+                 icon.setDegrees(270);
                  repaint();
                  break;
              case RIGHT:
-                 rotatedIcon.setDegrees(90);
+                 icon.setDegrees(90);
                  repaint();
                  break;
              case TOP:
-                 rotatedIcon.setDegrees(0);
+                 icon.setDegrees(0);
                  repaint();
                 break;
              case BOTTOM:
-                 rotatedIcon.setDegrees(180);
+                 icon.setDegrees(180);
                  repaint();
                  break;
          }
@@ -87,21 +100,20 @@ public class CityGraph extends mxGraphComponent {
         g.setColor(Color.CYAN);
 
         if(timer!=null){
-            rotatedIcon.paintIcon(this,g, beginx, beginy);
-            if(!flag){
-                beginx+=1;
-                if(beginx==MainPanel.DEFAULT_SIZE*5){
-                    rotateImage(BOTTOM);
-                    flag = true;
+            for(Taxi taxi:City.getInstance().getTaxis()){
+                RotatedIcon rotatedIcon1= map.get(taxi);
+                if(rotatedIcon1 == null){
+                    rotatedIcon1 = new RotatedIcon(image,0);
+                    map.put(taxi, rotatedIcon1);
                 }
+                if(!taxi.nextPoint()){
+                    rotateImage(rotatedIcon1, taxi.getDirection());
+                    rotatedIcon1.paintIcon(this,g, taxi.getX(), taxi.getY());
+                    taxi.nextStep();
 
-            } else {
-                beginy+=1;
-                if(beginy == MainPanel.DEFAULT_SIZE*5){
-                    flag=false;
-                    rotateImage(RIGHT);
-                    beginx =MainPanel.DEFAULT_SIZE;
-                    beginy =MainPanel.DEFAULT_SIZE;
+                } else {
+                    map.remove(taxi);
+                    Controller.deleteTaxiFromList(taxi);
                 }
 
             }

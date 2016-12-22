@@ -11,11 +11,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class City {
     private static City instance;
     // private int[][] matr;	//Матрица смежности
-    private ArrayList<Taxi> taxis;
+    private List<Taxi> taxis;
     public ArrayList<LinkedList<Integer>> connections;
     public int vertexCount=10; //Количество узлов
     private   int[][] masPoint ;// x,y,idPoint
@@ -28,11 +29,11 @@ public class City {
         return masPoint[1][n];
     }
 
-    public ArrayList<Taxi> getTaxis() {
+    public List<Taxi> getTaxis() {
         return taxis;
     }
 
-    public void setTaxis(ArrayList<Taxi> taxis) {
+    public void setTaxis(List<Taxi> taxis) {
         this.taxis = taxis;
     }
 
@@ -51,7 +52,7 @@ public class City {
     }
     private City(){
         masPoint = new int[2][vertexCount];
-        this.taxis = new ArrayList<>();
+        this.taxis = new LinkedList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<10;++i){
             connections.add(new LinkedList<>());

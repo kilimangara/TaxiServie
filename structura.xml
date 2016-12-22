@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- if type = 0 then structura = Building, else Crossroad -->
 <root>
-	<structura  street="Street1" id="1" x="0" y="0" >
+	<structura  street="Street1" id="1" x="30" y="30" >
         <relates id1="2" id2="4" id3="0" id4="0"/>
 	</structura>
-	<structura  street="Street1" id="2" x="4" y = "0">
+	<structura  street="Street1" id="2" x="150" y = "30">
         <relates id1="1" id2="3" id3="5" id4="0"/>
 	</structura>
-	<structura  street="Street1" id="3" x="10" y = "0">
+	<structura  street="Street1" id="3" x="330" y = "30">
         <relates id1="2" id2="6" id3="0" id4="0"/>
 	</structura>
-	<structura  street="Street2" id="4" x="0" y = "4">
+	<structura  street="Street2" id="4" x="30" y = "150">
         <relates id1="1" id2="7" id3="0" id4="0"/>
 	</structura>
-	<structura street="Street2" id="5" x="4" y = "4">
+	<structura street="Street2" id="5" x="150" y = "150">
         <relates id1="2" id2="6" id3="8" id4="0"/>
 	</structura>
-	<structura  street="Street2" id="6" x="10" y = "4">
+	<structura  street="Street2" id="6" x="330" y = "150">
         <relates id1="3" id2="5" id3="9" id4="0"/>
 	</structura>
-	<structura  street="Street3" id="7" x="0" y = "6">
+	<structura  street="Street3" id="7" x="30" y = "210">
         <relates id1="4" id2="8" id3="0" id4="0"/>
 	</structura>
-	<structura  street="Street3" id="8" x="4" y = "6">
+	<structura  street="Street3" id="8" x="150" y = "210">
         <relates id1="5" id2="7" id4="0" id3="0"/>
 	</structura>
-	<structura  street="Street3" id="9" x="10" y = "6">
+	<structura  street="Street3" id="9" x="330" y = "210">
         <relates id1="6" id2="0" id4="0" id3="0"/>
 	</structura>
 

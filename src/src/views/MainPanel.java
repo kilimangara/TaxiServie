@@ -59,8 +59,8 @@ public class MainPanel extends JFrame {
         for(int i=0; i<City.getInstance().vertexCount;++i){
 
             graph.getModel().beginUpdate();
-            Object v1= graph.insertVertex(parent, null, String.valueOf(i),City.getInstance().getXMasPoint(i)*DEFAULT_SIZE+DEFAULT_SIZE,
-                    City.getInstance().getYMasPoint(i)*DEFAULT_SIZE+DEFAULT_SIZE,DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
+            Object v1= graph.insertVertex(parent, null, String.valueOf(i),City.getInstance().getXMasPoint(i),
+                    City.getInstance().getYMasPoint(i),DEFAULT_SIZE, DEFAULT_SIZE, "ROUNDED" );
             map.put(i, v1);
             graph.getModel().endUpdate();
 

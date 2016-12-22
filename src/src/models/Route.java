@@ -1,5 +1,7 @@
 
 package models;
+import views.CityGraph;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,7 +10,9 @@ public class Route {
 
     private boolean isSet;
 
-    private ArrayList route;
+    public ArrayList<Integer> route;
+
+    public Integer currentPoint;
 
     final int inf = Integer.MAX_VALUE/2;
 
@@ -24,7 +28,50 @@ public class Route {
     //массив для хранения расстояния от стартовой вершины
     int pred[];
     //массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
+    public int getCurrentPoint(){
+        System.out.println("CURR POS: "+City.getInstance().getXMasPoint(route.get(currentPoint))+"" +
+                " "+City.getInstance().getYMasPoint(route.get(currentPoint)));
+        return this.route.get(currentPoint);
 
+    }
+    public int getNextPoint(){
+        if(currentPoint+1 <route.size()){
+            System.out.println("NEXT POS: "+City.getInstance().getXMasPoint(route.get(currentPoint+1))+"" +
+                    " "+City.getInstance().getYMasPoint(route.get(currentPoint+1)));
+            return this.route.get(currentPoint+1);
+        } else {
+          return -1;
+        }
+    }
+
+    public void switchPosition(){
+        currentPoint++;
+    }
+    public int getDirection(){
+        if(getNextPoint()==-1){
+            return -1;
+        }
+
+        if(City.getInstance().getXMasPoint(getCurrentPoint())-City.getInstance().getXMasPoint(getNextPoint())>0){
+            return CityGraph.LEFT;
+        }
+        if(City.getInstance().getXMasPoint(getCurrentPoint())-City.getInstance().getXMasPoint(getNextPoint())<0){
+            return CityGraph.RIGHT;
+        }
+        if(City.getInstance().getYMasPoint(getCurrentPoint())-City.getInstance().getYMasPoint(getNextPoint())>0){
+            return CityGraph.TOP;
+        }
+        if(City.getInstance().getYMasPoint(getCurrentPoint())-City.getInstance().getYMasPoint(getNextPoint())<0){
+            return CityGraph.BOTTOM;
+        }
+        return -1;
+
+    }
+
+    public Route(){
+        route = new ArrayList<>();
+        currentPoint=0;
+    }
 
     private void setRoute(int begin, int end) {
      /*   //инициализируем списка смежности графа размерности n
