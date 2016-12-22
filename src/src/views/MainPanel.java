@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class MainPanel extends JFrame implements AddingTaxiDialog.Listener {
+public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
     public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private CityGraph component;
@@ -50,7 +50,7 @@ public class MainPanel extends JFrame implements AddingTaxiDialog.Listener {
 
         JButton button1 = new JButton("Добавить такси");
         button1.addActionListener(e -> {
-                JDialog dialog = new AddingTaxiDialog(this);
+                JDialog dialog = new AddTaxiDialog(this);
             dialog.setVisible(true);
         });
         stylesheet.setDefaultEdgeStyle(edge);
