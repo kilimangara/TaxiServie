@@ -1,18 +1,15 @@
 package views;
 
 
-import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import models.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
-public class MainPanel extends JFrame {
+public class MainPanel extends JFrame implements AddingTaxiDialog.Listener {
     public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private CityGraph component;
@@ -31,6 +28,7 @@ public class MainPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml","matr.xml");
         map = new HashMap<>();
+        setLayout(new GridBagLayout());
 
         graph = new mxGraph();
         graph.setAutoSizeCells(true);
@@ -50,13 +48,24 @@ public class MainPanel extends JFrame {
         edge.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
 
+        JButton button1 = new JButton("Добавить такси");
+        button1.addActionListener(e -> {
+                JDialog dialog = new AddingTaxiDialog(this);
+            dialog.setVisible(true);
+        });
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph);
         component.setPreferredSize(new Dimension(400, 400));
-        getContentPane().add(component);
+        getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
+        getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
+
+
+
         //graph.getModel().beginUpdate();
         Object parent = graph.getDefaultParent();
-        for(int i=0; i<City.getInstance().vertexCount;++i){
+
+
+        for(int i=1; i<City.getInstance().vertexCount;++i){
 
             graph.getModel().beginUpdate();
             Object v1= graph.insertVertex(parent, null, String.valueOf(i),City.getInstance().getXMasPoint(i),
@@ -68,13 +77,18 @@ public class MainPanel extends JFrame {
         for(int i=0;i<10;++i) {
             graph.getModel().beginUpdate();
             LinkedList<Integer> list =City.getInstance().connections.get(i);
-            for(Integer id: list) {
+            for(Object id: list) {
                 graph.insertEdge(parent, null, null, map.get(i + 1), map.get(id));
             }
             graph.getModel().endUpdate();
         }
         component.start();
 
+    }
+
+    @Override
+    public void buttonPressed(Route route) {
+        City.getInstance().getTaxis().add(new Taxi(route));
     }
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
         Object v2= graph.insertVertex(parent, null,"Шкурова 3", 30, 240, 60, 60,"ROUNDED" );

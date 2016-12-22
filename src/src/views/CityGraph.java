@@ -58,7 +58,7 @@ public class CityGraph extends mxGraphComponent {
         City.getInstance().getTaxis().add(new Taxi(route1));
         City.getInstance().getTaxis().add(new Taxi(route));
         repaint();
-        timer = new Timer(100, e -> repaint());
+        timer = new Timer(0, e -> repaint());
         //rotatedIcon = new RotatedIcon(image,0);
        // rotateImage(RIGHT);
     }
