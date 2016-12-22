@@ -20,7 +20,7 @@ public class City {
     private List<Client> client;
     public ArrayList<LinkedList<Integer>> connections;
     public int vertexCount=10; //Количество узлов
-    private   int[][] masPoint ;// x,y,idPoint
+    public   int[][] masPoint ;// x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
         return masPoint[0][n];

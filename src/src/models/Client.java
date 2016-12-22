@@ -8,7 +8,7 @@ public class Client {
     int lacation;
     int destination;
 
-    public Client(String name, String telephone, int lacation, int destination) {
+    public Client(String name, int lacation, int destination) {
         this.name = name;
         this.telephone = telephone;
         this.lacation = lacation;
