@@ -49,7 +49,7 @@ public class CityGraph extends mxGraphComponent {
         route.route.add(5);
         route.route.add(6);
         route.route.add(9);
-        Route route1 = new Route();
+       Route route1 = new Route();
         route1.route.add(8);
         //route.route.add();
         route1.route.add(5);

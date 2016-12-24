@@ -15,11 +15,12 @@ import java.util.List;
 
 public class City {
     private static City instance;
-    // private int[][] matr;	//Матрица смежности
+    // private int[][] matr;	        //Матрица смежности
     private List<Taxi> taxis;
-    public ArrayList<LinkedList<Integer>> connections;
-    public int vertexCount=10; //Количество узлов
-    private   int[][] masPoint ;// x,y,idPoint
+    public static ArrayList<LinkedList<Integer>> connections;
+    public static int vertexCount=10;          //Количество узлов
+    public static int arcCount=10;	            //Количество дуг
+    public static int[][] masPoint ;          // x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
         return masPoint[0][n];
@@ -37,7 +38,7 @@ public class City {
         this.taxis = taxis;
     }
 
-    private int arcCount;	//Количество дуг
+
     public static City getInstance(){
         if(instance ==  null){
             instance = new City();
