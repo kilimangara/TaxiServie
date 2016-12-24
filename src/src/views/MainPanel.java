@@ -49,6 +49,56 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
         edge.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
 
+
+Font font = new Font("Verdana",Font.PLAIN, 11 );
+
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu filemenu = new JMenu("File");
+        filemenu.setFont(font);
+
+        JMenuItem newmenu = new JMenuItem("menu1");
+        newmenu.setFont(font);
+        filemenu.add(newmenu);
+
+        JMenuItem newmenu2 = new JMenuItem("menu2");
+        newmenu2.setFont(font);
+        filemenu.add(newmenu2);
+
+        menuBar.add(filemenu);
+
+        JMenu setMen = new JMenu("Settings");
+        setMen.setFont(font);
+
+        JMenuItem snewmenu = new JMenuItem("menu1");
+        snewmenu.setFont(font);
+        setMen.add(snewmenu);
+
+        JMenuItem snewmenu2 = new JMenuItem("menu2");
+        snewmenu2.setFont(font);
+        setMen.add(snewmenu2);
+
+        menuBar.add(setMen);
+
+        JMenu help = new JMenu("Help");
+        help.setFont(font);
+
+        JMenuItem hmenu = new JMenuItem("menu1");
+        hmenu.setFont(font);
+        help.add(hmenu);
+
+        JMenuItem hmenu2 = new JMenuItem("menu2");
+        hmenu2.setFont(font);
+        help.add(hmenu2);
+
+        menuBar.add(help);
+
+        filemenu.addSeparator();
+
+
+        this.setJMenuBar(menuBar);
+
+
         JButton button1 = new JButton("Добавить такси");
         button1.addActionListener(e -> {
                 JDialog dialog = new AddTaxiDialog(this);
