@@ -1,5 +1,6 @@
 package models;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Client {
@@ -13,11 +14,21 @@ public class Client {
 
     private boolean tooLongWaiting;
 
+    public boolean isTooLongWaiting() {
+        return tooLongWaiting;
+    }
+
+    public void setTooLongWaiting(boolean tooLongWaiting) {
+        this.tooLongWaiting = tooLongWaiting;
+    }
+
     public Client(String name, int lacation, int destination) {
         this.name = name;
         this.lacation = lacation;
         this.destination = destination;
         this.tooLongWaiting =false;
+        new Timer(7000,e->tooLongWaiting =true).start();
+
         callTaxi();
     }
 

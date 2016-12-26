@@ -46,6 +46,8 @@ public class Taxi {
 
     private Route route;
 
+    private boolean isRouteSet;
+
     private int direction;
 
     private boolean freePlaces;
@@ -58,6 +60,14 @@ public class Taxi {
      */
     private int x;
     private int y;
+
+    public boolean isRouteSet() {
+        return isRouteSet;
+    }
+
+    public void setRouteSet(boolean routeSet) {
+        isRouteSet = routeSet;
+    }
 
     public int getX() {
         return x;
@@ -82,7 +92,7 @@ public class Taxi {
     public void stopTaxi(){
         if(!isStopped) {
             isStopped = true;
-            new Timer(3000,e -> isStopped=false).start();
+            new Timer(2000,e -> isStopped=false).start();
         }
     }
     public boolean nextPoint(){
@@ -122,6 +132,7 @@ public class Taxi {
         this.car = car;
         this.number = number;
         //this.position = position;
+        this.isRouteSet=true;
         this.isStopped = false;
         this.route = route;
         this.x =City.getInstance().getXMasPoint(route.getCurrentPoint());
@@ -133,6 +144,13 @@ public class Taxi {
         this("A","B","C", route);
     }
 
+    public Taxi(String name, String car, String number){
+        this.name = name;
+        this.car = car;
+        this.number = number;
+        this.isStopped = false;
+        isRouteSet =false;
+    }
     public void pickClient(Client client){
         if(clients.size()<4){
             clients.add(client);
@@ -140,10 +158,12 @@ public class Taxi {
 
     }
     public void setRoute(int start, int end){
-        //this.route= new Route(start, end);
-
-
-
+        this.route= new Route(start, end);
+        this.x =City.getInstance().getXMasPoint(route.getCurrentPoint());
+        this.y = City.getInstance().getYMasPoint(route.getCurrentPoint());
+        this.position = route.getCurrentPoint();
+        checkDirection();
+        this.isRouteSet=true;
     }
 
 

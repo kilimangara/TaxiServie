@@ -11,7 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.*;
 
-public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClientDialog.Listener2, ComponentListener{
+public class MainPanel extends JFrame implements ComponentListener{
     public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private CityGraph component;
@@ -138,15 +138,6 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
 
     }
 
-    @Override
-    public void buttonPressed(Route route) {
-        City.getInstance().getTaxis().add(new Taxi(route));
-    }
-
-    @Override
-    public void buttonPressed2(int startid, int finishid, String name) {
-      //  City.getInstance().getClients().add(new Client(name, startid, finishid));
-    }
 
     @Override
     public void componentResized(ComponentEvent e) {

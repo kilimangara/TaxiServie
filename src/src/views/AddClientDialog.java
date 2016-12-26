@@ -1,52 +1,50 @@
 package views;
 
+import controllers.Controller;
 import models.City;
+import models.Client;
 import models.Route;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Васили on 22.12.2016.
- */
+
 public class AddClientDialog extends JDialog  {
 
-    public interface Listener2{
-        void buttonPressed2(int startid, int finishid, String name);
-    }
-
-    Listener2 listener;
     public AddClientDialog(JFrame owner){
         super(owner, "Добавление клиента",true);
-        listener = (Listener2) owner;
-
 
        int  length = City.getInstance().connections.size();
         String [] items = new String[length];
         for (int i=0; i < length; i++) {
             items[i]= String.valueOf(i + 1);
         }
-
+        JLabel from = new JLabel("From: ");
         JComboBox<String> comboBox = new JComboBox<>(items);
         comboBox.setVisible(true);
-
+        JLabel to = new JLabel("Destination");
         JComboBox<String> comboBox2 = new JComboBox<>(items);
         comboBox2.setVisible(true);
-        JTextField name =  new JTextField(10);
+        JLabel name = new JLabel("Name");
+        JTextField edName =  new JTextField(10);
         JButton OkButton = new JButton("Ok");
-        setLayout(new GridLayout(2,1));
+        setLayout(new GridLayout(4,2));
+        add(from);
         add(comboBox);
+        add(to);
         add(comboBox2);
         add(name);
+        add(edName);
         add(OkButton);
         setSize(250,150);
 
         setLocationRelativeTo(owner);
         OkButton.addActionListener(e->{
-            int start = (comboBox.getSelectedIndex());
-            int finish = comboBox2.getSelectedIndex();
+            int start = Integer.parseInt(comboBox.getItemAt(comboBox.getSelectedIndex()));
+            int finish = Integer.parseInt(comboBox2.getItemAt(comboBox2.getSelectedIndex()));
             String name1 = name.getText();
-            listener.buttonPressed2(start,finish,name1);
+            Client client = new Client(name1, start, finish);
+            Controller.addClientToList(client);
             setVisible(false);
         });
     }

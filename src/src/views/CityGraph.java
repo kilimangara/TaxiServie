@@ -163,20 +163,29 @@ public class CityGraph extends mxGraphComponent  {
                     rotatedIcon1 = new RotatedIcon(image,0);
                     map.put(taxi, rotatedIcon1);
                 }
-                if(!taxi.nextPoint()){
-                    rotateImage(rotatedIcon1, taxi.getDirection());
-                    rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
-                    taxi.nextStep();
+                if(taxi.isRouteSet()) {
+                    if (!taxi.nextPoint()) {
+                        rotateImage(rotatedIcon1, taxi.getDirection());
+                        rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
+                        taxi.nextStep();
 
-                } else {
-                    map.remove(taxi);
-                    Controller.deleteTaxiFromList(taxi);
+                    } else {
+                        map.remove(taxi);
+                        Controller.deleteTaxiFromList(taxi);
+                    }
                 }
             }
             for(Client client:City.getInstance().getClients()){
                 ImageIcon imageIcon= mapClient.get(client);
                 if(imageIcon == null){
+                        imageIcon = new ImageIcon(imageCl2);
+                        mapClient.put(client, imageIcon);
+                }
+                if(client.isTooLongWaiting()) {
                     imageIcon = new ImageIcon(imageCl1);
+                    mapClient.put(client, imageIcon);
+                } else {
+                    imageIcon = new ImageIcon(imageCl2);
                     mapClient.put(client, imageIcon);
                 }
 
