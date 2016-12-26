@@ -63,27 +63,8 @@ public class Client {
         private boolean freePlaces;
         private int position;
 
-        public Taxi(String name, String car, String number, int position){
-            this.name = name;
-            this.car = car;
-            this.number = number;
-            this.position = position;
-            peopleInside = 0;
-            route = 0;
-        }
-
-        public void pickClient(Client client){
-            if(clients.size()<4){
-                clients.add(client);
-            }
-
-        }
-        public void setRoute(int start, int end){
-           // this.route= new Route(start, end);
 
 
-
-        }
 
 
 

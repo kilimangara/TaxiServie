@@ -150,7 +150,7 @@ Font font = new Font("Verdana",Font.PLAIN, 11 );
 
     @Override
     public void buttonPressed2(int startid, int finishid, String name) {
-        City.getInstance().getClient().add(new Client(name, startid, finishid));
+        City.getInstance().getClients().add(new Client(name, startid, finishid));
     }
 
         /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
