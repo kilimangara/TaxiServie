@@ -33,9 +33,11 @@ public class CityGraph extends mxGraphComponent  {
     public static final int BOTTOM=3;
 
     private Icon image;
+    private Icon imageCl1;
+    private Icon imageCl2;
 
     private Map<Taxi, RotatedIcon> map;
-
+    private Map<Client, ImageIcon> mapClient;
     private Timer timer;
     private JFrame context;
 
@@ -44,13 +46,14 @@ public class CityGraph extends mxGraphComponent  {
         super(graph);
         loadImage();
         map = new HashMap<>();
+        mapClient= new HashMap<>();
         Route route = new Route();
         route.route.add(1);
         route.route.add(2);
         route.route.add(5);
         route.route.add(6);
         route.route.add(9);
-       Route route1 = new Route();
+        Route route1 = new Route();
         route1.route.add(8);
         //route.route.add();
         route1.route.add(5);
@@ -58,6 +61,7 @@ public class CityGraph extends mxGraphComponent  {
         route1.route.add(1);
         City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
         City.getInstance().getTaxis().add(new Taxi(route));
+        City.getInstance().getClients().add(new Client("Petrov",1,3));
         repaint();
         timer = new Timer(0, e -> repaint());
         this.getGraphControl().addMouseListener(new MouseListener() {
@@ -98,37 +102,44 @@ public class CityGraph extends mxGraphComponent  {
             }
         });
         //rotatedIcon = new RotatedIcon(image,0);
-       // rotateImage(RIGHT);
+        // rotateImage(RIGHT);
     }
     private void loadImage(){
         try {
-          Image  image1 = ImageIO.read(new File("ic_marker_driver.png"));
+            Image  image1 = ImageIO.read(new File("ic_marker_driver.png"));
             image = new ImageIcon(image1);
+
+            Image  imageClient = ImageIO.read(new File("Client1.png"));
+            imageCl1 = new ImageIcon(imageClient);
+
+            Image  imageClient2 = ImageIO.read(new File("Client2.png"));
+            imageCl2 = new ImageIcon(imageClient2);
+
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
-     private void rotateImage(RotatedIcon icon,int direction){
-         switch (direction){
-             case LEFT:
-                 icon.setDegrees(270);
-                 repaint();
-                 break;
-             case RIGHT:
-                 icon.setDegrees(90);
-                 repaint();
-                 break;
-             case TOP:
-                 icon.setDegrees(0);
-                 repaint();
+    private void rotateImage(RotatedIcon icon,int direction){
+        switch (direction){
+            case LEFT:
+                icon.setDegrees(270);
+                repaint();
                 break;
-             case BOTTOM:
-                 icon.setDegrees(180);
-                 repaint();
-                 break;
-         }
+            case RIGHT:
+                icon.setDegrees(90);
+                repaint();
+                break;
+            case TOP:
+                icon.setDegrees(0);
+                repaint();
+                break;
+            case BOTTOM:
+                icon.setDegrees(180);
+                repaint();
+                break;
+        }
 
-     }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -155,8 +166,32 @@ public class CityGraph extends mxGraphComponent  {
                     map.remove(taxi);
                     Controller.deleteTaxiFromList(taxi);
                 }
-
             }
+            for(Client client:City.getInstance().getClients()){
+                ImageIcon rotatedIcon1= mapClient.get(client);
+                if(rotatedIcon1 == null){
+                    try {
+                        rotatedIcon1 = new ImageIcon(ImageIO.read(new File("Client1.png")));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mapClient.put(client, rotatedIcon1);
+                }
+
+                rotatedIcon1.paintIcon(this,g,200, 200);
+               // if(!client.){
+                  //  rotateImage(rotatedIcon1, taxi.getDirection());
+                //int x = City.getInstance().getXMasPoint(client.getLacation());
+              //  int y = City.getInstance().getYMasPoint(client.getLacation());
+
+                   // taxi.nextStep();
+
+              //  } else {
+                //    map.remove(taxi);
+              //      Controller.deleteTaxiFromList(taxi);
+              //  }
+            }
+
 
         }
 

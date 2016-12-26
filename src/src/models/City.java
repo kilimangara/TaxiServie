@@ -18,6 +18,7 @@ public class City {
     private static City instance;
     // private int[][] matr;	        //Матрица смежности
     private List<Taxi> taxis;
+    private List<Client> clients;
     public static ArrayList<LinkedList<Integer>> connections;
     public static int vertexCount=10;          //Количество узлов
     public static int arcCount=10;	            //Количество дуг
@@ -33,6 +34,10 @@ public class City {
 
     public List<Taxi> getTaxis() {
         return taxis;
+    }
+
+    public List<Client> getClients() {
+        return clients;
     }
 
     public void setTaxis(List<Taxi> taxis) {
@@ -55,6 +60,7 @@ public class City {
     private City(){
         masPoint = new int[2][vertexCount];
         this.taxis = new LinkedList<>();
+        this.clients = new LinkedList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<10;++i){
             connections.add(new LinkedList<>());
