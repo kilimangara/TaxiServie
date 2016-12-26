@@ -127,7 +127,7 @@ Font font = new Font("Verdana",Font.PLAIN, 11 );
             graph.getModel().endUpdate();
 
             }
-        for(int i=0;i<10;++i) {
+        for(int i=0;i<City.getInstance().arcCount;++i) {
             graph.getModel().beginUpdate();
             LinkedList<Integer> list =City.getInstance().connections.get(i);
             for(Object id: list) {

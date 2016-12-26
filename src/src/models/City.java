@@ -20,8 +20,17 @@ public class City {
     private List<Taxi> taxis;
     private List<Client> clients;
     public static ArrayList<LinkedList<Integer>> connections;
-    public static int vertexCount=10;          //Количество узлов
-    public static int arcCount=10;	            //Количество дуг
+    public static int vertexCount=31;          //Количество узлов
+    public static int arcCount=30;	            //Количество дуг
+
+    public static void setArcCount(int arcCount) {
+        City.arcCount = arcCount;
+    }
+
+    public static void setVertexCount(int vertexCount) {
+        City.vertexCount = vertexCount;
+    }
+
     public static int[][] masPoint ;          // x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
@@ -62,7 +71,7 @@ public class City {
         this.taxis = new LinkedList<>();
         this.clients = new LinkedList<>();
         this.connections = new ArrayList<>();
-        for(int i=0; i<10;++i){
+        for(int i=0; i<vertexCount;++i){
             connections.add(new LinkedList<>());
         }
         System.out.println("length "+connections.size());
@@ -87,6 +96,12 @@ public class City {
             Node root = document.getDocumentElement();
 
             NodeList books = root.getChildNodes(); // все объекты типа структура
+            // заполнение констант
+            Node test = books.item(1);
+            setVertexCount(new Integer(test.getAttributes().getNamedItem("street").getNodeValue()));
+            test = books.item(3);
+            setArcCount(new Integer(test.getAttributes().getNamedItem("street").getNodeValue()));
+
             for (int i = 1; i < books.getLength();i++) {
                 Node node = books.item(i);
                 i=i+1;
@@ -96,7 +111,6 @@ public class City {
                 x = new Integer(node.getAttributes().getNamedItem("x").getNodeValue());
                 y = new Integer(node.getAttributes().getNamedItem("y").getNodeValue());
                 System.out.println("id "+id+" x "+x+" y "+y );
-                //this.structures.add(new Point(id,x,y));
 
                 this.masPoint[0][id]=x;
                 this.masPoint[1][id]=y;

@@ -77,6 +77,13 @@ public class CityGraph extends mxGraphComponent  {
                         JDialog taxiDialog = new TaxiInfoDialog(context,taxi);
                         taxiDialog.setVisible(true);
                         flag=true;
+                        JPanel rightPanel = new JPanel();
+                        JButton button1 = new JButton("OK");
+                        Font font = new Font("Verdana",Font.PLAIN, 11);
+                        button1.setFont(font);
+                        rightPanel.add(button1);
+
+                        rightPanel.setVisible(true);
                     }
                 }
             }
@@ -178,7 +185,7 @@ public class CityGraph extends mxGraphComponent  {
                     mapClient.put(client, rotatedIcon1);
                 }
 
-                rotatedIcon1.paintIcon(this,g,200, 200);
+               // rotatedIcon1.paintIcon(this,g,200, 200);
                // if(!client.){
                   //  rotateImage(rotatedIcon1, taxi.getDirection());
                 //int x = City.getInstance().getXMasPoint(client.getLacation());
