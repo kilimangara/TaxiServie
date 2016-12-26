@@ -7,9 +7,11 @@ import com.mxgraph.view.mxStylesheet;
 import models.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.*;
 
-public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClientDialog.Listener2 {
+public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClientDialog.Listener2, ComponentListener{
     public static final int DEFAULT_SIZE=30;
     private mxGraph graph;
     private CityGraph component;
@@ -27,9 +29,10 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml","matr.xml");
+        addComponentListener(this);
         map = new HashMap<>();
         setLayout(new GridBagLayout());
-
+        //setResizable(false);
         graph = new mxGraph();
         graph.setAutoSizeCells(true);
         graph.setCellsLocked(true);
@@ -47,7 +50,7 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
 
 
-Font font = new Font("Verdana",Font.PLAIN, 11 );
+        Font font = new Font("Verdana",Font.PLAIN, 11 );
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -80,13 +83,9 @@ Font font = new Font("Verdana",Font.PLAIN, 11 );
         JMenu help = new JMenu("Help");
         help.setFont(font);
 
-        JMenuItem hmenu = new JMenuItem("menu1");
+        JMenuItem hmenu = new JMenuItem("About software");
         hmenu.setFont(font);
         help.add(hmenu);
-
-        JMenuItem hmenu2 = new JMenuItem("menu2");
-        hmenu2.setFont(font);
-        help.add(hmenu2);
 
         menuBar.add(help);
 
@@ -108,8 +107,8 @@ Font font = new Font("Verdana",Font.PLAIN, 11 );
         });
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
-        component.setPreferredSize(new Dimension(400, 400));
-        getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
+        component.setPreferredSize(new Dimension(400, 550));
+        getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
 
@@ -149,14 +148,29 @@ Font font = new Font("Verdana",Font.PLAIN, 11 );
       //  City.getInstance().getClients().add(new Client(name, startid, finishid));
     }
 
-        /*Object v1= graph.insertVertex(parent,null, "Шкурова 2", 30, 80, 60, 60,"ROUNDED" );
-        Object v2= graph.insertVertex(parent, null,"Шкурова 3", 30, 240, 60, 60,"ROUNDED" );
-        map.put("Шкурова 2", v1);
-        map.put("Шкурова 3", v2);
-        graph.insertEdge(parent,null, "Шкурова", map.get("Шкурова 2"), map.get("Шкурова 3"));
-        graph.insertVertex(parent, null, "Шкурова-\nДолбоебики",150, 240, 60, 60,"RECT");*/
-       // graph.getModel().endUpdate();
+    @Override
+    public void componentResized(ComponentEvent e) {
+        int width =400;
+        System.out.println("X:"+e.getComponent().getWidth()+" y "+e.getComponent().getHeight());
+        if(e.getComponent().getWidth()/2>=400){
+            width = e.getComponent().getWidth()/2;
+        }
+        component.setPreferredSize(new Dimension(e.getComponent().getWidth()/2,e.getComponent().getHeight()-50));
+    }
 
+    @Override
+    public void componentMoved(ComponentEvent e) {
 
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
 }
 

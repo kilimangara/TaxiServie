@@ -56,22 +56,25 @@ public class Route {
         route = new ArrayList<>();
         currentPoint=0;
     }
+    public Route(int start, int finish){
+        this();
+        setRoute(start, finish);
+    }
 
-    static int INF = Integer.MAX_VALUE / 2;
-    static int n=City.vertexCount; 				//количество вершин в орграфе
-    static int m=City.arcCount*2; 				//количествое дуг в орграфе(*2 т.к.двунаправленный)
+    private final static int INF = Integer.MAX_VALUE / 2;
+    static int n=City.getInstance().vertexCount; 				//количество вершин в орграфе
     static ArrayList<Integer> adj[]; 			//список смежности
     static ArrayList<Integer> weight[]; 		//вес ребра в орграфе
-    static boolean used[];						//массив для хранения информации о пройденных и не пройденных вершинах
-    static int dist[]; 							//массив для хранения расстояния от стартовой вершины
-    static int pred[];							//массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
+    private boolean used[];						//массив для хранения информации о пройденных и не пройденных вершинах
+    private int dist[]; 							//массив для хранения расстояния от стартовой вершины
+    private int pred[];							//массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
     // start - стартовая вершина, от которой ищется расстояние до всех других
 
 
 
 
     //процедура запуска алгоритма Дейкстры из стартовой вершины
-    static void dejkstra(int s) {
+    private void dejkstra(int s) {
         dist[s] = 0;//кратчайшее расстояние до стартовой вершины равно 0
         for (int iter = 0; iter < n; ++iter) {
             int v = -1;
@@ -110,7 +113,7 @@ public class Route {
         printWay(pred[v]);
         System.out.println((v + 1) + " ");
     }*/
-    static void makeWay(int v, Route way) {
+    private void makeWay(int v, Route way) {
         if (v == -1) {
             return;
         }
@@ -120,7 +123,7 @@ public class Route {
     }
 
     //процедура заполнения матриц смежности и весов
-    private static void readData() {
+    private void readData() {
 
         //инициализируем списка смежности графа размерности n
         adj = new ArrayList[n];
@@ -135,14 +138,14 @@ public class Route {
 
         //считываем граф, заданный списком ребер
         for (int i=0;i<n;i++){
-            int length = City.connections.get(i).size();
+            int length = City.getInstance().connections.get(i).size();
             for (int j=0;j<length;j++){
-                int connect=City.connections.get(i).get(j);
+                int connect=City.getInstance().connections.get(i).get(j);
                 int u=i+1;
                 int v=connect;
                 int w=0;
-                if (City.masPoint[0][u]==City.masPoint[0][v]) w = Math.abs(City.masPoint[1][v]-City.masPoint[1][u]);
-                else w = Math.abs(City.masPoint[0][v]-City.masPoint[0][u]);
+                if (City.getInstance().masPoint[0][u]==City.getInstance().masPoint[0][v]) w = Math.abs(City.getInstance().masPoint[1][v]-City.getInstance().masPoint[1][u]);
+                else w = Math.abs(City.getInstance().masPoint[0][v] - City.getInstance().masPoint[0][u]);
                 u--;
                 v--;
                 adj[u].add(v);
@@ -161,10 +164,9 @@ public class Route {
 
     }
 
-    public static void setRoute(int start, int finish) {
+    public void setRoute(int start, int finish) {
         readData();
         dejkstra(--start);
-        Route way = new Route();
-        makeWay(--finish,way);
+        makeWay(--finish,this);
     }
 }

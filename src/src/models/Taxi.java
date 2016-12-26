@@ -78,6 +78,13 @@ public class Taxi {
         return route.getNextPoint() == -1;
 
     }
+
+    public void stopTaxi(){
+        if(!isStopped) {
+            isStopped = true;
+            new Timer(3000,e -> isStopped=false).start();
+        }
+    }
     public boolean nextPoint(){
 
         if(!lastPoint()) {
@@ -85,10 +92,6 @@ public class Taxi {
                     (y == City.getInstance().getYMasPoint(route.getNextPoint()))) {
                 route.switchPosition();
                 checkDirection();
-                if(!isStopped) {
-                    isStopped = true;
-                }
-                new Timer(3000,e -> isStopped=false).start();
             }
             return false;
         } else {

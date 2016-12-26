@@ -3,16 +3,21 @@ package models;
 import java.util.ArrayList;
 
 public class Client {
-    String name;
-    String telephone;
-    int lacation;
-    int destination;
+    private String name;
+
+    private String telephone;
+
+    private int lacation;
+
+    private int destination;
+
+    private boolean tooLongWaiting;
 
     public Client(String name, int lacation, int destination) {
         this.name = name;
-        this.telephone = telephone;
         this.lacation = lacation;
         this.destination = destination;
+        this.tooLongWaiting =false;
         callTaxi();
     }
 
@@ -52,21 +57,4 @@ public class Client {
         this.destination = destination;
     }
 
-    public static class Taxi {
-        private static final int MAX_CAR_PLACES=4;
-        private String name;
-        private String car;
-        private String number;
-        private int peopleInside;
-        private ArrayList<Client> clients;
-        private int route;
-        private boolean freePlaces;
-        private int position;
-
-
-
-
-
-
-    }
 }
