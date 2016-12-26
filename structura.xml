@@ -4,7 +4,7 @@
 	<structura  street="31" id="1" x="30" y="30" >
         <relates id1="2" id2="4" id3="0" id4="0"/>
 	</structura>
-	<structura  street="Street1" id="2" x="150" y = "30">
+	<structura  street="30" id="2" x="150" y = "30">
         <relates id1="1" id2="3" id3="5" id4="0"/>
 	</structura>
 	<structura  street="Street1" id="3" x="330" y = "30">
