@@ -51,7 +51,7 @@ public class CityGraph extends mxGraphComponent  {
         loadImage();
         map = new HashMap<>();
         mapClient= new HashMap<>();
-        Route route = new Route(1,9);
+        Route route = new Route(1,10);
         /*route.route.add(1);
         route.route.add(2);
         route.route.add(5);
@@ -165,9 +165,7 @@ public class CityGraph extends mxGraphComponent  {
                 }
                 if(!taxi.nextPoint()){
                     rotateImage(rotatedIcon1, taxi.getDirection());
-                    if((taxi.getX()-offsetX<this.getPreferredSize().width)&&(taxi.getY()-offsetY<this.getPreferredSize().height)) {
-                        rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
-                    }
+                    rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
                     taxi.nextStep();
 
                 } else {

@@ -19,8 +19,8 @@ public class City {
     private List<Taxi> taxis;
     private List<Client> clients;
     public  ArrayList<LinkedList<Integer>> connections;
-    public  int vertexCount=10;          //Количество узлов
-    public  int arcCount=10;	            //Количество дуг
+    public  int vertexCount=31;          //Количество узлов
+    public  int arcCount=30;	            //Количество дуг
     public  int[][] masPoint ;          // x,y,idPoint
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n

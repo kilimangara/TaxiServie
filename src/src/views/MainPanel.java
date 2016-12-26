@@ -126,7 +126,7 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener,AddClien
             graph.getModel().endUpdate();
 
             }
-        for(int i=0;i<10;++i) {
+        for(int i=0;i<City.getInstance().vertexCount;++i) {
             graph.getModel().beginUpdate();
             LinkedList<Integer> list =City.getInstance().connections.get(i);
             for(Object id: list) {
