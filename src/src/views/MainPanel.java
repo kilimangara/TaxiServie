@@ -32,7 +32,8 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
 
         graph = new mxGraph();
         graph.setAutoSizeCells(true);
-        //graph.setCellsLocked(true);
+        graph.setCellsLocked(true);
+        graph.setEdgeLabelsMovable(false);
         mxStylesheet stylesheet = graph.getStylesheet();
         Hashtable<String, Object> style = new Hashtable<>();
         style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
@@ -42,10 +43,7 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
         stylesheet.putCellStyle("ROUNDED", style);
         Map<String, Object> edge = new HashMap<>();
         edge.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
-        edge.put(mxConstants.STYLE_FONTSIZE,"10" );
         edge.put(mxConstants.STYLE_ENDARROW, "none");
-        edge.put(mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
-        edge.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
 
         JButton button1 = new JButton("Добавить такси");
@@ -54,11 +52,10 @@ public class MainPanel extends JFrame implements AddTaxiDialog.Listener {
             dialog.setVisible(true);
         });
         stylesheet.setDefaultEdgeStyle(edge);
-        component = new CityGraph(graph);
+        component = new CityGraph(graph, this);
         component.setPreferredSize(new Dimension(400, 400));
         getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
-
 
 
         //graph.getModel().beginUpdate();

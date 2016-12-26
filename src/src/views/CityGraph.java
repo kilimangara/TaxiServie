@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -23,7 +25,7 @@ import java.util.Map;
 
 
 
-public class CityGraph extends mxGraphComponent {
+public class CityGraph extends mxGraphComponent  {
 
     public static final int LEFT=0;
     public static final int RIGHT=1;
@@ -32,14 +34,13 @@ public class CityGraph extends mxGraphComponent {
 
     private Icon image;
 
-    private RotatedIcon rotatedIcon;
-
     private Map<Taxi, RotatedIcon> map;
 
     private Timer timer;
+    private JFrame context;
 
 
-    public CityGraph(mxGraph graph){
+    public CityGraph(mxGraph graph, JFrame context){
         super(graph);
         loadImage();
         map = new HashMap<>();
@@ -55,10 +56,47 @@ public class CityGraph extends mxGraphComponent {
         route1.route.add(5);
         route1.route.add(2);
         route1.route.add(1);
-        City.getInstance().getTaxis().add(new Taxi(route1));
+        City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
         City.getInstance().getTaxis().add(new Taxi(route));
         repaint();
         timer = new Timer(0, e -> repaint());
+        this.getGraphControl().addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                System.out.println("x "+x+" y "+y);
+                for(Taxi taxi:City.getInstance().getTaxis()){
+                    boolean flag=false;
+                    System.out.println("TAXIX: "+taxi.getX()+" TAXIY: "+taxi.getY());
+                    if((Math.abs(taxi.getX()-x)<50)&&(Math.abs(taxi.getY()-y)<50)&&(!flag)){
+                        JDialog taxiDialog = new TaxiInfoDialog(context,taxi);
+                        taxiDialog.setVisible(true);
+                        flag=true;
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         //rotatedIcon = new RotatedIcon(image,0);
        // rotateImage(RIGHT);
     }
@@ -94,7 +132,6 @@ public class CityGraph extends mxGraphComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
     }
 
     @Override
@@ -127,4 +164,6 @@ public class CityGraph extends mxGraphComponent {
     public void start(){
         timer.start();
     }
+
+
 }

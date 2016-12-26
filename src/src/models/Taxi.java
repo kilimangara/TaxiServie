@@ -4,6 +4,7 @@ import com.sun.security.ntlm.Client;
 import controllers.Controller;
 import views.CityGraph;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Taxi {
@@ -13,9 +14,35 @@ public class Taxi {
 
     private String car;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     private String number;
 
     private ArrayList<Client> clients;
+
+    private boolean isStopped;
 
     private Route route;
 
@@ -58,6 +85,10 @@ public class Taxi {
                     (y == City.getInstance().getYMasPoint(route.getNextPoint()))) {
                 route.switchPosition();
                 checkDirection();
+                if(!isStopped) {
+                    isStopped = true;
+                }
+                new Timer(3000,e -> isStopped=false).start();
             }
             return false;
         } else {
@@ -65,6 +96,9 @@ public class Taxi {
         }
     }
     public void nextStep(){
+        if(isStopped){
+           return;
+        }
         switch (direction) {
             case CityGraph.BOTTOM:
                 y++;
@@ -79,15 +113,13 @@ public class Taxi {
                 y--;
                 break;
         }
-        System.out.println("DIRECTION "+direction +" x "+x+" y "+y);
-
-
     }
     public Taxi(String name, String car, String number, Route route){
         this.name = name;
         this.car = car;
         this.number = number;
         //this.position = position;
+        this.isStopped = false;
         this.route = route;
         this.x =City.getInstance().getXMasPoint(route.getCurrentPoint());
         this.y = City.getInstance().getYMasPoint(route.getCurrentPoint());
