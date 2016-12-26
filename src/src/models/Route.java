@@ -1,6 +1,7 @@
 
 package models;
 import views.CityGraph;
+import models.City;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,20 +15,6 @@ public class Route {
 
     public Integer currentPoint;
 
-    final int inf = Integer.MAX_VALUE/2;
-
-    int n=City.getInstance().vertexCount;
-    //количество вершин
-    ArrayList<Integer> adj[];
-    //список смежности
-    ArrayList<Integer> weight[];
-    //вес ребра в орграфе
-    boolean used[];
-    //массив для хранения информации о пройденных и не пройденных вершинах
-    int dist[];
-    //массив для хранения расстояния от стартовой вершины
-    int pred[];
-    //массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
     public int getCurrentPoint(){
         return this.route.get(currentPoint);
 
@@ -43,6 +30,7 @@ public class Route {
     public void switchPosition(){
         currentPoint++;
     }
+
     public int getDirection(){
         if(getNextPoint()==-1){
             return -1;
@@ -69,43 +57,27 @@ public class Route {
         currentPoint=0;
     }
 
-    private void setRoute(int begin, int end) {
-     /*   //инициализируем списка смежности графа размерности n
-        adj = new ArrayList[n];
-        for (int i = 0; i < n; ++i) {
-            adj[i] = new ArrayList<Integer>();
-        }
-        //инициализация списка, в котором хранятся веса ребер
-        weight = new ArrayList[n];
-        for (int i = 0; i < n; ++i) {
-            weight[i] = new ArrayList<Integer>();
-        }
-        //считываем граф, заданный матрицей смежности
-        for (int i=0; i<n; i++)
-        	for (int j=0; i<n; j++)
-        		if (matr[i][j]!=0){
-                    adj[i].add(j);
-                    weight[i].add(matr[i][j]);
-        		}
-        used = new boolean[n];
-        Arrays.fill(used, false);
-
-        pred = new int[n];
-        Arrays.fill(pred, -1);
-
-        dist = new int[n];
-        Arrays.fill(dist, inf);
+    static int INF = Integer.MAX_VALUE / 2;
+    static int n=City.vertexCount; 				//количество вершин в орграфе
+    static int m=City.arcCount*2; 				//количествое дуг в орграфе(*2 т.к.двунаправленный)
+    static ArrayList<Integer> adj[]; 			//список смежности
+    static ArrayList<Integer> weight[]; 		//вес ребра в орграфе
+    static boolean used[];						//массив для хранения информации о пройденных и не пройденных вершинах
+    static int dist[]; 							//массив для хранения расстояния от стартовой вершины
+    static int pred[];							//массив предков, необходимых для восстановления кратчайшего пути из стартовой вершины
+    // start - стартовая вершина, от которой ищется расстояние до всех других
 
 
 
-    	int s=structures.indexOf(begin);	//Начало пути
-    	int e=structures.indexOf(end);		//Конец пути
-        dist[s] = 0; 							//Кратчайшее расстояние до стартовой вершины равно 0
-        for (int j = 0; j < n; ++j) {
+
+    //процедура запуска алгоритма Дейкстры из стартовой вершины
+    static void dejkstra(int s) {
+        dist[s] = 0;//кратчайшее расстояние до стартовой вершины равно 0
+        for (int iter = 0; iter < n; ++iter) {
             int v = -1;
-            int distV = inf;
-            //выбираем вершину, кратчайшее расстояние до которой еще не найдено
-            for (int i=0; i<n; ++i) {
+            int distV = INF;
+            //выбираем вершину, кратчайшее расстояние до которого еще не найдено
+            for (int i = 0; i < n; ++i) {
                 if (used[i]) {
                     continue;
                 }
@@ -128,17 +100,71 @@ public class Route {
             //помечаем вершину v просмотренной, до нее найдено кратчайшее расстояние
             used[v] = true;
         }
-    //Заполняем путь
-    prev(e);
     }
 
-    //процедура восстановления кратчайшего пути по массиву предком
-    void prev(int v) {
+    //процедура восстановления кратчайшего пути до вершины v
+    /*static void printWay(int v) {
         if (v == -1) {
             return;
         }
-        prev(pred[v]);
-        route.add(structures.get(v));
-        */
+        printWay(pred[v]);
+        System.out.println((v + 1) + " ");
+    }*/
+    static void makeWay(int v, Route way) {
+        if (v == -1) {
+            return;
+        }
+        makeWay(pred[v],way);
+        way.route.add(v+1);
+
+    }
+
+    //процедура заполнения матриц смежности и весов
+    private static void readData() {
+
+        //инициализируем списка смежности графа размерности n
+        adj = new ArrayList[n];
+        for (int i = 0; i < n; ++i) {
+            adj[i] = new ArrayList<Integer>();
+        }
+        //инициализация списка, в котором хранятся веса ребер
+        weight = new ArrayList[n];
+        for (int i = 0; i < n; ++i) {
+            weight[i] = new ArrayList<Integer>();
+        }
+
+        //считываем граф, заданный списком ребер
+        for (int i=0;i<n;i++){
+            int length = City.connections.get(i).size();
+            for (int j=0;j<length;j++){
+                int connect=City.connections.get(i).get(j);
+                int u=i+1;
+                int v=connect;
+                int w=0;
+                if (City.masPoint[0][u]==City.masPoint[0][v]) w = Math.abs(City.masPoint[1][v]-City.masPoint[1][u]);
+                else w = Math.abs(City.masPoint[0][v]-City.masPoint[0][u]);
+                u--;
+                v--;
+                adj[u].add(v);
+                weight[u].add(w);
+            }
+        }
+
+        used = new boolean[n];
+        Arrays.fill(used, false);
+
+        pred = new int[n];
+        Arrays.fill(pred, -1);
+
+        dist = new int[n];
+        Arrays.fill(dist, INF);
+
+    }
+
+    public static void setRoute(int start, int finish) {
+        readData();
+        dejkstra(--start);
+        Route way = new Route();
+        makeWay(--finish,way);
     }
 }
