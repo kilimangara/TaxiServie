@@ -7,6 +7,9 @@ import views.CityGraph;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Taxi {
     private static final int MAX_CAR_PLACES=4;
@@ -125,13 +128,10 @@ public class Taxi {
                     clients.get(0).isInCar=false;
                     clients.get(0).setLacation(clients.get(0).getDestination());
                     //Controller.deleteClientFromList(clients.get(0));
-                    Timer timer = new Timer(3000, e->{if(clients.size()!=0){
+                    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
                         Controller.deleteClientFromList(clients.get(0));
-                        clients.remove(0);}});
-                    timer.start();
-                    if(clients.size()==0){
-                        timer.stop();
-                    }
+                        clients.clear();
+                    },3,1, TimeUnit.SECONDS);
                     return false;
                 }
             }
