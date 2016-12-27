@@ -1,14 +1,16 @@
 package models;
 
-import com.sun.security.ntlm.Client;
+
 import controllers.Controller;
 import views.CityGraph;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class Taxi {
     private static final int MAX_CAR_PLACES=4;
+    public static final int ID_OF_CAR_PLACE=20;
 
     private String name;
 
@@ -18,24 +20,12 @@ public class Taxi {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCar() {
         return car;
     }
 
-    public void setCar(String car) {
-        this.car = car;
-    }
-
     public String getNumber() {
         return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     private String number;
@@ -46,7 +36,11 @@ public class Taxi {
 
     private Route route;
 
+    public Client activeClient;
+
     private boolean isRouteSet;
+
+    private boolean isRouteToClient=false;
 
     private int direction;
 
@@ -65,8 +59,11 @@ public class Taxi {
         return isRouteSet;
     }
 
-    public void setRouteSet(boolean routeSet) {
-        isRouteSet = routeSet;
+    public boolean isRouteToClient(){
+        return isRouteToClient;
+    }
+    public void setRouteToClient(boolean flag){
+        isRouteToClient = flag;
     }
 
     public int getX() {
@@ -92,7 +89,7 @@ public class Taxi {
     public void stopTaxi(){
         if(!isStopped) {
             isStopped = true;
-            new Timer(2000,e -> isStopped=false).start();
+            new Timer(2500,e -> isStopped=false).start();
         }
     }
     public boolean nextPoint(){
@@ -101,13 +98,41 @@ public class Taxi {
             if ((x == City.getInstance().getXMasPoint(route.getNextPoint())) &&
                     (y == City.getInstance().getYMasPoint(route.getNextPoint()))) {
                 route.switchPosition();
+                position = route.getCurrentPoint();
                 checkDirection();
             }
             return false;
         } else {
-            return true;
+            if(activeClient!=null){
+                stopTaxi();
+                setRoute(activeClient.getLacation(), activeClient.getDestination());
+                pickClient(activeClient);
+                activeClient.isInCar =true;
+                activeClient = null;
+                return false;
+            } else {
+                if(getPosition()==ID_OF_CAR_PLACE){
+                    this.isRouteSet= false;
+                    route = null;
+                    return false;
+                } else {
+                    stopTaxi();
+                    setRoute(getPosition(), ID_OF_CAR_PLACE);
+                    Controller.deleteClientFromList(clients.get(0));
+                    return false;
+                }
+            }
         }
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public void nextStep(){
         if(isStopped){
            return;
@@ -120,6 +145,7 @@ public class Taxi {
                 x--;
                 break;
             case CityGraph.RIGHT:
+
                 x++;
                 break;
             case CityGraph.TOP:
@@ -131,7 +157,7 @@ public class Taxi {
         this.name = name;
         this.car = car;
         this.number = number;
-        //this.position = position;
+        this.clients = new ArrayList<>();
         this.isRouteSet=true;
         this.isStopped = false;
         this.route = route;
@@ -148,8 +174,10 @@ public class Taxi {
         this.name = name;
         this.car = car;
         this.number = number;
+        clients = new ArrayList<>();
         this.isStopped = false;
-        isRouteSet =false;
+        this.isRouteSet =false;
+        this.position = ID_OF_CAR_PLACE;
     }
     public void pickClient(Client client){
         if(clients.size()<4){

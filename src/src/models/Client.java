@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public class Client {
     private String name;
 
-    private String telephone;
+    public boolean isInCar;
+
+    public boolean hasDriver;
 
     private int lacation;
 
@@ -18,22 +20,20 @@ public class Client {
         return tooLongWaiting;
     }
 
-    public void setTooLongWaiting(boolean tooLongWaiting) {
-        this.tooLongWaiting = tooLongWaiting;
-    }
-
     public Client(String name, int lacation, int destination) {
         this.name = name;
         this.lacation = lacation;
         this.destination = destination;
         this.tooLongWaiting =false;
-        new Timer(7000,e->tooLongWaiting =true).start();
-
+        new Timer(17000,e->tooLongWaiting =true).start();
+        this.isInCar = false;
+        this.hasDriver =false;
         callTaxi();
     }
 
     private void callTaxi() {
         //making an order for taxi
+
     }
 
     public String getName() {
@@ -44,13 +44,6 @@ public class Client {
         this.name = name;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
 
     public int getLacation() {
         return lacation;

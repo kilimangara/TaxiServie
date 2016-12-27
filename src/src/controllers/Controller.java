@@ -4,12 +4,15 @@ import models.City;
 import models.Client;
 import models.Taxi;
 
+import javax.swing.*;
+
 /**
  * Created by nikitazlain on 22.12.16.
  */
 public class Controller {
     private final static int MAXCLIENTS=10;
     private final static int MAXTAXI=5;
+    private  static Timer timer ;
     public static void deleteTaxiFromList(Taxi taxi){
         City.getInstance().getTaxis().remove(taxi);
     }
@@ -29,6 +32,32 @@ public class Controller {
     public static void deleteClientFromList(Client client){
         City.getInstance().getClients().remove(client);
 
+    }
+
+    public static void setTaxiRouteToClient(Client client){
+        timer = new Timer(1000, e -> {
+            for (Taxi taxi : City.getInstance().getTaxis()) {
+                System.out.println("taxi "+taxi.toString()+" is on drive "+taxi.isRouteSet());
+                if (!taxi.isRouteSet()&&!client.hasDriver) {
+                    taxi.setRouteToClient(true);
+                    taxi.activeClient = client;
+                    taxi.setRoute(taxi.getPosition(), client.getLacation());
+                    client.hasDriver = true;
+                    checkIfFound(client);
+                    break;
+                }
+            }
+        });
+        if((!client.hasDriver)) {
+            timer.start();
+            System.out.println("timer "+timer+" started");
+        }
+    }
+    private static void checkIfFound(Client client){
+        if (client.hasDriver){
+            timer.stop();
+            System.out.println("timer "+timer+" stopped");
+        }
     }
 
 }

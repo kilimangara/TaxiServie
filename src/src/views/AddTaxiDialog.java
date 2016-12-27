@@ -17,9 +17,9 @@ public class AddTaxiDialog extends JDialog {
         super(owner, "Добавление такси",true);
         JLabel name = new JLabel("Name");
         JTextField edName =  new JTextField(18);
-        JLabel number = new JLabel("Name");
+        JLabel number = new JLabel("number");
         JTextField edNumber =  new JTextField(18);
-        JLabel car = new JLabel("Name");
+        JLabel car = new JLabel("car");
         JTextField edcar =  new JTextField(18);
         JButton OkButton = new JButton("Ok");
         setLayout(new GridLayout(4,2));

@@ -51,21 +51,21 @@ public class CityGraph extends mxGraphComponent  {
         loadImage();
         map = new HashMap<>();
         mapClient= new HashMap<>();
-        Route route = new Route(1,10);
+      /*  Route route = new Route(1,10);
         /*route.route.add(1);
         route.route.add(2);
         route.route.add(5);
         route.route.add(6);
         route.route.add(9);*/
-        Route route1 = new Route(8,1);
+        //Route route1 = new Route(8,1);
        /* route1.route.add(8);
         //route.route.add();
         route1.route.add(5);
         route1.route.add(2);
         route1.route.add(1);*/
-        City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
-        City.getInstance().getTaxis().add(new Taxi(route));
-       // City.getInstance().getClients().add(new Client("Petrov",1,3));
+       // City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
+        //City.getInstance().getTaxis().add(new Taxi(route));
+       // City.getInstance().getClients().add(new Client("Petrov",1,3));*/
         horizontal = getHorizontalScrollBar();
         vertical = getVerticalScrollBar();
         repaint();
@@ -168,29 +168,27 @@ public class CityGraph extends mxGraphComponent  {
                         rotateImage(rotatedIcon1, taxi.getDirection());
                         rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
                         taxi.nextStep();
-
-                    } else {
-                        map.remove(taxi);
-                        Controller.deleteTaxiFromList(taxi);
                     }
                 }
             }
             for(Client client:City.getInstance().getClients()){
-                ImageIcon imageIcon= mapClient.get(client);
-                if(imageIcon == null){
+                if(!client.isInCar) {
+                    ImageIcon imageIcon = mapClient.get(client);
+                    if (imageIcon == null) {
                         imageIcon = new ImageIcon(imageCl2);
                         mapClient.put(client, imageIcon);
-                }
-                if(client.isTooLongWaiting()) {
-                    imageIcon = new ImageIcon(imageCl1);
-                    mapClient.put(client, imageIcon);
-                } else {
-                    imageIcon = new ImageIcon(imageCl2);
-                    mapClient.put(client, imageIcon);
-                }
+                    }
+                    if (client.isTooLongWaiting()) {
+                        imageIcon = new ImageIcon(imageCl1);
+                        mapClient.put(client, imageIcon);
+                    } else {
+                        imageIcon = new ImageIcon(imageCl2);
+                        mapClient.put(client, imageIcon);
+                    }
 
-                imageIcon.paintIcon(this,g,City.getInstance().getXMasPoint(client.getLacation()-offsetX),
-                        City.getInstance().getYMasPoint(client.getLacation())-offsetY);
+                    imageIcon.paintIcon(this, g, City.getInstance().getXMasPoint(client.getLacation() - offsetX),
+                            City.getInstance().getYMasPoint(client.getLacation()) - offsetY);
+                }
             }
 
 

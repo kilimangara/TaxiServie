@@ -43,9 +43,12 @@ public class AddClientDialog extends JDialog  {
             int start = Integer.parseInt(comboBox.getItemAt(comboBox.getSelectedIndex()));
             int finish = Integer.parseInt(comboBox2.getItemAt(comboBox2.getSelectedIndex()));
             String name1 = name.getText();
-            Client client = new Client(name1, start, finish);
-            Controller.addClientToList(client);
-            setVisible(false);
+            if(City.getInstance().getTaxis().size()!=0) {
+                Client client = new Client(name1, start, finish);
+                Controller.addClientToList(client);
+                Controller.setTaxiRouteToClient(client);
+                setVisible(false);
+            }
         });
     }
 }
