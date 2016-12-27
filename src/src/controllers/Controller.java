@@ -41,9 +41,9 @@ public class Controller {
                 System.out.println("in route "+taxi.isRouteSet()+" going home "+taxi.goHome);
                 if ((!taxi.isRouteSet()&&!client.hasDriver)||(taxi.goHome)) {
                     taxi.setRouteToClient(true);
-                    taxi.activeClient = client;
-                    taxi.setRoute(taxi.getPosition(), client.getLacation());
-                    taxi.goHome=false;
+                    taxi.pickClient(client);
+                   // taxi.setRoute(taxi.getPosition(), client.getLacation());
+                   // taxi.goHome=false;
                     client.hasDriver = true;
                     checkIfFound(client);
                     break;

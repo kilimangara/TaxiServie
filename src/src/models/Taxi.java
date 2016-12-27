@@ -87,7 +87,11 @@ public class Taxi {
     }
 
     private boolean lastPoint(){
-        return route.getNextPoint() == -1;
+        if(route != null) {
+            return route.getNextPoint() == -1;
+        } else {
+            return true;
+        }
 
     }
 
@@ -102,13 +106,57 @@ public class Taxi {
         if(!lastPoint()) {
             if ((x == City.getInstance().getXMasPoint(route.getNextPoint())) &&
                     (y == City.getInstance().getYMasPoint(route.getNextPoint()))) {
+                if(activeClient!=null){
+                    reSetRoute(activeClient);
+                    return false;
+                }
                 route.switchPosition();
                 position = route.getCurrentPoint();
                 checkDirection();
             }
             return false;
         } else {
-            if(activeClient!=null){
+            if(clients.size()!=0){
+                Client client = clients.get(0);
+                if(activeClient!=null){
+                    reSetRoute(activeClient);
+                    return false;
+                }
+               // System.out.println("Taxi position "+getPosition()+" client position "+client.getLacation()+" client dest "+client.getDestination());
+                if(getPosition() == client.getLacation()){
+                    stopTaxi();
+                    setRoute(client.getLacation(), client.getDestination());
+                    client.isInCar = true;
+                    isRouteToClient=false;
+                    return false;
+                }
+                if (getPosition() == client.getDestination()){
+                    stopTaxi();
+                    setRoute(getPosition(), ID_OF_CAR_PLACE);
+                    goHome = true;
+                    client.isInCar=false;
+                    client.setLacation(client.getDestination());
+                    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                        Controller.deleteClientFromList(client);
+                        clients.remove(client);
+                    },3,1, TimeUnit.SECONDS);
+                    return false;
+
+                }
+                if( getPosition() == ID_OF_CAR_PLACE){
+                    this.isRouteSet = false;
+                    route = null;
+                    goHome = false;
+                    return false;
+                }
+
+                return false;
+            }
+            return true;
+
+
+
+           /* if(activeClient!=null){
                 stopTaxi();
                 setRoute(activeClient.getLacation(), activeClient.getDestination());
                 pickClient(activeClient);
@@ -134,8 +182,21 @@ public class Taxi {
                     },3,1, TimeUnit.SECONDS);
                     return false;
                 }
-            }
+            }*/
         }
+    }
+
+    public void reSetRoute(Client client){
+
+        int pos = ID_OF_CAR_PLACE;
+        if(getPosition()!=ID_OF_CAR_PLACE){
+            pos = route.getNextPoint();
+        }
+        setRoute(pos,client.getLacation());
+        activeClient = null;
+        goHome=false;
+        isRouteToClient = false;
+
     }
 
     public int getPosition() {
@@ -192,6 +253,7 @@ public class Taxi {
     public void pickClient(Client client){
         if(clients.size()<4){
             clients.add(client);
+            activeClient = client;
         }
 
     }

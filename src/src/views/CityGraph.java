@@ -163,7 +163,7 @@ public class CityGraph extends mxGraphComponent  {
                     rotatedIcon1 = new RotatedIcon(image,0);
                     map.put(taxi, rotatedIcon1);
                 }
-                if(taxi.isRouteSet()) {
+                if(taxi.isRouteSet()||taxi.isRouteToClient()) {
                     if (!taxi.nextPoint()) {
                         rotateImage(rotatedIcon1, taxi.getDirection());
                         rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
