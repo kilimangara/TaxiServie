@@ -26,6 +26,7 @@ public class Controller {
     public static void addClientToList(Client client){
         if(City.getInstance().getClients().size()<MAXCLIENTS) {
             City.getInstance().getClients().add(client);
+            setTaxiRouteToClient(client);
         }
     }
 
@@ -34,14 +35,15 @@ public class Controller {
 
     }
 
-    public static void setTaxiRouteToClient(Client client){
+    private static void setTaxiRouteToClient(Client client){
         timer = new Timer(1000, e -> {
             for (Taxi taxi : City.getInstance().getTaxis()) {
-                System.out.println("taxi "+taxi.toString()+" is on drive "+taxi.isRouteSet());
-                if (!taxi.isRouteSet()&&!client.hasDriver) {
+                System.out.println("in route "+taxi.isRouteSet()+" going home "+taxi.goHome);
+                if ((!taxi.isRouteSet()&&!client.hasDriver)||(taxi.goHome)) {
                     taxi.setRouteToClient(true);
                     taxi.activeClient = client;
                     taxi.setRoute(taxi.getPosition(), client.getLacation());
+                    taxi.goHome=false;
                     client.hasDriver = true;
                     checkIfFound(client);
                     break;

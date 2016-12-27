@@ -14,6 +14,7 @@ public class Client {
 
     private int destination;
 
+
     private boolean tooLongWaiting;
 
     public boolean isTooLongWaiting() {
@@ -25,7 +26,11 @@ public class Client {
         this.lacation = lacation;
         this.destination = destination;
         this.tooLongWaiting =false;
-        new Timer(17000,e->tooLongWaiting =true).start();
+        new Timer(17000,e-> {
+            if (!hasDriver) {
+                tooLongWaiting = true;
+            }
+        }).start();
         this.isInCar = false;
         this.hasDriver =false;
         callTaxi();

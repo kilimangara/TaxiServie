@@ -46,7 +46,6 @@ public class AddClientDialog extends JDialog  {
             if(City.getInstance().getTaxis().size()!=0) {
                 Client client = new Client(name1, start, finish);
                 Controller.addClientToList(client);
-                Controller.setTaxiRouteToClient(client);
                 setVisible(false);
             }
         });

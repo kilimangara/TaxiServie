@@ -16,18 +16,6 @@ public class Taxi {
 
     private String car;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getCar() {
-        return car;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
     private String number;
 
     private ArrayList<Client> clients;
@@ -44,6 +32,8 @@ public class Taxi {
 
     private int direction;
 
+    public boolean goHome ;
+
     private boolean freePlaces;
     /**
      * id of Point
@@ -54,6 +44,18 @@ public class Taxi {
      */
     private int x;
     private int y;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 
     public boolean isRouteSet() {
         return isRouteSet;
@@ -114,11 +116,22 @@ public class Taxi {
                 if(getPosition()==ID_OF_CAR_PLACE){
                     this.isRouteSet= false;
                     route = null;
+                    goHome = false;
                     return false;
                 } else {
                     stopTaxi();
                     setRoute(getPosition(), ID_OF_CAR_PLACE);
-                    Controller.deleteClientFromList(clients.get(0));
+                    goHome = true;
+                    clients.get(0).isInCar=false;
+                    clients.get(0).setLacation(clients.get(0).getDestination());
+                    //Controller.deleteClientFromList(clients.get(0));
+                    Timer timer = new Timer(3000, e->{if(clients.size()!=0){
+                        Controller.deleteClientFromList(clients.get(0));
+                        clients.remove(0);}});
+                    timer.start();
+                    if(clients.size()==0){
+                        timer.stop();
+                    }
                     return false;
                 }
             }
@@ -127,10 +140,6 @@ public class Taxi {
 
     public int getPosition() {
         return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     public void nextStep(){
@@ -177,6 +186,7 @@ public class Taxi {
         clients = new ArrayList<>();
         this.isStopped = false;
         this.isRouteSet =false;
+        goHome =false;
         this.position = ID_OF_CAR_PLACE;
     }
     public void pickClient(Client client){
