@@ -17,7 +17,13 @@ public class AddRandomClients  {
         Random random = new Random();
         int start1,finish1;
         start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
+        if(start1==20){
+            start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
+        }
         finish1= random.nextInt(City.getInstance().vertexCount-1)+1;
+        if(finish1 == start1){
+            finish1= random.nextInt(City.getInstance().vertexCount-1)+1;
+        }
         Client client = new Client("name",start1,finish1);
         Controller.addClientToList(client);
 

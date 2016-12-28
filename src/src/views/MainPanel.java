@@ -4,6 +4,7 @@ package views;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
+import controllers.Controller;
 import models.*;
 import javax.swing.*;
 import java.awt.*;
@@ -77,14 +78,19 @@ public class MainPanel extends JFrame implements ComponentListener{
     private void loadFile(){
         File file = new File("saveFile.txt");
         File file1 = new File("saveFile1.txt");
+        List<Client> list;
         try {
             ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
             City.getInstance().setTaxis((List<Taxi>)stream.readObject());
             ObjectInputStream stream1 = new ObjectInputStream(new FileInputStream(file1));
-            City.getInstance().setClients((List<Client>)stream1.readObject());
-            System.out.println(City.getInstance().getClients());
+            list=(List<Client>)stream1.readObject();
+            //System.out.println(City.getInstance().getClients());
             stream.close();
             stream1.close();
+            for(Client client:list){
+                Controller.addClientToList(client);
+            }
+
         } catch (IOException | ClassNotFoundException ignored) {
             System.out.println(ignored.getLocalizedMessage());
         }
@@ -97,7 +103,8 @@ public class MainPanel extends JFrame implements ComponentListener{
             ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
             stream.writeObject(City.getInstance().getTaxis());
             ObjectOutputStream stream1 = new ObjectOutputStream(new FileOutputStream(file1));
-            stream.writeObject(City.getInstance().getClients());
+            stream1.writeObject(City.getInstance().getClients());
+            System.out.println(City.getInstance().getClients());
             stream.close();
             stream1.close();
         } catch (IOException e) {
@@ -105,7 +112,7 @@ public class MainPanel extends JFrame implements ComponentListener{
         }
     }
     public void initGUI(){
-        setSize(800, 600);
+        setSize(900, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml","matr.xml");
@@ -194,7 +201,7 @@ public class MainPanel extends JFrame implements ComponentListener{
 
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
-        component.setPreferredSize(new Dimension(400, 550));
+        component.setPreferredSize(new Dimension(450, 650));
         getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
