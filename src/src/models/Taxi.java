@@ -83,7 +83,7 @@ public class Taxi {
 
     public String getClients(){
 
-        String clients="";
+        String clients=" ";
         for(Client client:this.clients){
             if(client.isInCar){
                 clients= clients+client.getName()+" ";
@@ -121,14 +121,34 @@ public class Taxi {
                     reSetRoute(activeClient, getPosition());
                     return false;
                 }
+                if(clients.size()>1) {
+                    for(int i=1;i< clients.size();++i) {
+                        Client client =clients.get(i);
+                        if (getPosition() == client.getLacation()) {
+                            stopTaxi();
+                            client.isInCar = true;
+                            isRouteToClient = false;
+                            continue;
+                        }
+                        if (getPosition() == client.getDestination()) {
+                            stopTaxi();
+                            client.isInCar = false;
+                            client.setLacation(client.getDestination());
+                            clients.remove(client);
+                            Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                                Controller.deleteClientFromList(client);
+                            }, 3, 1, TimeUnit.SECONDS);
+                        }
+                    }
+                }
                 checkDirection();
             }
             return false;
         } else {
             if(clients.size()!=0){
-                for(int i=0; i<clients.size();++i) {
-                    Client client = clients.get(i);
+                    Client client = clients.get(0);
                     if (activeClient != null) {
+                        System.out.println("in activeClient");
                         int pos = ID_OF_CAR_PLACE;
                         if (getPosition() != ID_OF_CAR_PLACE) {
                             pos = route.getNextPoint();
@@ -138,6 +158,7 @@ public class Taxi {
                     }
                     // System.out.println("Taxi position "+getPosition()+" client position "+client.getLacation()+" client dest "+client.getDestination());
                     if (getPosition() == client.getLacation()) {
+                        System.out.println("in clientLocation");
                         stopTaxi();
                         setRoute(client.getLacation(), client.getDestination());
                         client.isInCar = true;
@@ -145,28 +166,26 @@ public class Taxi {
                         return false;
                     }
                     if (getPosition() == client.getDestination()) {
+                        System.out.println("in destination");
                         stopTaxi();
                         client.isInCar = false;
                         client.setLacation(client.getDestination());
+                        clients.remove(client);
                         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
                             Controller.deleteClientFromList(client);
-                            clients.remove(client);
                         }, 3, 1, TimeUnit.SECONDS);
-                        if(clients.size()==1) {
-                            goHome = true;
-                            setRoute(getPosition(), ID_OF_CAR_PLACE);
-                        }
+                        goHome = true;
+                        setRoute(getPosition(), ID_OF_CAR_PLACE);
                         return false;
-
                     }
                     if (getPosition() == ID_OF_CAR_PLACE) {
+                        System.out.println("in at home");
                         this.isRouteSet = false;
                         route = null;
                         goHome = false;
                         return false;
                     }
-                    return false;
-                }
+                return false;
             }
             return true;
 
@@ -203,6 +222,9 @@ public class Taxi {
     }
 
     public boolean checkRoute(Client client){
+        if(route == null){
+            return false;
+        }
        int begin= route.route.indexOf(client.getLacation());
         int end = route.route.indexOf(client.getDestination());
         return end != -1 && begin != -1 && end > begin;
@@ -277,10 +299,12 @@ public class Taxi {
             clients.add(client);
             activeClient = client;
             setRouteToClient(true);
+            System.out.println("First client picked");
             return true;
         }
         if(clients.size()<4){
             clients.add(client);
+            System.out.println("after first client picked");
             return true;
         }
         return false;
