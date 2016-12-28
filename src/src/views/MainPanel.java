@@ -105,12 +105,19 @@ public class MainPanel extends JFrame implements ComponentListener{
             JDialog dialog = new AddClientDialog(this);
             dialog.setVisible(true);
         });
+
+        JButton button3 = new JButton("Добавить рандомных клиентов");
+        button3.addActionListener(e -> {
+             AddRandomClients.AddRandomClients();
+        });
+
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
         component.setPreferredSize(new Dimension(400, 550));
         getContentPane().add(component, new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
+        getContentPane().add(button3, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(140,0,0,0),0,0));
 
 
         //graph.getModel().beginUpdate();
