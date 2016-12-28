@@ -19,7 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class CityGraph extends mxGraphComponent  {
@@ -171,6 +175,34 @@ public class CityGraph extends mxGraphComponent  {
                     }
                 }
             }
+            // рандомное появление клиентов
+
+          //  ExecutorService service = Executors.newCachedThreadPool();
+ /*           for(int i = 0; i < 5; i++) {
+                service.submit(new Runnable() {
+                    public void run() {
+                        Random random = new Random(City.getInstance().vertexCount);
+                        int start,finish;
+                        start = random.nextInt();
+                        finish= random.nextInt();
+                        Client client = new Client("name",start,finish);
+                        //Controller.addClientToList(client);
+                    }
+                });
+            }*/
+           /* ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+            service.scheduleAtFixedRate(new Runnable() {
+                @Override
+                public void run() {
+                    Random random = new Random(City.getInstance().vertexCount);
+                 int start,finish;
+                    start = random.nextInt();
+                    finish= random.nextInt();
+                    Client client = new Client("name",start,finish);
+                     //Controller.addClientToList(client);
+                }
+            }, 0, 5, TimeUnit.SECONDS);*/
+
             for(Client client:City.getInstance().getClients()){
                 if(!client.isInCar) {
                     ImageIcon imageIcon = mapClient.get(client);

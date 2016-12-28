@@ -101,7 +101,7 @@ public class Taxi {
             new Timer(2500,e -> isStopped=false).start();
         }
     }
-    public boolean nextPoint(){
+    public boolean nextPoint(){  // true - нет следующе  точки
 
         if(!lastPoint()) {
             if ((x == City.getInstance().getXMasPoint(route.getNextPoint())) &&
