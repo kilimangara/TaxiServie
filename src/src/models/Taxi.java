@@ -106,7 +106,7 @@ public class Taxi implements Serializable{
     public void stopTaxi(){
         if(!isStopped) {
             isStopped = true;
-            new Timer(3000,e -> isStopped=false).start();
+            new Timer(2000,e -> isStopped=false).start();
         }
     }
     public boolean nextPoint(){  // true - нет следующе  точки
