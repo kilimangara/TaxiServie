@@ -76,23 +76,32 @@ public class MainPanel extends JFrame implements ComponentListener{
 
     private void loadFile(){
         File file = new File("saveFile.txt");
+        File file1 = new File("saveFile1.txt");
         try {
             ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
             City.getInstance().setTaxis((List<Taxi>)stream.readObject());
-        } catch (IOException ignored) {
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            ObjectInputStream stream1 = new ObjectInputStream(new FileInputStream(file1));
+            City.getInstance().setClients((List<Client>)stream1.readObject());
+            System.out.println(City.getInstance().getClients());
+            stream.close();
+            stream1.close();
+        } catch (IOException | ClassNotFoundException ignored) {
+            System.out.println(ignored.getLocalizedMessage());
         }
     }
 
     private void saveFile(){
         File file = new File("saveFile.txt");
+        File file1 = new File("saveFile1.txt");
         try {
             ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
             stream.writeObject(City.getInstance().getTaxis());
+            ObjectOutputStream stream1 = new ObjectOutputStream(new FileOutputStream(file1));
+            stream.writeObject(City.getInstance().getClients());
+            stream.close();
+            stream1.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
         }
     }
     public void initGUI(){

@@ -27,6 +27,10 @@ public class City {
         return masPoint[0][n];
     }
 
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
     public int getYMasPoint(int n) {  // getter y for idPoint= n
         return masPoint[1][n];
     }

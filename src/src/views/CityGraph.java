@@ -111,8 +111,6 @@ public class CityGraph extends mxGraphComponent  {
 
             }
         });
-        //rotatedIcon = new RotatedIcon(image,0);
-        // rotateImage(RIGHT);
     }
     private void loadImage(){
         try {
@@ -218,7 +216,7 @@ public class CityGraph extends mxGraphComponent  {
                         mapClient.put(client, imageIcon);
                     }
 
-                    imageIcon.paintIcon(this, g, City.getInstance().getXMasPoint(client.getLacation() - offsetX),
+                    imageIcon.paintIcon(this, g, City.getInstance().getXMasPoint(client.getLacation()) - offsetX,
                             City.getInstance().getYMasPoint(client.getLacation()) - offsetY);
                 }
             }

@@ -3,11 +3,12 @@ package models;
 import views.CityGraph;
 import models.City;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Route {
+public class Route implements Serializable{
 
     private boolean isSet;
 

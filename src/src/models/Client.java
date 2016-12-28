@@ -1,9 +1,10 @@
 package models;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Client {
+public class Client implements Serializable {
     private String name;
 
     public boolean isInCar;
