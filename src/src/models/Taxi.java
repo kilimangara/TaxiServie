@@ -36,8 +36,6 @@ public class Taxi {
     private int direction;
 
     public boolean goHome ;
-
-    private boolean freePlaces;
     /**
      * id of Point
      */
@@ -82,6 +80,17 @@ public class Taxi {
     public int getDirection(){
         return direction;
     }
+
+    public String getClients(){
+
+        String clients="";
+        for(Client client:this.clients){
+            if(client.isInCar){
+                clients= clients+client.getName()+" ";
+            }
+        }
+        return clients;
+    }
     public void checkDirection(){
         direction = route.getDirection();
     }
@@ -98,7 +107,7 @@ public class Taxi {
     public void stopTaxi(){
         if(!isStopped) {
             isStopped = true;
-            new Timer(2500,e -> isStopped=false).start();
+            new Timer(2000,e -> isStopped=false).start();
         }
     }
     public boolean nextPoint(){  // true - нет следующе  точки
@@ -106,51 +115,58 @@ public class Taxi {
         if(!lastPoint()) {
             if ((x == City.getInstance().getXMasPoint(route.getNextPoint())) &&
                     (y == City.getInstance().getYMasPoint(route.getNextPoint()))) {
-                if(activeClient!=null){
-                    reSetRoute(activeClient);
-                    return false;
-                }
                 route.switchPosition();
                 position = route.getCurrentPoint();
+                if(activeClient!=null){
+                    reSetRoute(activeClient, getPosition());
+                    return false;
+                }
                 checkDirection();
             }
             return false;
         } else {
             if(clients.size()!=0){
-                Client client = clients.get(0);
-                if(activeClient!=null){
-                    reSetRoute(activeClient);
-                    return false;
-                }
-               // System.out.println("Taxi position "+getPosition()+" client position "+client.getLacation()+" client dest "+client.getDestination());
-                if(getPosition() == client.getLacation()){
-                    stopTaxi();
-                    setRoute(client.getLacation(), client.getDestination());
-                    client.isInCar = true;
-                    isRouteToClient=false;
-                    return false;
-                }
-                if (getPosition() == client.getDestination()){
-                    stopTaxi();
-                    setRoute(getPosition(), ID_OF_CAR_PLACE);
-                    goHome = true;
-                    client.isInCar=false;
-                    client.setLacation(client.getDestination());
-                    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-                        Controller.deleteClientFromList(client);
-                        clients.remove(client);
-                    },3,1, TimeUnit.SECONDS);
-                    return false;
+                for(int i=0; i<clients.size();++i) {
+                    Client client = clients.get(i);
+                    if (activeClient != null) {
+                        int pos = ID_OF_CAR_PLACE;
+                        if (getPosition() != ID_OF_CAR_PLACE) {
+                            pos = route.getNextPoint();
+                        }
+                        reSetRoute(activeClient, pos);
+                        return false;
+                    }
+                    // System.out.println("Taxi position "+getPosition()+" client position "+client.getLacation()+" client dest "+client.getDestination());
+                    if (getPosition() == client.getLacation()) {
+                        stopTaxi();
+                        setRoute(client.getLacation(), client.getDestination());
+                        client.isInCar = true;
+                        isRouteToClient = false;
+                        return false;
+                    }
+                    if (getPosition() == client.getDestination()) {
+                        stopTaxi();
+                        client.isInCar = false;
+                        client.setLacation(client.getDestination());
+                        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                            Controller.deleteClientFromList(client);
+                            clients.remove(client);
+                        }, 3, 1, TimeUnit.SECONDS);
+                        if(clients.size()==1) {
+                            goHome = true;
+                            setRoute(getPosition(), ID_OF_CAR_PLACE);
+                        }
+                        return false;
 
-                }
-                if( getPosition() == ID_OF_CAR_PLACE){
-                    this.isRouteSet = false;
-                    route = null;
-                    goHome = false;
+                    }
+                    if (getPosition() == ID_OF_CAR_PLACE) {
+                        this.isRouteSet = false;
+                        route = null;
+                        goHome = false;
+                        return false;
+                    }
                     return false;
                 }
-
-                return false;
             }
             return true;
 
@@ -186,12 +202,18 @@ public class Taxi {
         }
     }
 
-    public void reSetRoute(Client client){
+    public boolean checkRoute(Client client){
+       int begin= route.route.indexOf(client.getLacation());
+        int end = route.route.indexOf(client.getDestination());
+        return end != -1 && begin != -1 && end > begin;
+    }
 
-        int pos = ID_OF_CAR_PLACE;
+    public void reSetRoute(Client client, int pos){
+
+        /*int pos = ID_OF_CAR_PLACE;
         if(getPosition()!=ID_OF_CAR_PLACE){
             pos = route.getNextPoint();
-        }
+        }*/
         setRoute(pos,client.getLacation());
         activeClient = null;
         goHome=false;
@@ -250,11 +272,18 @@ public class Taxi {
         goHome =false;
         this.position = ID_OF_CAR_PLACE;
     }
-    public void pickClient(Client client){
-        if(clients.size()<4){
+    public boolean pickClient(Client client){
+        if(clients.size()==0){
             clients.add(client);
             activeClient = client;
+            setRouteToClient(true);
+            return true;
         }
+        if(clients.size()<4){
+            clients.add(client);
+            return true;
+        }
+        return false;
 
     }
     public void setRoute(int start, int end){

@@ -39,14 +39,14 @@ public class Controller {
         timer = new Timer(1000, e -> {
             for (Taxi taxi : City.getInstance().getTaxis()) {
                 System.out.println("in route "+taxi.isRouteSet()+" going home "+taxi.goHome);
-                if ((!taxi.isRouteSet()&&!client.hasDriver)||(taxi.goHome)) {
-                    taxi.setRouteToClient(true);
-                    taxi.pickClient(client);
-                   // taxi.setRoute(taxi.getPosition(), client.getLacation());
-                   // taxi.goHome=false;
-                    client.hasDriver = true;
-                    checkIfFound(client);
-                    break;
+                if(!client.hasDriver) {
+                    if ((!taxi.isRouteSet()) || (taxi.goHome) ||(taxi.checkRoute(client))) {
+                        if(taxi.pickClient(client)) {
+                            client.hasDriver = true;
+                            checkIfFound(client);
+                            break;
+                        }
+                    }
                 }
             }
         });

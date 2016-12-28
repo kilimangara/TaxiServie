@@ -29,14 +29,17 @@ public class AddClientDialog extends JDialog  {
         JLabel name = new JLabel("Name");
         JTextField edName =  new JTextField(10);
         JButton OkButton = new JButton("Ok");
-        setLayout(new GridLayout(4,2));
-        add(from);
-        add(comboBox);
-        add(to);
-        add(comboBox2);
-        add(name);
-        add(edName);
-        add(OkButton);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3,2));
+        setLayout(new BorderLayout());
+        panel.add(from);
+        panel.add(comboBox);
+        panel.add(to);
+        panel.add(comboBox2);
+        panel.add(name);
+        panel.add(edName);
+        add(panel, BorderLayout.NORTH);
+        add(OkButton,BorderLayout.AFTER_LAST_LINE);
         setSize(250,150);
 
 
@@ -47,9 +50,7 @@ public class AddClientDialog extends JDialog  {
             int finish = Integer.parseInt(comboBox2.getItemAt(comboBox2.getSelectedIndex()));
             String name1 = name.getText();
 
-            Random random = new Random();
-
-
+           /* Random random = new Random();
             if(City.getInstance().getTaxis().size()!=0) {
                 for(int i = 0; i < 5; i++) {
 
@@ -67,13 +68,11 @@ public class AddClientDialog extends JDialog  {
                         e1.printStackTrace();
                     }
                 }
+                }*/
 
-                setVisible(false);
-                /*Client client = new Client(name1, start, finish);
+                Client client = new Client(name1, start, finish);
                 Controller.addClientToList(client);
-                setVisible(false);*/
-            }
-
+                setVisible(false);
         });
     }
 }

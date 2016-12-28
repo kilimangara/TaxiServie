@@ -66,4 +66,11 @@ public class Client {
         this.destination = destination;
     }
 
+    @Override
+    public String toString() {
+        if(name==null){
+            name = "Client";
+        }
+        return this.name;
+    }
 }
