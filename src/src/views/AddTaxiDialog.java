@@ -1,6 +1,8 @@
 package views;
 
+import controllers.Controller;
 import models.Route;
+import models.Taxi;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,30 +12,30 @@ import java.awt.*;
  */
 public class AddTaxiDialog extends JDialog {
 
-    public interface Listener{
-        void buttonPressed(Route route);
-    }
-
-    Listener listener;
 
     public AddTaxiDialog(JFrame owner){
         super(owner, "Добавление такси",true);
-        listener = (Listener) owner;
-        JTextField route =  new JTextField(18);
+        JLabel name = new JLabel("Name");
+        JTextField edName =  new JTextField(18);
+        JLabel number = new JLabel("number");
+        JTextField edNumber =  new JTextField(18);
+        JLabel car = new JLabel("car");
+        JTextField edcar =  new JTextField(18);
         JButton OkButton = new JButton("Ok");
-        setLayout(new GridLayout(2,1));
-        add(route);
+        setLayout(new GridLayout(4,2));
+        add(name);
+        add(edName);
+        add(number);
+        add(edNumber);
+        add(car);
+        add(edcar);
         add(OkButton);
         setSize(250,150);
 
         setLocationRelativeTo(owner);
         OkButton.addActionListener(e->{
-            String [] stringRoute = route.getText().split(",");
-            Route route1 = new Route();
-            for (String string : stringRoute) {
-                route1.route.add(Integer.parseInt(string));
-            }
-            listener.buttonPressed(route1);
+            Taxi taxi = new Taxi(edName.getText(), edcar.getText(), edNumber.getText());
+            Controller.addTaxiToList(taxi);
             setVisible(false);
         });
     }

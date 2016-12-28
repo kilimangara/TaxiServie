@@ -4,11 +4,11 @@
 	<structura  street="31" id="1" x="30" y="30" >
         <relates id1="2" id2="4" id3="0" id4="0"/>
 	</structura>
-	<structura  street="30" id="2" x="150" y = "30">
+	<structura  street="Street1" id="2" x="150" y = "30">
         <relates id1="1" id2="3" id3="5" id4="0"/>
 	</structura>
 	<structura  street="Street1" id="3" x="330" y = "30">
-        <relates id1="2" id2="6" id3="10" id4="0"/>
+        <relates id1="2" id2="6" id3="19" id4="0"/>
 	</structura>
 	<structura  street="Street2" id="4" x="30" y = "100">
         <relates id1="1" id2="7" id3="0" id4="0"/>
@@ -32,7 +32,7 @@
 		<relates id1="7" id2="11" id4="13" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="11" x="150" y = "230">
-		<relates id1="10" id2="14" id4="8" id3="0"/>
+		<relates id1="8" id2="14" id4="10" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="12" x="330" y = "230">
 		<relates id1="9" id2="15" id4="22" id3="0"/>
@@ -44,7 +44,7 @@
 		<relates id1="15" id2="11" id4="0" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="15" x="330" y = "290">
-		<relates id1="14" id2="12" id4="18" id3="23"/>
+		<relates id1="14" id2="12" id4="23" id3="18"/>
 	</structura>
 	<structura  street="Street3" id="16" x="30" y = "350">
 		<relates id1="17" id2="13" id4="0" id3="0"/>
@@ -53,13 +53,13 @@
 		<relates id1="18" id2="16" id4="0" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="18" x="330" y = "350">
-		<relates id1="15" id2="17" id4="24" id3="0"/>
+		<relates id1="15" id2="24" id4="17" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="19" x="400" y = "30">
 		<relates id1="3" id2="20" id4="25" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="20" x="400" y = "100">
-		<relates id1="6" id2="19" id4="26" id3="0"/>
+		<relates id1="6" id2="26" id4="19" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="21" x="400" y = "170">
 		<relates id1="22" id2="9" id4="27" id3="0"/>

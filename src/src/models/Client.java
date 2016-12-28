@@ -1,23 +1,44 @@
 package models;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Client {
-    String name;
-    String telephone;
-    int lacation;
-    int destination;
+    private String name;
+
+    public boolean isInCar;
+
+    public boolean hasDriver;
+
+    private int lacation;
+
+    private int destination;
+
+
+    private boolean tooLongWaiting;
+
+    public boolean isTooLongWaiting() {
+        return tooLongWaiting;
+    }
 
     public Client(String name, int lacation, int destination) {
         this.name = name;
-        this.telephone = telephone;
         this.lacation = lacation;
         this.destination = destination;
+        this.tooLongWaiting =false;
+        new Timer(17000,e-> {
+            if (!hasDriver) {
+                tooLongWaiting = true;
+            }
+        }).start();
+        this.isInCar = false;
+        this.hasDriver =false;
         callTaxi();
     }
 
     private void callTaxi() {
         //making an order for taxi
+
     }
 
     public String getName() {
@@ -28,13 +49,6 @@ public class Client {
         this.name = name;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
 
     public int getLacation() {
         return lacation;
@@ -52,21 +66,4 @@ public class Client {
         this.destination = destination;
     }
 
-    public static class Taxi {
-        private static final int MAX_CAR_PLACES=4;
-        private String name;
-        private String car;
-        private String number;
-        private int peopleInside;
-        private ArrayList<Client> clients;
-        private int route;
-        private boolean freePlaces;
-        private int position;
-
-
-
-
-
-
-    }
 }

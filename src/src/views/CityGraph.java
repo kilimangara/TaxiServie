@@ -11,10 +11,7 @@ import models.Taxi;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -32,14 +29,21 @@ public class CityGraph extends mxGraphComponent  {
     public static final int TOP=2;
     public static final int BOTTOM=3;
 
+    private int offsetY=0;
+    private int offsetX=0;
+
     private Icon image;
-    private Icon imageCl1;
-    private Icon imageCl2;
+    private Image imageCl1;
+    private Image imageCl2;
 
     private Map<Taxi, RotatedIcon> map;
     private Map<Client, ImageIcon> mapClient;
     private Timer timer;
-    private JFrame context;
+    //private JFrame context;
+
+    private JScrollBar horizontal;
+
+    private   JScrollBar vertical;
 
 
     public CityGraph(mxGraph graph, JFrame context){
@@ -47,21 +51,23 @@ public class CityGraph extends mxGraphComponent  {
         loadImage();
         map = new HashMap<>();
         mapClient= new HashMap<>();
-        Route route = new Route();
-        route.route.add(1);
+      /*  Route route = new Route(1,10);
+        /*route.route.add(1);
         route.route.add(2);
         route.route.add(5);
         route.route.add(6);
-        route.route.add(9);
-        Route route1 = new Route();
-        route1.route.add(8);
+        route.route.add(9);*/
+        //Route route1 = new Route(8,1);
+       /* route1.route.add(8);
         //route.route.add();
         route1.route.add(5);
         route1.route.add(2);
-        route1.route.add(1);
-        City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
-        City.getInstance().getTaxis().add(new Taxi(route));
-        City.getInstance().getClients().add(new Client("Petrov",1,3));
+        route1.route.add(1);*/
+       // City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
+        //City.getInstance().getTaxis().add(new Taxi(route));
+       // City.getInstance().getClients().add(new Client("Petrov",1,3));*/
+        horizontal = getHorizontalScrollBar();
+        vertical = getVerticalScrollBar();
         repaint();
         timer = new Timer(0, e -> repaint());
         this.getGraphControl().addMouseListener(new MouseListener() {
@@ -77,13 +83,6 @@ public class CityGraph extends mxGraphComponent  {
                         JDialog taxiDialog = new TaxiInfoDialog(context,taxi);
                         taxiDialog.setVisible(true);
                         flag=true;
-                        JPanel rightPanel = new JPanel();
-                        JButton button1 = new JButton("OK");
-                        Font font = new Font("Verdana",Font.PLAIN, 11);
-                        button1.setFont(font);
-                        rightPanel.add(button1);
-
-                        rightPanel.setVisible(true);
                     }
                 }
             }
@@ -116,11 +115,9 @@ public class CityGraph extends mxGraphComponent  {
             Image  image1 = ImageIO.read(new File("ic_marker_driver.png"));
             image = new ImageIcon(image1);
 
-            Image  imageClient = ImageIO.read(new File("Client1.png"));
-            imageCl1 = new ImageIcon(imageClient);
+            imageCl1 = ImageIO.read(new File("Client1.png"));
 
-            Image  imageClient2 = ImageIO.read(new File("Client2.png"));
-            imageCl2 = new ImageIcon(imageClient2);
+            imageCl2 = ImageIO.read(new File("Client2.png"));
 
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
@@ -158,45 +155,40 @@ public class CityGraph extends mxGraphComponent  {
         g.setColor(Color.CYAN);
 
         if(timer!=null){
+            offsetX = horizontal.getValue();
+            offsetY = vertical.getValue();
             for(Taxi taxi:City.getInstance().getTaxis()){
                 RotatedIcon rotatedIcon1= map.get(taxi);
                 if(rotatedIcon1 == null){
                     rotatedIcon1 = new RotatedIcon(image,0);
                     map.put(taxi, rotatedIcon1);
                 }
-                if(!taxi.nextPoint()){
-                    rotateImage(rotatedIcon1, taxi.getDirection());
-                    rotatedIcon1.paintIcon(this,g, taxi.getX(), taxi.getY());
-                    taxi.nextStep();
-
-                } else {
-                    map.remove(taxi);
-                    Controller.deleteTaxiFromList(taxi);
+                if(taxi.isRouteSet()||taxi.isRouteToClient()) {
+                    if (!taxi.nextPoint()) {
+                        rotateImage(rotatedIcon1, taxi.getDirection());
+                        rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
+                        taxi.nextStep();
+                    }
                 }
             }
             for(Client client:City.getInstance().getClients()){
-                ImageIcon rotatedIcon1= mapClient.get(client);
-                if(rotatedIcon1 == null){
-                    try {
-                        rotatedIcon1 = new ImageIcon(ImageIO.read(new File("Client1.png")));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(!client.isInCar) {
+                    ImageIcon imageIcon = mapClient.get(client);
+                    if (imageIcon == null) {
+                        imageIcon = new ImageIcon(imageCl2);
+                        mapClient.put(client, imageIcon);
                     }
-                    mapClient.put(client, rotatedIcon1);
+                    if (client.isTooLongWaiting()) {
+                        imageIcon = new ImageIcon(imageCl1);
+                        mapClient.put(client, imageIcon);
+                    } else {
+                        imageIcon = new ImageIcon(imageCl2);
+                        mapClient.put(client, imageIcon);
+                    }
+
+                    imageIcon.paintIcon(this, g, City.getInstance().getXMasPoint(client.getLacation() - offsetX),
+                            City.getInstance().getYMasPoint(client.getLacation()) - offsetY);
                 }
-
-               // rotatedIcon1.paintIcon(this,g,200, 200);
-               // if(!client.){
-                  //  rotateImage(rotatedIcon1, taxi.getDirection());
-                //int x = City.getInstance().getXMasPoint(client.getLacation());
-              //  int y = City.getInstance().getYMasPoint(client.getLacation());
-
-                   // taxi.nextStep();
-
-              //  } else {
-                //    map.remove(taxi);
-              //      Controller.deleteTaxiFromList(taxi);
-              //  }
             }
 
 
