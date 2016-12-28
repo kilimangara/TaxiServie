@@ -5,13 +5,12 @@ import controllers.Controller;
 import views.CityGraph;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Taxi {
+public class Taxi implements Serializable{
     private static final int MAX_CAR_PLACES=4;
     public static final int ID_OF_CAR_PLACE=20;
 
@@ -107,7 +106,7 @@ public class Taxi {
     public void stopTaxi(){
         if(!isStopped) {
             isStopped = true;
-            new Timer(2000,e -> isStopped=false).start();
+            new Timer(3000,e -> isStopped=false).start();
         }
     }
     public boolean nextPoint(){  // true - нет следующе  точки
@@ -188,36 +187,6 @@ public class Taxi {
                 return false;
             }
             return true;
-
-
-
-           /* if(activeClient!=null){
-                stopTaxi();
-                setRoute(activeClient.getLacation(), activeClient.getDestination());
-                pickClient(activeClient);
-                activeClient.isInCar =true;
-                activeClient = null;
-                return false;
-            } else {
-                if(getPosition()==ID_OF_CAR_PLACE){
-                    this.isRouteSet= false;
-                    route = null;
-                    goHome = false;
-                    return false;
-                } else {
-                    stopTaxi();
-                    setRoute(getPosition(), ID_OF_CAR_PLACE);
-                    goHome = true;
-                    clients.get(0).isInCar=false;
-                    clients.get(0).setLacation(clients.get(0).getDestination());
-                    //Controller.deleteClientFromList(clients.get(0));
-                    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-                        Controller.deleteClientFromList(clients.get(0));
-                        clients.clear();
-                    },3,1, TimeUnit.SECONDS);
-                    return false;
-                }
-            }*/
         }
     }
 
@@ -267,22 +236,6 @@ public class Taxi {
                 break;
         }
     }
-    public Taxi(String name, String car, String number, Route route){
-        this.name = name;
-        this.car = car;
-        this.number = number;
-        this.clients = new ArrayList<>();
-        this.isRouteSet=true;
-        this.isStopped = false;
-        this.route = route;
-        this.x =City.getInstance().getXMasPoint(route.getCurrentPoint());
-        this.y = City.getInstance().getYMasPoint(route.getCurrentPoint());
-        this.position = route.getCurrentPoint();
-        checkDirection();
-    }
-    public Taxi( Route route){
-        this("A","B","C", route);
-    }
 
     public Taxi(String name, String car, String number){
         this.name = name;
@@ -299,12 +252,10 @@ public class Taxi {
             clients.add(client);
             activeClient = client;
             setRouteToClient(true);
-            System.out.println("First client picked");
             return true;
         }
         if(clients.size()<4){
             clients.add(client);
-            System.out.println("after first client picked");
             return true;
         }
         return false;

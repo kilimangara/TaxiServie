@@ -9,7 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class MainPanel extends JFrame implements ComponentListener{
     public static final int DEFAULT_SIZE=30;
@@ -20,15 +24,83 @@ public class MainPanel extends JFrame implements ComponentListener{
     public MainPanel(String name){
         super(name);
         initGUI();
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Object[] options = { "Да", "Нет!" };
+                int n = JOptionPane
+                        .showOptionDialog(e.getWindow(), "Закрыть окно?",
+                                "Подтверждение", JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, null, options,
+                                options[0]);
+                if (n == 0) {
+                    e.getWindow().setVisible(false);
+                    saveFile();
+                    System.exit(0);
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
 
 
+    private void loadFile(){
+        File file = new File("saveFile.txt");
+        try {
+            ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
+            City.getInstance().setTaxis((List<Taxi>)stream.readObject());
+        } catch (IOException ignored) {
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveFile(){
+        File file = new File("saveFile.txt");
+        try {
+            ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
+            stream.writeObject(City.getInstance().getTaxis());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void initGUI(){
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml","matr.xml");
+        loadFile();
         addComponentListener(this);
         map = new HashMap<>();
         setLayout(new GridBagLayout());
