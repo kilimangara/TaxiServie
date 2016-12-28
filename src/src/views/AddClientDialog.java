@@ -7,6 +7,7 @@ import models.Route;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 
 public class AddClientDialog extends JDialog  {
@@ -38,16 +39,41 @@ public class AddClientDialog extends JDialog  {
         add(OkButton);
         setSize(250,150);
 
+
+
         setLocationRelativeTo(owner);
         OkButton.addActionListener(e->{
             int start = Integer.parseInt(comboBox.getItemAt(comboBox.getSelectedIndex()));
             int finish = Integer.parseInt(comboBox2.getItemAt(comboBox2.getSelectedIndex()));
             String name1 = name.getText();
+
+            Random random = new Random();
+
+
             if(City.getInstance().getTaxis().size()!=0) {
-                Client client = new Client(name1, start, finish);
-                Controller.addClientToList(client);
+                for(int i = 0; i < 5; i++) {
+
+                    System.out.println(City.getInstance().vertexCount-1);
+                            int start1,finish1;
+                            start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
+                            finish1= random.nextInt(City.getInstance().vertexCount-1)+1;
+                            Client client = new Client("name",start1,finish1);
+                    System.out.println(start1);
+                    System.out.println(finish1);
+                            Controller.addClientToList(client);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
                 setVisible(false);
+                /*Client client = new Client(name1, start, finish);
+                Controller.addClientToList(client);
+                setVisible(false);*/
             }
+
         });
     }
 }

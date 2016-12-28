@@ -50,6 +50,7 @@ public class Controller {
                 }
             }
         });
+
         if((!client.hasDriver)) {
             timer.start();
             System.out.println("timer "+timer+" started");
