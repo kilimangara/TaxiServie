@@ -4,6 +4,7 @@ package models;
 import controllers.Controller;
 import views.CityGraph;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -134,9 +135,10 @@ public class Taxi implements Serializable{
                             client.isInCar = false;
                             client.setLacation(client.getDestination());
                             clients.remove(client);
-                            Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                            Executors.newSingleThreadScheduledExecutor().schedule(() -> {
                                 Controller.deleteClientFromList(client);
-                            }, 3, 1, TimeUnit.SECONDS);
+                                System.out.println("deleting client "+client);
+                            }, 3, TimeUnit.SECONDS);
                         }
                     }
                 }
@@ -170,9 +172,10 @@ public class Taxi implements Serializable{
                         client.isInCar = false;
                         client.setLacation(client.getDestination());
                         clients.remove(client);
-                        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                        Executors.newSingleThreadScheduledExecutor().schedule(() -> {
                             Controller.deleteClientFromList(client);
-                        }, 3, 1, TimeUnit.SECONDS);
+                            System.out.println("deleting client "+client);
+                        }, 3,  TimeUnit.SECONDS);
                         goHome = true;
                         setRoute(getPosition(), ID_OF_CAR_PLACE);
                         return false;

@@ -84,7 +84,7 @@ public class MainPanel extends JFrame implements ComponentListener{
             City.getInstance().setTaxis((List<Taxi>)stream.readObject());
             ObjectInputStream stream1 = new ObjectInputStream(new FileInputStream(file1));
             list=(List<Client>)stream1.readObject();
-            //System.out.println(City.getInstance().getClients());
+            System.out.println(City.getInstance().getClients());
             stream.close();
             stream1.close();
             for(Client client:list){

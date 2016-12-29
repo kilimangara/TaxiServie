@@ -29,7 +29,7 @@ public class AddRandomClients  {
             }
             Client client = new Client("name",start1,finish1);
             Controller.addClientToList(client);
-        },0,10, TimeUnit.SECONDS);
+        },0,7, TimeUnit.SECONDS);
 
        /* start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
         finish1= random.nextInt(City.getInstance().vertexCount-1)+1;
