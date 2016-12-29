@@ -5,8 +5,6 @@ import models.Client;
 import models.Taxi;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by nikitazlain on 22.12.16.
@@ -14,7 +12,7 @@ import java.util.Map;
 public class Controller {
     private final static int MAXCLIENTS=10;
     private final static int MAXTAXI=5;
-    private static final Map<Client, Timer> map = new HashMap<>();
+    private  static Timer timer ;
     public static void deleteTaxiFromList(Taxi taxi){
         City.getInstance().getTaxis().remove(taxi);
     }
@@ -23,6 +21,13 @@ public class Controller {
         if(City.getInstance().getTaxis().size()<MAXTAXI) {
             City.getInstance().getTaxis().add(taxi);
         }
+    }
+
+    public static void deleteTaxiFromList() {
+
+        if (City.getInstance().getTaxis().removeIf((s)->(s.getPosition()==20 )));
+
+
     }
 
     public static void addClientToList(Client client){
@@ -38,39 +43,38 @@ public class Controller {
     }
 
     private static void setTaxiRouteToClient(Client client){
-        Timer timer=  map.get(client);
-        if(timer == null) {
-            timer = new Timer(1000, e -> {
-                checkIfFound(client);
-                for (Taxi taxi : City.getInstance().getTaxis()) {
-                    // System.out.println("in route " + taxi.isRouteSet() + " going home " + taxi.goHome + " route relates " + taxi.checkRoute(client));
-                    if (!client.hasDriver) {
-                        if ((!taxi.isRouteSet()) || (taxi.goHome)) {
-                            if (taxi.pickClient(client)) {
+        timer = new Timer(1000, e -> {
+            for (Taxi taxi : City.getInstance().getTaxis()) {
+                System.out.println("in route "+taxi.isRouteSet()+" going home "+taxi.goHome+" route relates "+taxi.checkRoute(client));
+                if(!client.hasDriver) {
+                    if ((!taxi.isRouteSet()) || (taxi.goHome)) {
+                        if(taxi.pickClient(client)) {
+                            client.hasDriver = true;
+                            checkIfFound(client);
+                            break;
+                        }
+                    } else {
+                        if (taxi.checkRoute(client)){
+                            if(taxi.pickClient(client)) {
                                 client.hasDriver = true;
                                 checkIfFound(client);
                                 break;
                             }
-                        } else {
-                            if (taxi.checkRoute(client)) {
-                                if (taxi.pickClient(client)) {
-                                    client.hasDriver = true;
-                                    checkIfFound(client);
-                                    break;
-                                }
-                            }
                         }
                     }
                 }
-            });
+            }
+        });
+
+        if((!client.hasDriver)) {
             timer.start();
-            map.put(client, timer);
+            System.out.println("timer "+timer+" started");
         }
     }
     private static void checkIfFound(Client client){
-        if(client.hasDriver){
-            map.get(client).stop();
-            map.remove(client);
+        if (client.hasDriver){
+            timer.stop();
+            System.out.println("timer "+timer+" stopped");
         }
     }
 
