@@ -14,7 +14,7 @@ public class TaxiInfoDialog extends JDialog {
         JLabel car = new JLabel("Car: "+taxi.getCar());
         JLabel number = new JLabel("number: "+taxi.getNumber());
         JLabel name = new JLabel("driver:"+taxi.getName());
-        JLabel clients = new JLabel("clients:"+taxi.getClients());
+        JLabel clients = new JLabel("clients:"+taxi.getClientsString());
         setLayout(new GridLayout(4,1));
         add(car);
         add(number);

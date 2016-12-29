@@ -77,19 +77,19 @@ public class MainPanel extends JFrame implements ComponentListener{
 
     private void loadFile(){
         File file = new File("saveFile.txt");
-        File file1 = new File("saveFile1.txt");
+        //File file1 = new File("saveFile1.txt");
         List<Client> list;
         try {
             ObjectInputStream stream = new ObjectInputStream(new FileInputStream(file));
             City.getInstance().setTaxis((List<Taxi>)stream.readObject());
-            ObjectInputStream stream1 = new ObjectInputStream(new FileInputStream(file1));
-            list=(List<Client>)stream1.readObject();
-            System.out.println(City.getInstance().getClients());
+            //ObjectInputStream stream1 = new ObjectInputStream(new FileInputStream(file1));
+           // list=(List<Client>)stream1.readObject();
+            //System.out.println(City.getInstance().getClients());
             stream.close();
-            stream1.close();
-            for(Client client:list){
+            //stream1.close();
+            /*for(Client client:list){
                 Controller.addClientToList(client);
-            }
+            }*/
 
         } catch (IOException | ClassNotFoundException ignored) {
             System.out.println(ignored.getLocalizedMessage());
@@ -98,15 +98,15 @@ public class MainPanel extends JFrame implements ComponentListener{
 
     private void saveFile(){
         File file = new File("saveFile.txt");
-        File file1 = new File("saveFile1.txt");
+        //File file1 = new File("saveFile1.txt");
         try {
             ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
             stream.writeObject(City.getInstance().getTaxis());
-            ObjectOutputStream stream1 = new ObjectOutputStream(new FileOutputStream(file1));
-            stream1.writeObject(City.getInstance().getClients());
-            System.out.println(City.getInstance().getClients());
+          //  ObjectOutputStream stream1 = new ObjectOutputStream(new FileOutputStream(file1));
+          //  stream1.writeObject(City.getInstance().getClients());
+           // System.out.println(City.getInstance().getClients());
             stream.close();
-            stream1.close();
+           // stream1.close();
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -120,7 +120,6 @@ public class MainPanel extends JFrame implements ComponentListener{
         addComponentListener(this);
         map = new HashMap<>();
         setLayout(new GridBagLayout());
-        //setResizable(false);
         graph = new mxGraph();
         graph.setAutoSizeCells(true);
         graph.setCellsLocked(true);

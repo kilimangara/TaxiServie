@@ -79,10 +79,10 @@ public class CityGraph extends mxGraphComponent  {
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                System.out.println("x "+x+" y "+y);
+              //  System.out.println("x "+x+" y "+y);
                 for(Taxi taxi:City.getInstance().getTaxis()){
                     boolean flag=false;
-                    System.out.println("TAXIX: "+taxi.getX()+" TAXIY: "+taxi.getY());
+                  //  System.out.println("TAXIX: "+taxi.getX()+" TAXIY: "+taxi.getY());
                     if((Math.abs(taxi.getX()-x)<50)&&(Math.abs(taxi.getY()-y)<50)&&(!flag)){
                         JDialog taxiDialog = new TaxiInfoDialog(context,taxi);
                         taxiDialog.setVisible(true);
@@ -173,33 +173,6 @@ public class CityGraph extends mxGraphComponent  {
                     }
                 }
             }
-            // рандомное появление клиентов
-
-          //  ExecutorService service = Executors.newCachedThreadPool();
- /*           for(int i = 0; i < 5; i++) {
-                service.submit(new Runnable() {
-                    public void run() {
-                        Random random = new Random(City.getInstance().vertexCount);
-                        int start,finish;
-                        start = random.nextInt();
-                        finish= random.nextInt();
-                        Client client = new Client("name",start,finish);
-                        //Controller.addClientToList(client);
-                    }
-                });
-            }*/
-           /* ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-            service.scheduleAtFixedRate(new Runnable() {
-                @Override
-                public void run() {
-                    Random random = new Random(City.getInstance().vertexCount);
-                 int start,finish;
-                    start = random.nextInt();
-                    finish= random.nextInt();
-                    Client client = new Client("name",start,finish);
-                     //Controller.addClientToList(client);
-                }
-            }, 0, 5, TimeUnit.SECONDS);*/
 
             for(Client client:City.getInstance().getClients()){
                 if(!client.isInCar) {

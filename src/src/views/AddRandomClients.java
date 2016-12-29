@@ -17,7 +17,7 @@ public class AddRandomClients  {
         //super(owner, "Добавление рандомных клиентов",true);
 
         Random random = new Random();
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(()->{
+        Executors.newSingleThreadScheduledExecutor().schedule(()->{
             int start1,finish1;
             start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
             if(start1==20){
@@ -29,7 +29,8 @@ public class AddRandomClients  {
             }
             Client client = new Client("name",start1,finish1);
             Controller.addClientToList(client);
-        },0,7, TimeUnit.SECONDS);
+            System.out.println("Client "+start1 +","+finish1+" added");
+        },1, TimeUnit.SECONDS);
 
        /* start1 = random.nextInt(City.getInstance().vertexCount-1)+1;
         finish1= random.nextInt(City.getInstance().vertexCount-1)+1;
