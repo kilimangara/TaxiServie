@@ -26,7 +26,7 @@ public class Controller {
 
     public static void deleteTaxiFromList() {
 
-        if (City.getInstance().getTaxis().removeIf((s)->(s.position==20 )));
+        if (City.getInstance().getTaxis().removeIf((s)->(s.getPosition()==20 )));
 
 
     }
