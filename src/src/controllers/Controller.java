@@ -5,6 +5,7 @@ import models.Client;
 import models.Taxi;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 
 /**
  * Created by nikitazlain on 22.12.16.
@@ -21,6 +22,13 @@ public class Controller {
         if(City.getInstance().getTaxis().size()<MAXTAXI) {
             City.getInstance().getTaxis().add(taxi);
         }
+    }
+
+    public static void deleteTaxiFromList() {
+
+        if (City.getInstance().getTaxis().removeIf((s)->(s.position==20 )));
+
+
     }
 
     public static void addClientToList(Client client){

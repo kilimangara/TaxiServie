@@ -38,7 +38,7 @@ public class Taxi implements Serializable{
     /**
      * id of Point
      */
-    private int position;
+    public int position;
     /**
      * current position x, y
      */
