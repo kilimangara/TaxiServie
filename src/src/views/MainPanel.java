@@ -243,7 +243,6 @@ public class MainPanel extends JFrame implements ComponentListener{
     @Override
     public void componentResized(ComponentEvent e) {
         int width =400;
-        System.out.println("X:"+e.getComponent().getWidth()+" y "+e.getComponent().getHeight());
         if(e.getComponent().getWidth()/2>=400){
             width = e.getComponent().getWidth()/2;
         }
