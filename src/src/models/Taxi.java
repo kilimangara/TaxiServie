@@ -4,7 +4,6 @@ package models;
 import controllers.Controller;
 import views.CityGraph;
 
-import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -177,7 +176,7 @@ public class Taxi implements Serializable{
                         clients.remove(client);
                         Executors.newSingleThreadScheduledExecutor().schedule(() -> {
                             Controller.deleteClientFromList(client);
-                            System.out.println("deleting client "+client);
+                            System.out.println("deleting client "+client+" cost of ride "+client.getCostOfRide());
                         }, 3,  TimeUnit.SECONDS);
                         goHome = true;
                         //System.out.println("setting route home "+getName()+" at time wgen it was on "+getPosition()+"and on route "+route.route);
@@ -227,6 +226,7 @@ public class Taxi implements Serializable{
         if(isStopped){
            return;
         }
+        clients.forEach(Client::incrementCost);
         switch (direction) {
             case CityGraph.BOTTOM:
                 y++;

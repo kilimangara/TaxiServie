@@ -57,8 +57,8 @@ public class City {
 
     }
 
-    public void init(String path, String path2){
-        getXML(path, path2);
+    public void init(String path){
+        getXML(path);
 
     }
     private City(){
@@ -70,14 +70,13 @@ public class City {
             connections.add(new LinkedList<>());
         }
     }
-    public void reinit(String path, String path2){
-
+    public void reinit(String path){
         this.taxis = new ArrayList<>();
-        getXML(path, path2);
+        getXML(path);
     }
 
 
-    private void getXML(String path, String path2){
+    private void getXML(String path){
 
         try {
 

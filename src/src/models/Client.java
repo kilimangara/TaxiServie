@@ -2,7 +2,6 @@ package models;
 
 import javax.swing.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Client implements Serializable {
     private String name;
@@ -15,6 +14,7 @@ public class Client implements Serializable {
 
     private int destination;
 
+    private int costOfRide;
 
     private boolean tooLongWaiting;
 
@@ -34,7 +34,7 @@ public class Client implements Serializable {
         }).start();
         this.isInCar = false;
         this.hasDriver =false;
-        callTaxi();
+        this.costOfRide = 0;
     }
 
     private void callTaxi() {
@@ -42,6 +42,17 @@ public class Client implements Serializable {
 
     }
 
+    public int getCostOfRide() {
+        return costOfRide;
+    }
+
+    public void setCostOfRide(int costOfRide) {
+        this.costOfRide = costOfRide;
+    }
+
+    public void incrementCost(){
+        this.costOfRide++;
+    }
     public String getName() {
         return name;
     }

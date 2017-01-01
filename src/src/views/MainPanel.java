@@ -115,7 +115,7 @@ public class MainPanel extends JFrame implements ComponentListener{
         setSize(900, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        City.getInstance().init("structura.xml","matr.xml");
+        City.getInstance().init("structura.xml");
         loadFile();
         addComponentListener(this);
         map = new HashMap<>();
