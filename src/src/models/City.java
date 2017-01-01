@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class City {
@@ -62,8 +63,8 @@ public class City {
     }
     private City(){
         masPoint = new int[2][vertexCount];
-        this.taxis = new LinkedList<>();
-        this.clients = new LinkedList<>();
+        this.taxis = new CopyOnWriteArrayList<>();
+        this.clients = new CopyOnWriteArrayList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<vertexCount;++i){
             connections.add(new LinkedList<>());

@@ -180,7 +180,7 @@ public class Taxi implements Serializable{
                             System.out.println("deleting client "+client);
                         }, 3,  TimeUnit.SECONDS);
                         goHome = true;
-                        System.out.println("setting route home "+getName()+" at time wgen it was on "+getPosition()+"and on route "+route.route);
+                        //System.out.println("setting route home "+getName()+" at time wgen it was on "+getPosition()+"and on route "+route.route);
                         setRoute(getPosition(), ID_OF_CAR_PLACE);
                         return false;
                     }
