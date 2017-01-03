@@ -10,12 +10,10 @@ import java.util.List;
 
 
 public class WritableDB extends FileOutputStream {
-    String name;
     private Gson gson;
 
     public WritableDB(String name, Gson gson) throws FileNotFoundException {
         super(name);
-        this.name = name;
         this.gson =gson;
     }
 
@@ -26,6 +24,7 @@ public class WritableDB extends FileOutputStream {
 
     public void writeHistory( List<History> histories) throws IOException {
         String json = gson.toJson(histories);
+        System.out.println("writing "+json);
         write(Utils.stringToBytesUTFCustom(json));
         close();
     }

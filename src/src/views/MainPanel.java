@@ -6,6 +6,8 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 import controllers.Controller;
 import models.*;
+import models.customDB.DBHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
@@ -42,6 +44,7 @@ public class MainPanel extends JFrame implements ComponentListener{
                 if (n == 0) {
                     e.getWindow().setVisible(false);
                     saveFile();
+                    DBHelper.getInstance().writeHistory();
                     System.exit(0);
                 }
             }
@@ -102,6 +105,8 @@ public class MainPanel extends JFrame implements ComponentListener{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml");
+        DBHelper.getInstance().init();
+
         loadFile();
         addComponentListener(this);
         map = new HashMap<>();

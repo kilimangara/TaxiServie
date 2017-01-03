@@ -2,6 +2,8 @@ package models;
 
 
 import controllers.Controller;
+import models.customDB.DBHelper;
+import models.customDB.History;
 import views.CityGraph;
 
 import javax.swing.*;
@@ -137,6 +139,9 @@ public class Taxi implements Serializable{
                             client.isInCar = false;
                             client.setLacation(client.getDestination());
                             clients.remove(client);
+                            History history = new History(this, client);
+                            System.out.println("history created "+history);
+                            DBHelper.getInstance().addHistory(history);
                             Executors.newSingleThreadScheduledExecutor().schedule(() -> {
                                 Controller.deleteClientFromList(client);
                                 System.out.println("deleting client "+client);
@@ -174,6 +179,9 @@ public class Taxi implements Serializable{
                         client.isInCar = false;
                         client.setLacation(client.getDestination());
                         clients.remove(client);
+                        History history = new History(this, client);
+                        System.out.println("history created "+history);
+                        DBHelper.getInstance().addHistory(history);
                         Executors.newSingleThreadScheduledExecutor().schedule(() -> {
                             Controller.deleteClientFromList(client);
                             System.out.println("deleting client "+client+" cost of ride "+client.getCostOfRide());

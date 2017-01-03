@@ -71,4 +71,9 @@ public class History {
     public void setCost(int cost) {
         this.cost = cost;
     }
+
+    @Override
+    public String toString() {
+        return nameClient+ " "+cost +" "+nameTaxi;
+    }
 }
