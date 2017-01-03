@@ -2,28 +2,19 @@ package views;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
-import controllers.Controller;
 import models.City;
 import models.Client;
-import models.Route;
 import models.Taxi;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class CityGraph extends mxGraphComponent  {
@@ -49,27 +40,14 @@ public class CityGraph extends mxGraphComponent  {
 
     private   JScrollBar vertical;
 
+    private boolean flag;
+
 
     public CityGraph(mxGraph graph, JFrame context){
         super(graph);
         loadImage();
         map = new HashMap<>();
         mapClient= new HashMap<>();
-      /*  Route route = new Route(1,10);
-        /*route.route.add(1);
-        route.route.add(2);
-        route.route.add(5);
-        route.route.add(6);
-        route.route.add(9);*/
-        //Route route1 = new Route(8,1);
-       /* route1.route.add(8);
-        //route.route.add();
-        route1.route.add(5);
-        route1.route.add(2);
-        route1.route.add(1);*/
-       // City.getInstance().getTaxis().add(new Taxi("AHMED","BMW","228",route1));
-        //City.getInstance().getTaxis().add(new Taxi(route));
-       // City.getInstance().getClients().add(new Client("Petrov",1,3));*/
         horizontal = getHorizontalScrollBar();
         vertical = getVerticalScrollBar();
         repaint();
@@ -81,9 +59,8 @@ public class CityGraph extends mxGraphComponent  {
                 int y = e.getY();
               //  System.out.println("x "+x+" y "+y);
                 for(Taxi taxi:City.getInstance().getTaxis()){
-                    boolean flag=false;
-                  //  System.out.println("TAXIX: "+taxi.getX()+" TAXIY: "+taxi.getY());
-                    if((Math.abs(taxi.getX()-x)<50)&&(Math.abs(taxi.getY()-y)<50)&&(!flag)){
+                   flag=false;
+                    if((Math.abs(taxi.getX()-x)<50)&&(Math.abs(taxi.getY()-y)<70)&&(!flag)){
                         JDialog taxiDialog = new TaxiInfoDialog(context,taxi);
                         taxiDialog.setVisible(true);
                         flag=true;
