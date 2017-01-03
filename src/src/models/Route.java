@@ -137,6 +137,7 @@ public class Route implements Serializable{
             weight[i] = new ArrayList<Integer>();
         }
 
+
         //считываем граф, заданный списком ребер
         for (int i=0;i<n;i++){
             int length = City.getInstance().connections.get(i).size();

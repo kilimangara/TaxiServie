@@ -204,6 +204,13 @@ public class MainPanel extends JFrame implements ComponentListener{
             Controller.deleteTaxiFromList();
         });
 
+        JButton button5 =new JButton("Список такси");
+        button5.addActionListener(e->{
+                    JDialog dialog= new TaxiList(this);
+            dialog.setVisible(true);
+        });
+
+       // this.add(table);
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
         component.setPreferredSize(new Dimension(450, 650));
@@ -212,6 +219,7 @@ public class MainPanel extends JFrame implements ComponentListener{
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
         getContentPane().add(button3, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(140,0,0,0),0,0));
         getContentPane().add(button4, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(190,0,0,0),0,0));
+        getContentPane().add(button5, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(240,0,0,0),0,0));
 
 
         //graph.getModel().beginUpdate();

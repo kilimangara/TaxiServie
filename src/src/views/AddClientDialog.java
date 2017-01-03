@@ -49,8 +49,14 @@ public class AddClientDialog extends JDialog  {
             int start = Integer.parseInt(comboBox.getItemAt(comboBox.getSelectedIndex()));
             int finish = Integer.parseInt(comboBox2.getItemAt(comboBox2.getSelectedIndex()));
             String name1 = name.getText();
+
+            if(start!=finish) {
                 Client client = new Client(name1, start, finish);
                 Controller.addClientToList(client);
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Невозможно создать клиента с большой жопой","Eror",JOptionPane.ERROR_MESSAGE);
+            }
                 setVisible(false);
         });
     }
