@@ -27,7 +27,6 @@ public class ReadableDB extends FileInputStream {
         read(buffer, 0, available());
         String json = Utils.bytesToStringUTFCustom(buffer);
         close();
-        System.out.println(json);
         return gson.fromJson(json, new TypeToken<List<History>>(){}.getType());
 
     }

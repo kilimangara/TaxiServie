@@ -24,7 +24,6 @@ public class WritableDB extends FileOutputStream {
 
     public void writeHistory( List<History> histories) throws IOException {
         String json = gson.toJson(histories);
-        System.out.println("writing "+json);
         write(Utils.stringToBytesUTFCustom(json));
         close();
     }

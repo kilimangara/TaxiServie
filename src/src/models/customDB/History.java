@@ -74,6 +74,6 @@ public class History {
 
     @Override
     public String toString() {
-        return nameClient+ " "+cost +" "+nameTaxi;
+        return "Client "+nameClient+ " cost of ride "+cost +" by "+nameTaxi;
     }
 }

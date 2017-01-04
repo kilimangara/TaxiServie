@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DBHelper {
     private final String PATH = "statistics.db";
@@ -32,10 +33,15 @@ public class DBHelper {
         gson =  new GsonBuilder().setPrettyPrinting().create();
         histories = getHistories();
         if (histories == null){
-            histories = new ArrayList<>();
+            histories = new CopyOnWriteArrayList<>();
         }
         System.out.println(histories);
     }
+
+    public List<History> getActualHistories(){
+        return histories;
+    }
+
     public List<History> getHistories(){
         try {
             readableDB = new ReadableDB(PATH,gson);
@@ -57,7 +63,6 @@ public class DBHelper {
     }
     public void addHistory(History history){
         histories.add(history);
-        System.out.println("history added "+history+" result "+histories);
     }
 
 }

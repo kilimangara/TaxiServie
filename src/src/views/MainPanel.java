@@ -135,7 +135,10 @@ public class MainPanel extends JFrame implements ComponentListener{
         JMenu filemenu = new JMenu("File");
         filemenu.setFont(font);
 
-        JMenuItem newmenu = new JMenuItem("menu1");
+        JMenuItem newmenu = new JMenuItem("Статистика поездок");
+        newmenu.addActionListener(e -> {
+            JDialog dialog = new StatisticsDialog(this);
+        });
         newmenu.setFont(font);
         filemenu.add(newmenu);
 

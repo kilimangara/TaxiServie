@@ -140,11 +140,9 @@ public class Taxi implements Serializable{
                             client.setLacation(client.getDestination());
                             clients.remove(client);
                             History history = new History(this, client);
-                            System.out.println("history created "+history);
-                            DBHelper.getInstance().addHistory(history);
                             Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                DBHelper.getInstance().addHistory(history);
                                 Controller.deleteClientFromList(client);
-                                System.out.println("deleting client "+client);
                             }, 3, TimeUnit.SECONDS);
                         }
                     }
@@ -156,7 +154,6 @@ public class Taxi implements Serializable{
             if(clients.size()==1){
                     Client client = clients.get(0);
                     if (activeClient != null) {
-                     //   System.out.println("in activeClient");
                         int pos = ID_OF_CAR_PLACE;
                         if (getPosition() != ID_OF_CAR_PLACE) {
                             pos = route.getNextPoint();
@@ -164,9 +161,7 @@ public class Taxi implements Serializable{
                         reSetRoute(activeClient, pos);
                         return false;
                     }
-                    // System.out.println("Taxi position "+getPosition()+" client position "+client.getLacation()+" client dest "+client.getDestination());
                     if (getPosition() == client.getLacation()) {
-                      //  System.out.println("in clientLocation");
                         stopTaxi();
                         setRoute(client.getLacation(), client.getDestination());
                         client.isInCar = true;
@@ -174,25 +169,20 @@ public class Taxi implements Serializable{
                         return false;
                     }
                     if (getPosition() == client.getDestination()) {
-                        //System.out.println("in destination");
                         stopTaxi();
                         client.isInCar = false;
                         client.setLacation(client.getDestination());
                         clients.remove(client);
                         History history = new History(this, client);
-                        System.out.println("history created "+history);
-                        DBHelper.getInstance().addHistory(history);
                         Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                            DBHelper.getInstance().addHistory(history);
                             Controller.deleteClientFromList(client);
-                            System.out.println("deleting client "+client+" cost of ride "+client.getCostOfRide());
                         }, 3,  TimeUnit.SECONDS);
                         goHome = true;
-                        //System.out.println("setting route home "+getName()+" at time wgen it was on "+getPosition()+"and on route "+route.route);
                         setRoute(getPosition(), ID_OF_CAR_PLACE);
                         return false;
                     }
                     if (getPosition() == ID_OF_CAR_PLACE) {
-                        //System.out.println("in at home");
                         this.isRouteSet = false;
                         route = null;
                         goHome = false;
@@ -215,10 +205,6 @@ public class Taxi implements Serializable{
 
     public void reSetRoute(Client client, int pos){
 
-        /*int pos = ID_OF_CAR_PLACE;
-        if(getPosition()!=ID_OF_CAR_PLACE){
-            pos = route.getNextPoint();
-        }*/
         setRoute(pos,client.getLacation());
         activeClient = null;
         goHome=false;
