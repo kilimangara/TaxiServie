@@ -20,6 +20,9 @@ public class Controller {
     }
     public static void deleteTaxiFromList(int... index) {
         for (int ind:index) {
+            if(City.getInstance().getTaxis().get(ind).getClients().size()!=0) {
+                City.getInstance().getTaxis().get(ind).getClients().forEach(City.getInstance().getClients()::remove);
+            }
             City.getInstance().getTaxis().remove(ind);
         }
     }
@@ -29,12 +32,6 @@ public class Controller {
         }
     }
 
-    public static void deleteTaxiFromList() {
-
-        if (City.getInstance().getTaxis().removeIf((s)->(s.getPosition()==20 )));
-
-
-    }
 
     public static void addClientToList(Client client){
         if(City.getInstance().getClients().size()<MAXCLIENTS) {
@@ -45,7 +42,6 @@ public class Controller {
 
     public static void deleteClientFromList(Client client){
         City.getInstance().getClients().remove(client);
-
     }
 
     private static void setTaxiRouteToClient(Client client){

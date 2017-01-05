@@ -2,6 +2,7 @@ package views;
 
 import models.customDB.DBHelper;
 import models.customDB.History;
+import views.customRenderers.StatisticsModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,8 @@ public class StatisticsDialog extends JDialog {
         DefaultListModel<History> listModel = new DefaultListModel<>();
         DBHelper.getInstance().getActualHistories().forEach(listModel::addElement);
         JList<History> list = new JList<>(listModel);
-        add(list);
+        list.setCellRenderer(new StatisticsModel());
+        add(new JScrollPane(list));
         setVisible(true);
     }
 }

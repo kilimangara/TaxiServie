@@ -195,10 +195,6 @@ public class MainPanel extends JFrame implements ComponentListener{
         });
 
 
-        JButton button4 = new JButton("Очистить таксопарк");
-        button4.addActionListener(e->{
-            Controller.deleteTaxiFromList();
-        });
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
         component.setPreferredSize(new Dimension(450, 650));
@@ -206,7 +202,6 @@ public class MainPanel extends JFrame implements ComponentListener{
         getContentPane().add(button1, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(50,0,0,0),0,0));
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
         getContentPane().add(button3, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(140,0,0,0),0,0));
-        getContentPane().add(button4, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(190,0,0,0),0,0));
         Object parent = graph.getDefaultParent();
         for(int i=1; i<City.getInstance().vertexCount;++i){
 

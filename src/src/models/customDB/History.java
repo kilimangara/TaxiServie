@@ -23,6 +23,18 @@ public class History {
     @Expose
     private int cost;
 
+    public boolean isRate() {
+        return rate;
+    }
+
+    public void setRate(boolean rate) {
+        this.rate = rate;
+    }
+
+    @SerializedName("rate")
+    @Expose
+    private boolean rate;
+
 
     public History(Taxi taxi, Client client){
         this.car = taxi.getCar();
@@ -30,6 +42,7 @@ public class History {
         this.number = taxi.getNumber();
         this.nameClient =client.getName();
         this.cost = client.getCostOfRide();
+        this.rate = client.isTooLongWaiting();
     }
 
     public String getNameTaxi() {
