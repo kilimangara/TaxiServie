@@ -18,7 +18,11 @@ public class Controller {
     public static void deleteTaxiFromList(Taxi taxi){
         City.getInstance().getTaxis().remove(taxi);
     }
-
+    public static void deleteTaxiFromList(int... index) {
+        for (int ind:index) {
+            City.getInstance().getTaxis().remove(ind);
+        }
+    }
     public static void addTaxiToList(Taxi taxi){
         if(City.getInstance().getTaxis().size()<MAXTAXI) {
             City.getInstance().getTaxis().add(taxi);

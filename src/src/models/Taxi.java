@@ -274,6 +274,8 @@ public class Taxi implements Serializable{
         this.isRouteSet=true;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Name:"+this.name+" car "+car+ " number "+number;
+    }
 }

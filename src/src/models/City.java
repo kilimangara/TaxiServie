@@ -63,18 +63,13 @@ public class City {
     }
     private City(){
         masPoint = new int[2][vertexCount];
-        this.taxis = new CopyOnWriteArrayList<>();
-        this.clients = new CopyOnWriteArrayList<>();
+        this.taxis = new LinkedList<>();
+        this.clients = new LinkedList<>();
         this.connections = new ArrayList<>();
         for(int i=0; i<vertexCount;++i){
             connections.add(new LinkedList<>());
         }
     }
-    public void reinit(String path){
-        this.taxis = new ArrayList<>();
-        getXML(path);
-    }
-
 
     private void getXML(String path){
 

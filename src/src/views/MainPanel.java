@@ -7,6 +7,7 @@ import com.mxgraph.view.mxStylesheet;
 import controllers.Controller;
 import models.*;
 import models.customDB.DBHelper;
+import views.dialogs.TaxiManagingDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -137,12 +138,13 @@ public class MainPanel extends JFrame implements ComponentListener{
 
         JMenuItem newmenu = new JMenuItem("Статистика поездок");
         newmenu.addActionListener(e -> {
-            JDialog dialog = new StatisticsDialog(this);
+            new StatisticsDialog(this);
         });
         newmenu.setFont(font);
         filemenu.add(newmenu);
 
-        JMenuItem newmenu2 = new JMenuItem("menu2");
+        JMenuItem newmenu2 = new JMenuItem("Информация о такси");
+        newmenu2.addActionListener(e -> new TaxiManagingDialog(this));
         newmenu2.setFont(font);
         filemenu.add(newmenu2);
 
@@ -197,14 +199,6 @@ public class MainPanel extends JFrame implements ComponentListener{
         button4.addActionListener(e->{
             Controller.deleteTaxiFromList();
         });
-
-        JButton button5 =new JButton("Список такси");
-        button5.addActionListener(e->{
-                    JDialog dialog= new TaxiList(this);
-            dialog.setVisible(true);
-        });
-
-       // this.add(table);
         stylesheet.setDefaultEdgeStyle(edge);
         component = new CityGraph(graph, this);
         component.setPreferredSize(new Dimension(450, 650));
@@ -213,13 +207,7 @@ public class MainPanel extends JFrame implements ComponentListener{
         getContentPane().add(button2, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(90,0,0,0),0,0));
         getContentPane().add(button3, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(140,0,0,0),0,0));
         getContentPane().add(button4, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(190,0,0,0),0,0));
-        getContentPane().add(button5, new GridBagConstraints(2,0,1,1,1,1,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(240,0,0,0),0,0));
-
-
-        //graph.getModel().beginUpdate();
         Object parent = graph.getDefaultParent();
-
-
         for(int i=1; i<City.getInstance().vertexCount;++i){
 
             graph.getModel().beginUpdate();
