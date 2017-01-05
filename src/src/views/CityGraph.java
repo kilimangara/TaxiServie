@@ -5,6 +5,7 @@ import com.mxgraph.view.mxGraph;
 import models.City;
 import models.Client;
 import models.Taxi;
+import views.dialogs.TaxiInfoDialog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package views;
+package views.dialogs;
 
 import controllers.Controller;
 import models.City;

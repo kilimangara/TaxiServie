@@ -48,6 +48,18 @@ public class Taxi implements Serializable{
     private int x;
     private int y;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     public String getName() {
         return name;
     }

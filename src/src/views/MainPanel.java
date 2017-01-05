@@ -4,10 +4,9 @@ package views;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
-import controllers.Controller;
 import models.*;
 import models.customDB.DBHelper;
-import views.dialogs.TaxiManagingDialog;
+import views.dialogs.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,19 +148,6 @@ public class MainPanel extends JFrame implements ComponentListener{
         filemenu.add(newmenu2);
 
         menuBar.add(filemenu);
-
-        JMenu setMen = new JMenu("Settings");
-        setMen.setFont(font);
-
-        JMenuItem snewmenu = new JMenuItem("menu1");
-        snewmenu.setFont(font);
-        setMen.add(snewmenu);
-
-        JMenuItem snewmenu2 = new JMenuItem("menu2");
-        snewmenu2.setFont(font);
-        setMen.add(snewmenu2);
-
-        menuBar.add(setMen);
 
         JMenu help = new JMenu("Help");
         help.setFont(font);
