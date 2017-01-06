@@ -4,14 +4,11 @@ import controllers.Controller;
 import models.City;
 import models.Client;
 
-import javax.swing.*;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Васили on 29.12.2016.
- */
+
 public class AddRandomClients  {
     public static void AddRandomClients(){
         //super(owner, "Добавление рандомных клиентов",true);

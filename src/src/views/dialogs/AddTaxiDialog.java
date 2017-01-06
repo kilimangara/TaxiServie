@@ -1,15 +1,11 @@
 package views.dialogs;
 
 import controllers.Controller;
-import models.Route;
 import models.Taxi;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Васили on 22.12.2016.
- */
 public class AddTaxiDialog extends JDialog {
 
 

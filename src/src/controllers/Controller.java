@@ -8,9 +8,7 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nikitazlain on 22.12.16.
- */
+
 public class Controller {
     private final static int MAXCLIENTS=10;
     private final static int MAXTAXI=5;

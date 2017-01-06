@@ -1,7 +1,5 @@
 package controllers;
 
-import models.City;
-import models.Route;
 import views.MainPanel;
 
 

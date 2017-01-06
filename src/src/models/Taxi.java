@@ -107,6 +107,7 @@ public class Taxi implements Serializable{
         }
         return clients;
     }
+
     public void checkDirection(){
         direction = route.getDirection();
     }

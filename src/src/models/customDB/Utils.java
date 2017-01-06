@@ -1,8 +1,6 @@
 package models.customDB;
 
-/**
- * Created by nikitazlain on 03.01.17.
- */
+
 public class Utils {
     public static String bytesToStringUTFCustom(byte[] bytes) {
 

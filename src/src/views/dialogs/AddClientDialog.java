@@ -3,11 +3,9 @@ package views.dialogs;
 import controllers.Controller;
 import models.City;
 import models.Client;
-import models.Route;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 
 public class AddClientDialog extends JDialog  {

@@ -5,9 +5,7 @@ import models.Taxi;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by nikitazlain on 05.01.17.
- */
+
 public class TaxiList extends JPanel implements ListCellRenderer<Taxi> {
     private JLabel name;
     private JLabel car;

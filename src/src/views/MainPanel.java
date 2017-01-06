@@ -4,7 +4,8 @@ package views;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
-import models.*;
+import models.City;
+import models.Taxi;
 import models.customDB.DBHelper;
 import views.dialogs.*;
 
