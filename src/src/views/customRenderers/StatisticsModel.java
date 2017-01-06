@@ -49,10 +49,18 @@ public class StatisticsModel extends JPanel implements ListCellRenderer<History>
         catch (IOException e){
 
         }
+        setOpaque(true);
         client.setOpaque(true);
         taxi.setOpaque(true);
         cost.setOpaque(true);
         image.setOpaque(true);
+        separator.setOpaque(true);
+        client.setBackground(Color.PINK);
+        taxi.setBackground(Color.PINK);
+        cost.setBackground(Color.PINK);
+        image.setBackground(Color.PINK);
+        separator.setBackground(Color.BLACK);
+        setBackground(Color.PINK);
         return this;
     }
 }
