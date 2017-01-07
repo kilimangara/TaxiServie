@@ -47,13 +47,13 @@
 		<relates id1="14" id2="12" id4="23" id3="18"/>
 	</structura>
 	<structura  street="Street3" id="16" x="30" y = "350">
-		<relates id1="17" id2="13" id4="0" id3="0"/>
+		<relates id1="17" id2="13" id4="31" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="17" x="150" y = "350">
-		<relates id1="18" id2="16" id4="0" id3="0"/>
+		<relates id1="18" id2="16" id4="33" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="18" x="330" y = "350">
-		<relates id1="15" id2="24" id4="17" id3="0"/>
+		<relates id1="15" id2="24" id4="17" id3="36"/>
 	</structura>
 	<structura  street="Street3" id="19" x="400" y = "30">
 		<relates id1="3" id2="20" id4="25" id3="0"/>
@@ -71,28 +71,162 @@
 		<relates id1="15" id2="29" id4="24" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="24" x="400" y = "350">
-		<relates id1="18" id2="23" id4="30" id3="0"/>
+		<relates id1="18" id2="23" id4="30" id3="41"/>
 	</structura>
 	<structura  street="Street3" id="25" x="470" y = "30">
-		<relates id1="19" id2="26" id4="0" id3="0"/>
+		<relates id1="19" id2="26" id4="46" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="26" x="470" y = "100">
-		<relates id1="20" id2="27" id4="25" id3="0"/>
+		<relates id1="20" id2="27" id4="25" id3="50"/>
 	</structura>
 	<structura  street="Street3" id="27" x="470" y = "170">
-		<relates id1="21" id2="26" id4="0" id3="0"/>
+		<relates id1="21" id2="26" id4="53" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="28" x="470" y = "230">
-		<relates id1="22" id2="29" id4="0" id3="0"/>
+		<relates id1="22" id2="29" id4="55" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="29" x="470" y = "290">
 		<relates id1="23" id2="30" id4="28" id3="0"/>
 	</structura>
 	<structura  street="Street3" id="30" x="470" y = "350">
-		<relates id1="24" id2="29" id4="0" id3="0"/>
+		<relates id1="24" id2="29" id4="44" id3="0"/>
 	</structura>
-
-
-
-
+	<structura  street="Street3" id="31" x="30" y = "410">
+		<relates id1="16" id2="32" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="32" x="30" y = "470">
+		<relates id1="31" id2="33" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="33" x="150" y = "470">
+		<relates id1="32" id2="17" id4="34" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="34" x="150" y = "530">
+		<relates id1="33" id2="35" id4="37" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="35" x="30" y = "530">
+		<relates id1="34" id2="0" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="36" x="330" y = "410">
+		<relates id1="18" id2="37" id4="38" id3="41"/>
+	</structura>
+	<structura  street="Street3" id="37" x="330" y = "530">
+		<relates id1="34" id2="36" id4="43" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="38" x="210" y = "410">
+		<relates id1="36" id2="39" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="39" x="210" y = "470">
+		<relates id1="38" id2="40" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="40" x="290" y = "470">
+		<relates id1="39" id2="0" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="41" x="400" y = "410">
+		<relates id1="24" id2="36" id4="42" id3="44"/>
+	</structura>
+	<structura  street="Street3" id="42" x="400" y = "470">
+		<relates id1="41" id2="43" id4="66" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="43" x="400" y = "530">
+		<relates id1="37" id2="42" id4="45" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="44" x="470" y = "410">
+		<relates id1="30" id2="41" id4="65" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="45" x="470" y = "530">
+		<relates id1="43" id2="67" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="46" x="560" y = "30">
+		<relates id1="25" id2="47" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="47" x="630" y = "30">
+		<relates id1="46" id2="48" id4="50" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="48" x="700" y = "30">
+		<relates id1="47" id2="49" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="49" x="770" y = "30">
+		<relates id1="48" id2="52" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="50" x="630" y = "100">
+		<relates id1="26" id2="47" id4="51" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="51" x="700" y = "100">
+		<relates id1="50" id2="52" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="52" x="770" y = "100">
+		<relates id1="51" id2="49" id4="54" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="53" x="560" y = "170">
+		<relates id1="27" id2="55" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="54" x="770" y = "170">
+		<relates id1="52" id2="58" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="55" x="560" y = "230">
+		<relates id1="28" id2="53" id4="56" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="56" x="630" y = "230">
+		<relates id1="55" id2="57" id4="60" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="57" x="700" y = "230">
+		<relates id1="56" id2="58" id4="63" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="58" x="770" y = "230">
+		<relates id1="57" id2="54" id4="59" id3="61"/>
+	</structura>
+	<structura  street="Street3" id="59" x="840" y = "230">
+		<relates id1="58" id2="62" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="60" x="630" y = "290">
+		<relates id1="56" id2="68" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="61" x="770" y = "290">
+		<relates id1="58" id2="62" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="62" x="840" y = "290">
+		<relates id1="59" id2="61" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="63" x="700" y = "350">
+		<relates id1="57" id2="64" id4="70" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="64" x="840" y = "350">
+		<relates id1="63" id2="62" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="65" x="560" y = "410">
+		<relates id1="44" id2="66" id4="68" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="66" x="560" y = "470">
+		<relates id1="65" id2="42" id4="67" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="67" x="560" y = "530">
+		<relates id1="66" id2="45" id4="69" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="68" x="630" y = "410">
+		<relates id1="60" id2="65" id4="69" id3="70"/>
+	</structura>
+	<structura  street="Street3" id="69" x="630" y = "530">
+		<relates id1="68" id2="67" id4="72" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="70" x="700" y = "410">
+		<relates id1="63" id2="68" id4="71" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="71" x="700" y = "470">
+		<relates id1="70" id2="72" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="72" x="700" y = "530">
+		<relates id1="69" id2="71" id4="73" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="73" x="770" y = "530">
+		<relates id1="72" id2="74" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="74" x="840" y = "530">
+		<relates id1="73" id2="75" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="75" x="840" y = "470">
+		<relates id1="74" id2="76" id4="0" id3="0"/>
+	</structura>
+	<structura  street="Street3" id="76" x="840" y = "410">
+		<relates id1="75" id2="0" id4="0" id3="0"/>
+	</structura>
 </root>
