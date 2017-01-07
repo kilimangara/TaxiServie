@@ -21,6 +21,8 @@ import java.util.List;
 
 public class MainPanel extends JFrame implements ComponentListener{
     public static final int DEFAULT_SIZE=30;
+    public  static long  time;
+    public static Date date;
     private mxGraph graph;
     private CityGraph component;
     private HashMap<Integer, Object> map;
@@ -102,11 +104,13 @@ public class MainPanel extends JFrame implements ComponentListener{
         }
     }
     public void initGUI(){
+
         setSize(900, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         City.getInstance().init("structura.xml");
         DBHelper.getInstance().init();
+
 
         loadFile();
         addComponentListener(this);
@@ -207,7 +211,11 @@ public class MainPanel extends JFrame implements ComponentListener{
             }
             graph.getModel().endUpdate();
         }
+        City.getInstance().setCount(0);
+       time= System.currentTimeMillis();
+        date= new Date();
         component.start();
+
 
     }
 
