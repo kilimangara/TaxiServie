@@ -146,7 +146,7 @@ public class CityGraph extends mxGraphComponent  {
                 if(taxi.isRouteSet()||taxi.isRouteToClient()) {
                     if (!taxi.nextPoint()) {
                         rotateImage(rotatedIcon1, taxi.getDirection());
-                        rotatedIcon1.paintIcon(this, g, taxi.getX() - offsetX, taxi.getY() - offsetY);
+                        rotatedIcon1.paintIcon(this, g, taxi.getX()-offsetX , taxi.getY()-offsetY );
                         taxi.nextStep();
                     }
                 }
@@ -179,6 +179,7 @@ public class CityGraph extends mxGraphComponent  {
     public void start(){
         timer.start();
     }
+
 
 
 }
