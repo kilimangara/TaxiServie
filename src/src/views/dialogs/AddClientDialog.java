@@ -53,7 +53,7 @@ public class AddClientDialog extends JDialog  {
                 Controller.addClientToList(client);
             }
             else {
-                JOptionPane.showMessageDialog(null,"Невозможно создать клиента с большой жопой","Eror",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Невозможно создать клиента с точкой цели той же, где он находится","Error",JOptionPane.ERROR_MESSAGE);
             }
                 setVisible(false);
         });

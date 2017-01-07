@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -23,6 +24,21 @@ public class City {
     public  int vertexCount=31;          //Количество узлов
     public  int arcCount=30;	            //Количество дуг
     public  int[][] masPoint ;          // x,y,idPoint
+
+    private Date startDate = new Date();
+    private int count;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n
         return masPoint[0][n];
