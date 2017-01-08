@@ -22,22 +22,12 @@ public class City {
     private List<Client> clients;
     public  ArrayList<LinkedList<Integer>> connections;
     public  int vertexCount=77;          //Количество узлов
-    public  int arcCount=76;	         //Количество дуг
     public  int[][] masPoint ;           // x,y,idPoint
 
     private Date startDate = new Date();
-    private int count;
 
     public Date getStartDate() {
         return startDate;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public int getXMasPoint(int n) {  // getter x for idPoint= n

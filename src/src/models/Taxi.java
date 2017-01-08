@@ -150,7 +150,6 @@ public class Taxi implements Serializable{
                         if (getPosition() == client.getDestination()) {
                             stopTaxi();
                             client.isInCar = false;
-                            City.getInstance().setCount(City.getInstance().getCount()+1);//
                             client.setLacation(client.getDestination());
                             clients.remove(client);
                             History history = new History(this, client);
@@ -184,7 +183,6 @@ public class Taxi implements Serializable{
                     }
                     if (getPosition() == client.getDestination()) {
                         stopTaxi();
-                        City.getInstance().setCount(City.getInstance().getCount()+1);//
                         client.isInCar = false;
                         client.setLacation(client.getDestination());
                         clients.remove(client);

@@ -10,11 +10,11 @@ import java.io.IOException;
 
 
 public class StatisticsModel extends JPanel implements ListCellRenderer<History> {
-    JLabel client;
-    JLabel taxi;
-    JLabel cost;
-    JLabel image;
-    JSeparator separator ;
+    private JLabel client;
+    private JLabel taxi;
+    private JLabel cost;
+    private JLabel image;
+    private JSeparator separator ;
 
     public StatisticsModel(){
         setLayout(new BorderLayout(5,5));
@@ -55,12 +55,12 @@ public class StatisticsModel extends JPanel implements ListCellRenderer<History>
         cost.setOpaque(true);
         image.setOpaque(true);
         separator.setOpaque(true);
-        client.setBackground(Color.PINK);
-        taxi.setBackground(Color.PINK);
-        cost.setBackground(Color.PINK);
-        image.setBackground(Color.PINK);
+        client.setBackground(list.getBackground());
+        taxi.setBackground(list.getBackground());
+        cost.setBackground(list.getBackground());
+        image.setBackground(list.getBackground());
         separator.setBackground(Color.BLACK);
-        setBackground(Color.PINK);
+        setBackground(list.getBackground());
         return this;
     }
 }

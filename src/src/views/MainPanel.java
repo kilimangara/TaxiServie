@@ -211,7 +211,6 @@ public class MainPanel extends JFrame implements ComponentListener{
             }
             graph.getModel().endUpdate();
         }
-        City.getInstance().setCount(0);
        time= System.currentTimeMillis();
         date= new Date();
         component.start();
