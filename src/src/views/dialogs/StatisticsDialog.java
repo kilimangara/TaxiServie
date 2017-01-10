@@ -1,16 +1,12 @@
 package views.dialogs;
 
-import models.City;
 import models.customDB.DBHelper;
 import models.customDB.History;
 import models.customDB.Utils;
-import views.MainPanel;
 import views.customRenderers.StatisticsModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class StatisticsDialog extends JDialog {
