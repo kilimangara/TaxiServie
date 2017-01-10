@@ -22,7 +22,7 @@ public class WritableDB extends FileOutputStream {
         this.gson = gson;
     }
 
-    public void writeHistory( List<History> histories) throws IOException {
+    public void writeHistory( Info histories) throws IOException {
         String json = gson.toJson(histories);
         write(Utils.stringToBytesUTFCustom(json));
         close();

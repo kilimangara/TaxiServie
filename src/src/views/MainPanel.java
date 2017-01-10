@@ -10,6 +10,7 @@ import models.customDB.DBHelper;
 import views.dialogs.*;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -21,8 +22,6 @@ import java.util.List;
 
 public class MainPanel extends JFrame implements ComponentListener{
     public static final int DEFAULT_SIZE=30;
-    public  static long  time;
-    public static Date date;
     private mxGraph graph;
     private CityGraph component;
     private HashMap<Integer, Object> map;
@@ -40,7 +39,7 @@ public class MainPanel extends JFrame implements ComponentListener{
             public void windowClosing(WindowEvent e) {
                 Object[] options = { "Да", "Нет!" };
                 int n = JOptionPane
-                        .showOptionDialog(e.getWindow(), "Закрыть окно?",
+                        .showOptionDialog(e.getWindow(), "Сохранить изменения?",
                                 "Подтверждение", JOptionPane.YES_NO_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options,
                                 options[0]);
@@ -211,8 +210,6 @@ public class MainPanel extends JFrame implements ComponentListener{
             }
             graph.getModel().endUpdate();
         }
-       time= System.currentTimeMillis();
-        date= new Date();
         component.start();
 
 

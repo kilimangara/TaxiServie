@@ -22,12 +22,12 @@ public class ReadableDB extends FileInputStream {
         this.gson = gson;
     }
 
-    public List<History> readAll() throws IOException {
+    public Info readAll() throws IOException {
         byte[] buffer = new byte[available()];
         read(buffer, 0, available());
         String json = Utils.bytesToStringUTFCustom(buffer);
         close();
-        return gson.fromJson(json, new TypeToken<List<History>>(){}.getType());
+        return gson.fromJson(json, Info.class);
 
     }
 }

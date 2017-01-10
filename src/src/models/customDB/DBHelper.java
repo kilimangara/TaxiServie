@@ -4,6 +4,7 @@ package models.customDB;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,7 +18,9 @@ public class DBHelper {
     private ReadableDB readableDB;
     private Gson gson;
 
-    private List<History> histories;
+    private Timer timer;
+
+    private Info info;
 
     private DBHelper(){}
 
@@ -30,18 +33,20 @@ public class DBHelper {
 
     public void init(){
         gson =  new GsonBuilder().setPrettyPrinting().create();
-        histories = getHistories();
-        if (histories == null){
-            histories = new CopyOnWriteArrayList<>();
+        info = getHistories();
+        if (info == null){
+            info = new Info();
         }
-        System.out.println(histories);
+        timer = new Timer(1000, e -> {
+            addTime(1);});
+        timer.start();
     }
 
     public List<History> getActualHistories(){
-        return histories;
+        return info.getHistories();
     }
 
-    public List<History> getHistories(){
+    public Info getHistories(){
         try {
             readableDB = new ReadableDB(PATH,gson);
             return readableDB.readAll();
@@ -50,18 +55,26 @@ public class DBHelper {
             return null;
         }
     }
+
+    public Info getInfo(){
+        return info;}
+
     public void writeHistory(){
         try {
             writableDB = new WritableDB(PATH, gson);
-            writableDB.writeHistory(histories);
+            writableDB.writeHistory(info);
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
-
-
+        timer.stop();
     }
+
     public void addHistory(History history){
-        histories.add(history);
+        info.getHistories().add(history);
+    }
+
+    public void addTime(long time){
+        info.incrementTime(time);
     }
 
 }

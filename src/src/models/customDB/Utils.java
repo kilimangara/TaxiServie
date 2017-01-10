@@ -30,4 +30,14 @@ public class Utils {
         }
         return b;
     }
+
+    public static String formatDate(long time){
+        long minutes;
+        long hours;
+        long seconds;
+        seconds = (time%60);
+        minutes = (time)/60;
+        hours = (minutes)/60;
+        return hours+"h:"+minutes+"m:"+seconds+"s";
+    }
 }

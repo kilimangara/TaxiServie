@@ -24,12 +24,6 @@ public class City {
     public  int vertexCount=77;          //Количество узлов
     public  int[][] masPoint ;           // x,y,idPoint
 
-    private Date startDate = new Date();
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
     public int getXMasPoint(int n) {  // getter x for idPoint= n
         return masPoint[0][n];
     }
